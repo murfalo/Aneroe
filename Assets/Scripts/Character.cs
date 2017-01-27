@@ -54,7 +54,8 @@ public class Character : MonoBehaviour {
 	}
 
 	void Start() {
-		weaponC.SetActiveWeapon (GetComponentInChildren<Weapon> ());
+		if (weaponC != null) 
+			weaponC.SetActiveWeapon (GetComponentInChildren<Weapon> ());
 	}
 
 	void FixedUpdate() {
