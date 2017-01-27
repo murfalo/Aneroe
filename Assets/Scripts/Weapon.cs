@@ -9,9 +9,9 @@ public class Weapon : Item {
 	public float speed = 1f;
 	public float attack = 1f;
 	public float defense = 1f;
-	float durability;
+	//float durability;
 
 	void Awake () {
-		durability = MAX_DURABILITY;
+		//durability = MAX_DURABILITY;
 	}
 }

@@ -33,7 +33,7 @@ public class WeaponController : MonoBehaviour {
 
 	public void SetActiveWeapon(Weapon w) {
 		activeWeapon = w;
-		anim.runtimeAnimatorController = w.weaponAnim;
+		anim.runtimeAnimatorController = activeWeapon.weaponAnim;
 	}
 
 	// Called by opponent when colliding with them

@@ -5,9 +5,9 @@ public class Character : MonoBehaviour {
 
 	// Components
 	Animator anim;
-	Backpack pack;
+	//Backpack pack;
 	WeaponController weaponC;
-	Collider2D hurtbox;
+	//Collider2D hurtbox;
 
 	// Combat stats
 	public float MAX_HEALTH = 10;
@@ -48,9 +48,9 @@ public class Character : MonoBehaviour {
 		anim.SetInteger ("dir", 1);
 		oddStep = false;
 		health = MAX_HEALTH;
-		pack = GetComponent<Backpack> ();
+		//pack = GetComponent<Backpack> ();
 		weaponC = GetComponentInChildren<WeaponController> ();
-		hurtbox = GetComponent<Collider2D> ();
+		//hurtbox = GetComponent<Collider2D> ();
 	}
 
 	void Start() {
