@@ -8,6 +8,7 @@ public class Item : MonoBehaviour {
 	Collider2D pickupCollider;
 
 	// Properties
+	protected Entity owner;
 
 	// If true, item can be put into deep pocket
 	public bool smallItem;
@@ -23,8 +24,14 @@ public class Item : MonoBehaviour {
 	}
 
 	// If a Entity picks up an item, it is moved in the heirarchy to a child of their gameobject
-	public virtual void PickupItem(Entity c) {
+	public virtual void PickupItem(Entity e) {
 		// Add code to add the item to the backpack
-		transform.parent = c.transform;
+		transform.parent = e.transform;
+		owner = e;
+	}
+
+	// Returns entity that holds item
+	public Entity GetEntity() {
+		return owner;
 	}
 }

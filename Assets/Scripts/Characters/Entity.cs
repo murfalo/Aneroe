@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour {
 	// Components
 	Animator anim;
 	//Backpack pack;
-	WeaponController weaponC;
+	Weapon activeWeapon;
 	//Collider2D hurtbox;
 
 	// Combat stats
@@ -48,14 +48,12 @@ public class Entity : MonoBehaviour {
 		anim.SetInteger ("dir", 1);
 		oddStep = false;
 		health = MAX_HEALTH;
+		activeWeapon = GetComponentInChildren<Weapon> ();
 		//pack = GetComponent<Backpack> ();
-		weaponC = GetComponentInChildren<WeaponController> ();
 		//hurtbox = GetComponent<Collider2D> ();
 	}
 
 	void Start() {
-		if (weaponC != null) 
-			weaponC.SetActiveWeapon (GetComponentInChildren<Weapon> ());
 	}
 
 	void FixedUpdate() {
@@ -95,14 +93,14 @@ public class Entity : MonoBehaviour {
 		if (((CharacterState)anim.GetInteger ("state")) != CharacterState.Still)
 			return;
 		anim.SetInteger ("state", (int)CharacterState.Attacking);
-		weaponC.StartAttack ();
+		activeWeapon.StartAttack (GetDirection());
 	}
 
 	public void SetBlocking() {
 		if (((CharacterState)anim.GetInteger ("state")) != CharacterState.Still)
 			return;
 		anim.SetInteger ("state", (int)CharacterState.Blocking);
-		weaponC.StartBlock ();
+		activeWeapon.StartBlock (GetDirection());
 	}
 
 	public CharacterState GetState() {
@@ -120,6 +118,19 @@ public class Entity : MonoBehaviour {
 	// Damages character, returns true if character is at 0 health
 	public bool Damage(float amount) {
 		health -= amount;
-		return health <= 0;
+		if (health <= 0) {
+			Kill ();
+		}
+		return false;
+	}
+
+	public void Kill() {
+		anim.SetInteger ("state", (int)CharacterState.Dead);
+		foreach (Collider2D col in GetComponents<Collider2D>()) {
+			col.enabled = false;
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
 	}
 }
