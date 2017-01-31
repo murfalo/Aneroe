@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Weapon : Item {
 
+	public RuntimeAnimatorController weaponAnim;
 	public static float MAX_DURABILITY;
 
 	// Properties
