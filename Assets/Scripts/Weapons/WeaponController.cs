@@ -3,12 +3,12 @@ using System.Collections;
 
 public class WeaponController : MonoBehaviour {
 
-	Character character;
+	Entity entity;
 	Animator anim;
 	Weapon activeWeapon;
 
 	void Awake () {
-		character = GetComponentInParent<Character> ();
+		entity = GetComponentInParent<Entity> ();
 		anim = GetComponent <Animator> ();
 	}
 
@@ -18,12 +18,12 @@ public class WeaponController : MonoBehaviour {
 
 	public void StartAttack() {
 		anim.SetBool ("attack", true);
-		anim.SetInteger ("dir", character.GetDirection ());
+		anim.SetInteger ("dir", entity.GetDirection ());
 	}
 
 	public void StartBlock() {
 		anim.SetBool ("block", true);
-		anim.SetInteger ("dir", character.GetDirection ());
+		anim.SetInteger ("dir", entity.GetDirection ());
 	}
 
 	public void EndSwing() {
@@ -46,8 +46,8 @@ public class WeaponController : MonoBehaviour {
 		return anim.GetBool ("swipe");
 	}
 
-	public Character GetCharacter() {
-		return character;
+	public Entity GetEntity() {
+		return entity;
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
@@ -55,9 +55,9 @@ public class WeaponController : MonoBehaviour {
 		if (other.gameObject.tag.Equals ("Hitboxes")) {
 			WeaponController otherWC = other.gameObject.GetComponent<WeaponController> ();
 			if (IsAttacking () && !otherWC.IsAttacking ()) {
-				character.Damage (otherWC.DamageToInflict ());
+				entity.Damage (otherWC.DamageToInflict ());
 			} else if (!IsAttacking () && otherWC.IsAttacking ()) {
-				otherWC.GetCharacter ().Damage (DamageToInflict ());
+				otherWC.GetEntity ().Damage (DamageToInflict ());
 			}
 		}
 	}

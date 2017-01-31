@@ -24,8 +24,8 @@ public class Item : MonoBehaviour {
 	
 	}
 
-	// If a character picks up an item, it is moved in the heirarchy to a child of their gameobject
-	public virtual void PickupItem(Character c) {
+	// If a Entity picks up an item, it is moved in the heirarchy to a child of their gameobject
+	public virtual void PickupItem(Entity c) {
 		// Add code to add the item to the backpack
 		transform.parent = c.transform;
 	}

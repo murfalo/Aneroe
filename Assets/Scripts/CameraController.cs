@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	Character target;
+	Entity target;
 
 	void Update() {
 		if (target != null) {
@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
-	public void SetTarget(Character t) {
+	public void SetTarget(Entity t) {
 		target = t;
 	}
 }

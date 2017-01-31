@@ -22,7 +22,7 @@ public class ItemMound : Tile {
 	public override void IndirectUseItem(Item item) {}
 
 	// Dig up item in mound
-	public Item RetrieveItem(Character c) {
+	public Item RetrieveItem(Entity c) {
 		Item i = buriedItem;
 		buriedItem = null;
 		return i;
