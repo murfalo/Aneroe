@@ -16,6 +16,9 @@ public class Entity : MonoBehaviour {
 	public float defense = 1f;
 	float health;
 
+	// Collision stats
+	public float characterRadius;
+
 	// State (used for animation also)
 	public enum CharacterState { 
 		Dead = 0, 
@@ -62,7 +65,13 @@ public class Entity : MonoBehaviour {
 		switch (anim.GetInteger ("state")) {
 		case (int)CharacterState.Walking:
 			//print (gameObject.name + "  " + (speed * Time.deltaTime * directionVectors[dir].x) + "  " + (speed * Time.deltaTime * directionVectors[dir].y));
-			transform.Translate (speed * Time.deltaTime * directionVectors[dir]);
+			Vector3 move = speed * Time.fixedDeltaTime * directionVectors [dir];
+			RaycastHit2D r = Physics2D.Raycast (transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+
+			if (r.collider == null) {
+				transform.Translate (move);
+			}
+				
 			break;
 		default:
 			//print (gameObject.name + "  " + new Vector2 (0, 0));
@@ -129,8 +138,5 @@ public class Entity : MonoBehaviour {
 		foreach (Collider2D col in GetComponents<Collider2D>()) {
 			col.enabled = false;
 		}
-	}
-
-	void OnTriggerEnter2D(Collider2D col) {
 	}
 }
