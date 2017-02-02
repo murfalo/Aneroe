@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using InventoryEvents;
+
 
 /// <summary>
-/// This class manages 
+/// This class manages the inventory UI as well as a simple event system
+/// to allow easy inventory updating.
 /// </summary>
 public class InventoryController : MonoBehaviour, IPointerClickHandler
 {
@@ -16,6 +18,9 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
 
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
+
+    /// <section>Item currently selected by the player.</section>
+    public event EventHandler<ItemMovedEventArgs> itemMoved;
 
     /// <section>Original parent of the currently selected item.</section>
     private Transform parent { get; set; }
@@ -44,6 +49,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
     private void SelectItem(GameObject target)
     {
+        if (target.CompareTag("UISlot")) selected = null;
         if (!target.CompareTag("UIItem")) return;
         selected = target;
         parent = selected.transform.parent;
@@ -57,23 +63,18 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     {
         var prevSelected = selected;
         selected.GetComponent<Image>().raycastTarget = true;
-        if (target.CompareTag("UIItem"))
+        if (target.CompareTag("UIItem") || target.CompareTag("UISlot"))
         {
-            prevSelected.transform.SetParent(target.transform.parent);
+            var newParent = (target.CompareTag("UIItem")) ? target.transform.parent : target.transform;
+            prevSelected.transform.SetParent(newParent);
             SelectItem(target);
-        }
-        else if (target.CompareTag("UISlot"))
-        {
-            selected = null;
-            prevSelected.transform.SetParent(target.transform);
+            OnItemMoved(prevSelected, parent, newParent);
         }
         else
         {
-            prevSelected.transform.SetParent(parent);
+            Destroy(prevSelected);
             selected = null;
         }
-
-        Debug.Log(target);
 
         prevSelected.transform.position = prevSelected.transform.parent.transform.position;
     }
@@ -84,10 +85,21 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
         var target = eventData.pointerCurrentRaycast.gameObject;
-        Debug.Log(selected);
         if (selected)
             DropItem(target);
         else
             SelectItem(target);
+    }
+
+    /// <section>Publishes the itemMoved event if an item has changed positions in the inventory.</section>
+    private void OnItemMoved(GameObject item, Transform prevParent, Transform newParent)
+    {
+        int prevSlot, newSlot;
+        Int32.TryParse(prevParent.name.Split('.')[1], out prevSlot);
+        Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
+        if (itemMoved != null && prevSlot != newSlot)
+        {
+            itemMoved(this, new InventoryEvents.ItemMovedEventArgs(item, prevSlot, newSlot));
+        }
     }
 }
