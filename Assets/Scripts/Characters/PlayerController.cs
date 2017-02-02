@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
 	public List<Entity> characters;
-	Entity activeCharacter;
+	public static Entity activeCharacter;
 	int characterIndex;
 	CameraController cam;
 

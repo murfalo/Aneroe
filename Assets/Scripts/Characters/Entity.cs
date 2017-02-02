@@ -5,9 +5,9 @@ public class Entity : MonoBehaviour {
 
 	// Components
 	Animator anim;
-	//Backpack pack;
 	Weapon activeWeapon;
 	//Collider2D hurtbox;
+	public Inventory inv;
 
 	// Combat stats
 	public float MAX_HEALTH = 10;
@@ -49,6 +49,7 @@ public class Entity : MonoBehaviour {
 		oddStep = false;
 		health = MAX_HEALTH;
 		activeWeapon = GetComponentInChildren<Weapon> ();
+		inv = new Inventory();
 		//pack = GetComponent<Backpack> ();
 		//hurtbox = GetComponent<Collider2D> ();
 	}

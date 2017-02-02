@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 
 /// <summary>Wrapper class for a list used to manage the player's inventory.</summary>
-public class Inventory {
+public class Inventory
+{
 
     /// <summary>Initializes a new inventory object!</summary>
-    public Inventory() {
+    public Inventory()
+    {
         level = 1;
         items = new List<Item>();
     }
@@ -25,14 +27,16 @@ public class Inventory {
     /// </summary>
     private const int LEVEL_ITEMS = 7;
 
-	/// <summary>Calculates the maximum number of items an inventory of a level can hold.</summary>
-	/// <param name="invLevel">Level of inventory to calculate the max items for.</param>
-	public int maxItems { 
-        get {
+    /// <summary>Calculates the maximum number of items an inventory of a level can hold.</summary>
+    /// <param name="invLevel">Level of inventory to calculate the max items for.</param>
+    public int maxItems
+    {
+        get
+        {
             return level * LEVEL_ITEMS;
         }
     }
-    
+
     /// <summary>Retrieves the Item object stored in the inventory's inventory at itemIndex.</summary> 
     /// <param name="itemIndex">Index to retrieve item from inventory inventory.</param>
     public Item GetItem(int itemIndex)
