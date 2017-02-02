@@ -15,7 +15,10 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     [SerializeField] GameObject UISlot;
 
     /// <section>Item currently selected by the player.</section>
-    public GameObject selected { get; set; }
+    private GameObject selected { get; set; }
+
+    /// <section>Original parent of the currently selected item.</section>
+    private Transform parent { get; set; }
 
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public void Start()
@@ -26,7 +29,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
             if (i % 2 == 0)
                 Destroy(newSlot.transform.GetChild(0).gameObject);
             newSlot.name = "Slot." + i.ToString();
-            newSlot.transform.SetParent(transform);
+            newSlot.transform.SetParent(transform.GetChild(0).transform);
         }
     }
 
@@ -41,8 +44,9 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
     private void SelectItem(GameObject target)
     {
-        if (!target.CompareTag("UIItem") && !target.CompareTag("UISlot")) return;
+        if (!target.CompareTag("UIItem")) return;
         selected = target;
+        parent = selected.transform.parent;
         selected.transform.SetParent(selected.GetComponentInParent<Canvas>().transform);
         target.GetComponent<Image>().raycastTarget = false;
     }
@@ -63,6 +67,14 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
             selected = null;
             prevSelected.transform.SetParent(target.transform);
         }
+        else
+        {
+            prevSelected.transform.SetParent(parent);
+            selected = null;
+        }
+
+        Debug.Log(target);
+
         prevSelected.transform.position = prevSelected.transform.parent.transform.position;
     }
 
@@ -72,6 +84,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
         var target = eventData.pointerCurrentRaycast.gameObject;
+        Debug.Log(selected);
         if (selected)
             DropItem(target);
         else
