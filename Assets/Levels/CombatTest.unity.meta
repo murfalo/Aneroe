@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: db73edd82e8c04b3c9d5fb0300ba88ab
+<<<<<<< HEAD
 timeCreated: 1486244190
+=======
+timeCreated: 1486243579
+>>>>>>> Implement inventory view toggle (i)
 licenseType: Free
 DefaultImporter:
   userData: 

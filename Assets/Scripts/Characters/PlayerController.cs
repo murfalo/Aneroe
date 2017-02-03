@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using AneroeInputs;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -14,9 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject inventoryUI;
 	InputEventWrapper iEvent;
 	string[] directions;
-
 	public KeyCode inventory, interact;
-
 	public string nextScene;
 
 	void Awake () {
@@ -39,6 +37,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ReceiveInput(object sender, InputEventArgs e) {
+		if (Input.GetKeyDown(inventory))
+			inventoryUI.SetActive(!inventoryUI.activeSelf);
 		if (activeCharacter.CanAct ()) {
 			// Inputs prioritized as such (by order of check):
 			// Attacking, Walking, Switching character
