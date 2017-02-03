@@ -5,9 +5,9 @@ public class Entity : MonoBehaviour {
 
 	// Components
 	Animator anim;
-	//Backpack pack;
 	Weapon activeWeapon;
 	//Collider2D hurtbox;
+	public Inventory inv;
 
 	// Combat stats
 	public float MAX_HEALTH = 10;
@@ -52,14 +52,28 @@ public class Entity : MonoBehaviour {
 		oddStep = false;
 		health = MAX_HEALTH;
 		activeWeapon = GetComponentInChildren<Weapon> ();
+		inv = new Inventory();
 		//pack = GetComponent<Backpack> ();
 		//hurtbox = GetComponent<Collider2D> ();
 	}
 
-	void Start() {
-	}
+    /// <summary>Subscribe to the inventory controller events to handle UI events appropriately.</summary>
+    void Start()
+    {
+        InventoryController.itemMoved += OnItemMoved;
+    }
 
-	void FixedUpdate() {
+    /// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
+    /// <param name="source">Originator of itemMoved event.</param>
+    /// <param name="eventArgs">Useful context of the itemMoved event.</param>
+    public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
+    {
+        inv.RemoveItem(eventArgs.prevSlot);
+        if (eventArgs.newSlot != null)
+            inv.SetItem((int)eventArgs.newSlot, eventArgs.item);
+    }
+
+    void FixedUpdate() {
 		//print (gameObject.name + "  " + anim.GetInteger ("state") + "  " + anim.GetInteger ("dir"));
 		int dir = anim.GetInteger ("dir") - 1;
 		switch (anim.GetInteger ("state")) {

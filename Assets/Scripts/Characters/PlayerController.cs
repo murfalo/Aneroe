@@ -2,13 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
 	public List<Entity> characters;
-	Entity activeCharacter;
+	public static Entity activeCharacter;
 	int characterIndex;
 	CameraController cam;
+
+	public GameObject inventoryUI;
 
 	// Keycodes for direction inputs
 	public KeyCode up, right, down, left;
@@ -17,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Keycodes for other commands
 	// Parry is alternate + attack
-	public KeyCode alternate, switchCharacter, attack, interact;
+	public KeyCode alternate, switchCharacter, attack, interact, inventory;
 
 	public string nextScene;
 
@@ -33,6 +36,9 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (Input.GetKeyDown(inventory))
+			inventoryUI.SetActive(!inventoryUI.activeSelf);
+
 		if (activeCharacter.CanAct ()) {
 			// Inputs prioritized as such (by order of check):
 			// Attacking, Walking, Switching character
