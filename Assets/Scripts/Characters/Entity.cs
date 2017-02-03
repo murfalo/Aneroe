@@ -60,16 +60,17 @@ public class Entity : MonoBehaviour {
         InventoryController.itemMoved += OnItemMoved;
     }
 
-	/// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
-	/// <param name="source">Originator of itemMoved event.</param>
-	/// <param name="eventArgs">Useful context of the itemMoved event.</param>
+    /// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
+    /// <param name="source">Originator of itemMoved event.</param>
+    /// <param name="eventArgs">Useful context of the itemMoved event.</param>
     public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
     {
-		inv.RemoveItem(eventArgs.prevSlot);
-		inv.SetItem(eventArgs.newSlot, eventArgs.item);
+        inv.RemoveItem(eventArgs.prevSlot);
+        if (eventArgs.newSlot != null)
+            inv.SetItem((int)eventArgs.newSlot, eventArgs.item);
     }
 
-	void FixedUpdate() {
+    void FixedUpdate() {
 		//print (gameObject.name + "  " + anim.GetInteger ("state") + "  " + anim.GetInteger ("dir"));
 		int dir = anim.GetInteger ("dir") - 1;
 		switch (anim.GetInteger ("state")) {

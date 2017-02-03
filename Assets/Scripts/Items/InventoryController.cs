@@ -19,7 +19,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
 
-    /// <section>Item currently selected by the player.</section>
+    /// <section>Event for an item moving in the inventory.</section>
     public static event EventHandler<ItemMovedEventArgs> itemMoved;
 
     /// <section>Original parent of the currently selected item.</section>
@@ -72,6 +72,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            OnItemMoved(prevSelected, parent);
             Destroy(prevSelected);
             selected = null;
         }
@@ -92,15 +93,14 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     }
 
     /// <section>Publishes the itemMoved event if an item has changed positions in the inventory.</section>
-    private void OnItemMoved(GameObject go, Transform prevParent, Transform newParent)
+    private void OnItemMoved(GameObject go, Transform prevParent, Transform newParent = null)
     {
-        int prevSlot, newSlot;
+        int prevSlot, newSlot = -1;
         var item = go.GetComponent<Item>();
         Int32.TryParse(prevParent.name.Split('.')[1], out prevSlot);
-        Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
-        if (itemMoved != null && prevSlot != newSlot)
-        {
+        if (newParent)
+            Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
+        if (itemMoved != null && newSlot != prevSlot)
             itemMoved(this, new InventoryEvents.ItemMovedEventArgs(item, prevSlot, newSlot));
-        }
     }
 }
