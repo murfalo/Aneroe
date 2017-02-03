@@ -54,8 +54,20 @@ public class Entity : MonoBehaviour {
 		//hurtbox = GetComponent<Collider2D> ();
 	}
 
-	void Start() {
-	}
+    /// <summary>Subscribe to the inventory controller events to handle UI events appropriately.</summary>
+    void Start()
+    {
+        InventoryController.itemMoved += OnItemMoved;
+    }
+
+	/// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
+	/// <param name="source">Originator of itemMoved event.</param>
+	/// <param name="eventArgs">Useful context of the itemMoved event.</param>
+    public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
+    {
+		inv.RemoveItem(eventArgs.prevSlot);
+		inv.SetItem(eventArgs.newSlot, eventArgs.item);
+    }
 
 	void FixedUpdate() {
 		//print (gameObject.name + "  " + anim.GetInteger ("state") + "  " + anim.GetInteger ("dir"));

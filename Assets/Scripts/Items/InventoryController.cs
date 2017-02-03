@@ -20,7 +20,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     private GameObject selected { get; set; }
 
     /// <section>Item currently selected by the player.</section>
-    public event EventHandler<ItemMovedEventArgs> itemMoved;
+    public static event EventHandler<ItemMovedEventArgs> itemMoved;
 
     /// <section>Original parent of the currently selected item.</section>
     private Transform parent { get; set; }
@@ -92,9 +92,10 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     }
 
     /// <section>Publishes the itemMoved event if an item has changed positions in the inventory.</section>
-    private void OnItemMoved(GameObject item, Transform prevParent, Transform newParent)
+    private void OnItemMoved(GameObject go, Transform prevParent, Transform newParent)
     {
         int prevSlot, newSlot;
+        var item = go.GetComponent<Item>();
         Int32.TryParse(prevParent.name.Split('.')[1], out prevSlot);
         Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
         if (itemMoved != null && prevSlot != newSlot)

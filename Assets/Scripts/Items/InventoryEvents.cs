@@ -14,14 +14,14 @@ namespace InventoryEvents
         /// <param name="item">The item being moved.</param>
         /// <param name="prevSlot">The identifier of item's old slot.</param>
         /// <param name="newSlot">The identifier of item's new slot.</param>
-        public ItemMovedEventArgs(GameObject item, int prevSlot, int newSlot)
+        public ItemMovedEventArgs(Item item, int prevSlot, int newSlot)
         {
             this.item = item;
             this.newSlot = newSlot;
             this.prevSlot = prevSlot;
         }
 
-        public GameObject item { get; }
+        public Item item { get; }
         public int newSlot { get; }
         public int prevSlot { get; }
     }
