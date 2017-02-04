@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ItemMound : Tile {
 
@@ -18,11 +19,18 @@ public class ItemMound : Tile {
 	// Use this for initialization
 	void Start () {
 		sRend = GetComponent<SpriteRenderer> ();
+		buriedItem = null;
+		usableItemTypes = new System.Type[1];
+		usableItemTypes [0] = System.Type.GetType("Herb");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public override bool CanUseItem(Item i){
+		return base.CanUseItem (i) && buriedItem == null;
 	}
 
 	// Bury item in mound

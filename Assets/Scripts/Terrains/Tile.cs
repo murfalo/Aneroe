@@ -4,12 +4,12 @@ using System.Collections;
 public class Tile : MonoBehaviour {
 
 	public Tile otherTile;
-	public Item[] usableItemTypes;
+	public System.Type[] usableItemTypes;
 
-	public bool CanUseItem(Item item) {
+	public virtual bool CanUseItem(Item item) {
 		System.Type itemType = item.GetType ();
 		for (int i = 0; i < usableItemTypes.Length; i++) {
-			if (usableItemTypes.GetType().Equals(itemType)) {
+			if (usableItemTypes[i].Equals(itemType)) {
 				return true;
 			}
 		}

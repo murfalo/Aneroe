@@ -21,8 +21,8 @@ namespace InventoryEvents
             this.newSlot = (newSlot != null && newSlot < 0) ? null : newSlot;
         }
 
-        public Item item { get; }
-        public int prevSlot { get; }
-        public int? newSlot { get; }
+		public Item item;
+		public int prevSlot;
+		public int? newSlot;
     }
 }

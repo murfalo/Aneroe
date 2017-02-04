@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour {
 				//SceneManager.LoadScene (nextScene);
 				characterIndex = (characterIndex + 1) % characters.Count;
 				activeCharacter = characters [characterIndex];
+			} else if (Input.GetKeyDown (interact)) {
+				activeCharacter.interact ();
 			}
 		}
 	}

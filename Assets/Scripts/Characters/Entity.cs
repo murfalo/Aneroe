@@ -153,4 +153,31 @@ public class Entity : MonoBehaviour {
 			col.enabled = false;
 		}
 	}
+
+	public void interact() {
+		// right now, it only tries to place first item into ItemMound below
+		Item i = inv.GetItem(0);
+		Collider2D coll = Physics2D.OverlapCircle (transform.position, 0.01f, 1 << LayerMask.NameToLayer ("ItemMound"));
+		if (i != null && coll != null && coll.gameObject.GetComponent<ItemMound> ().CanUseItem (i)) {
+			coll.gameObject.GetComponent<ItemMound> ().UseItem (i);
+			inv.RemoveItem (0);
+			print("Putting Item into mound");
+		} else if (coll != null) {
+			inv.AddItem (coll.gameObject.GetComponent<ItemMound> ().RetrieveItem (this));
+			print ("Taking Item out of mound");
+		} else {
+			print ("Miss");
+		}
+	}
+
+	public void OnTriggerEnter2D (Collider2D coll) {
+		// Attempting to pick up items off the ground
+		Item i = coll.gameObject.GetComponent<Item> ();
+		if (i != null) {
+			inv.AddItem (i);
+			i.gameObject.GetComponent<Renderer> ().enabled = false;
+			i.gameObject.GetComponent<Collider2D> ().enabled = false;
+		}
+
+	}
 }
