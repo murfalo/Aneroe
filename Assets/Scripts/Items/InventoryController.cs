@@ -57,9 +57,9 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
         target.GetComponent<Image>().raycastTarget = false;
     }
 
-    /// <section>Drops the selected item in a UI slot.</section>
-    /// <param name="target">Either a UI item or a UI slot to drop the currently selected item into.</param>
-    private void DropItem(GameObject target)
+    /// <section>Moves the selected item in a UI slot.</section>
+    /// <param name="target">Either a UI item or a UI slot to move the currently selected item into.</param>
+    private void MoveItem(GameObject target)
     {
         var prevSelected = selected;
         selected.GetComponent<Image>().raycastTarget = true;
@@ -72,12 +72,19 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            OnItemMoved(prevSelected, parent);
-            Destroy(prevSelected);
+            DropItem(prevSelected);
             selected = null;
         }
 
         prevSelected.transform.position = prevSelected.transform.parent.transform.position;
+    }
+
+    /// <section>Drops the selected item from the inventory.</section>
+    /// <param name="item">The item to drop from the inventory.</param>
+    private void DropItem(GameObject item)
+    {
+        OnItemMoved(item, parent);
+        Destroy(item);
     }
 
     /// <section>Selects an item from or drops an item into a UI slot on left click.</section>
@@ -88,7 +95,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
         var target = eventData.pointerCurrentRaycast.gameObject;
         Debug.Log(selected);
         if (selected)
-            DropItem(target);
+            MoveItem(target);
         else
             SelectItem(target);
     }
