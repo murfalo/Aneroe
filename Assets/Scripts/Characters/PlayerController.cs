@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ReceiveInput(object sender, InputEventArgs e) {
-		if (Input.GetKeyDown(inventory))
-			inventoryUI.SetActive(!inventoryUI.activeSelf);
 		if (activeCharacter.CanAct ()) {
 			// Inputs prioritized as such (by order of check):
 			// Attacking, Walking, Switching character

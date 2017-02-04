@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using InventoryEvents;
+using AneroeInputs;
 
 
 /// <summary>
@@ -14,6 +15,9 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
 
     /// <section>Prefab for an inventory slot.</section>
     [SerializeField] GameObject UISlot;
+
+    /// <section>UI GameObject</section>
+    [SerializeField] GameObject UI;
 
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
@@ -27,6 +31,8 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public void Start()
     {
+        GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ToggleVisibility);
+
         for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
         {
             var newSlot = (GameObject)Instantiate(UISlot);
@@ -34,15 +40,21 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
                 Destroy(newSlot.transform.GetChild(0).gameObject);
             newSlot.name = "Slot." + i.ToString();
             newSlot.transform.SetParent(transform.GetChild(0).transform);
-            newSlot.transform.SetParent(transform);
         }
     }
 
     /// <section>Causes the selected item to follow the mouse cursor.</section>
     public void Update()
     {
+        
         if (selected)
             selected.transform.position = Input.mousePosition;
+    }
+
+    public void ToggleVisibility(object source, InputEventArgs eventArgs)
+    {
+        if (eventArgs.WasPressed("inventory"))
+            UI.SetActive(!UI.activeSelf);
     }
 
     /// <section>Selects the target item from a UI slot.</section>
