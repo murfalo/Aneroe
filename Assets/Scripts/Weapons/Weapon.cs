@@ -93,6 +93,11 @@ public class Weapon : Item {
 					//print ("Damaging: " + enemy.name + "  " + other.name);
 				}
 			}
+		} else if (other.gameObject.tag.Equals ("Wall")) {
+			TileBreakable tb = other.gameObject.GetComponent<TileBreakable> ();
+			if (tb != null) { 
+				tb.UseItem (this); 
+			} 
 		}
 	}
 }
