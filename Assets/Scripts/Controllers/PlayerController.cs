@@ -5,35 +5,34 @@ using UnityEngine.SceneManagement;
 using AneroeInputs;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : BaseController {
 
-	public List<Entity> characters;
+	public List<GameObject> characterPrefabs;
 	public static Entity activeCharacter;
+
+	Entity[] characters;
 	int characterIndex;
 	CameraController cam;
-	public GameObject inventoryUI;
-	InputEventWrapper iEvent;
 	string[] directions;
-	public KeyCode inventory, interact;
-	public string nextScene;
 
-	void Awake () {
-		cam = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraController>();
+	public override void InternalSetup() {
+		GameObject obj = new GameObject();
+		obj.name = "PlayerHolder";
+		characters = new Entity[characterPrefabs.Count];
+		for (int i = 0; i < characterPrefabs.Count; i++) {
+			characters [i] = ((GameObject)GameObject.Instantiate (characterPrefabs [i],obj.transform)).GetComponent<Entity> ();
+			characters [i].Setup ();
+			//print ("character: " + characters [i].name + "  parent:  " + characters [i].transform.parent);
+		}
 		characterIndex = 0;
 		activeCharacter = characters [0];
-		//directions = new KeyCode[4] { up, right, down, left }; 
 		directions = new string[4] { "up", "right", "down", "left" };
 	}
 
-	void Start() {
-		iEvent = GameObject.Find("Control").GetComponent<InputController>().iEvent;
-		iEvent.inputed += new InputEventHandler (ReceiveInput);
+	public override void ExternalSetup() {
+		cam = GameObject.Find ("Control").GetComponent<CameraController>();
+		GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler (ReceiveInput);
 		cam.SetTarget (activeCharacter);
-	}
-	
-	void Update () {
-		if (Input.GetKeyDown(inventory))
-			inventoryUI.SetActive(!inventoryUI.activeSelf);
 	}
 
 	public void ReceiveInput(object sender, InputEventArgs e) {
@@ -52,19 +51,18 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			if (e.WasPressed("attack")) {
-				if (e.WasPressed("alternate"))
+				if (e.IsHeld("alternate"))
 					activeCharacter.SetBlocking ();
 				else
 					activeCharacter.SetAttacking ();
 			} else if (dirChosen) {
 				activeCharacter.StartWalk ();
 			} else if (e.WasPressed("switch character")) {
-				//SceneManager.LoadScene (nextScene);
-				characterIndex = (characterIndex + 1) % characters.Count;
+				characterIndex = (characterIndex + 1) % characters.Length;
 				activeCharacter = characters [characterIndex];
-			} else if (Input.GetKeyDown (interact)) {
-				activeCharacter.interact ();
 				cam.SetTarget (activeCharacter);
+			} else if (e.WasPressed("interact")) {
+				activeCharacter.interact ();
 			}
 		}
 	}

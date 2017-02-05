@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : BaseController {
 
 	Entity target;
+	GameObject cam;
+
+	public override void InternalSetup() {
+		cam = GameObject.Find ("Main Camera");
+	}
 
 	void Update() {
 		if (target != null) {
-			transform.position = target.transform.position + new Vector3(0,0,-10);
+			cam.transform.position = target.transform.position + new Vector3(0,0,-10);
 		}
 	}
 

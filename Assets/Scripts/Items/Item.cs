@@ -4,8 +4,8 @@ using System.Collections;
 public class Item : MonoBehaviour {
 
 	// Components
-	SpriteRenderer sRend;
-	Collider2D pickupCollider;
+	protected SpriteRenderer sRend;
+	protected Collider2D pickupCollider;
 
 	// Properties
 	protected Entity owner;
@@ -17,6 +17,7 @@ public class Item : MonoBehaviour {
 	public float weight;
 
 	void Start () {
+		sRend = GetComponent<SpriteRenderer> ();
 	}
 
 	void Update () {

@@ -23,16 +23,27 @@ public class Weapon : Item {
 
 		targetsHit = new List<Entity> ();
 		owner = GetComponentInParent<Entity> ();
+
 	}
 
 	public void StartAttack(int dir) {
 		anim.SetBool ("attack", true);
 		anim.SetInteger ("dir", dir);
+		LayerSprite (dir);
 	}
 
 	public void StartBlock(int dir) {
 		anim.SetBool ("block", true);
 		anim.SetInteger ("dir", dir);
+		LayerSprite (dir);
+	}
+
+	// Layer the sprite renderer so that the weapon is either in front the user or behind the user
+	void LayerSprite(int dir) {
+		if (dir == (int)Entity.Dir.Down)
+			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
+		else 
+			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
 	}
 
 	// Called by animator

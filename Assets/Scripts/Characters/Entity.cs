@@ -39,30 +39,25 @@ public class Entity : MonoBehaviour {
 	public static Vector2[] directionVectors = new Vector2[4] {
 		new Vector2(0,1), new Vector2(1,0), new Vector2(0,-1), new Vector2(-1,0)
 	};
-	/*public enum CharacterDir {
+	public enum Dir {
 		Up = 1,
 		Right,
 		Down,
 		Left
-	};*/
+	};
 
-	void Awake () {
+	public void Setup () {
 		anim = GetComponent<Animator> ();
 		anim.SetInteger ("state", (int)CharacterState.Still);
-		anim.SetInteger ("dir", 1);
+		anim.SetInteger ("dir", (int)Dir.Down);
 		oddStep = false;
 		health = MAX_HEALTH;
 		activeWeapon = GetComponentInChildren<Weapon> ();
 		inv = new Inventory();
-		//pack = GetComponent<Backpack> ();
-		//hurtbox = GetComponent<Collider2D> ();
-	}
 
-    /// <summary>Subscribe to the inventory controller events to handle UI events appropriately.</summary>
-    void Start()
-    {
-        InventoryController.itemMoved += OnItemMoved;
-    }
+		// Subscribe to the inventory controller events to handle UI events appropriately.
+		InventoryController.itemMoved += OnItemMoved;
+	}
 
     /// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
     /// <param name="source">Originator of itemMoved event.</param>
@@ -174,7 +169,8 @@ public class Entity : MonoBehaviour {
 	public void OnTriggerEnter2D (Collider2D coll) {
 		// Attempting to pick up items off the ground
 		Item i = coll.gameObject.GetComponent<Item> ();
-		if (i != null) {
+		if (i != null && i.GetEntity() == null) {
+			print (i.transform.parent.name);
 			inv.AddItem (i);
 			i.gameObject.GetComponent<Renderer> ().enabled = false;
 			i.gameObject.GetComponent<Collider2D> ().enabled = false;

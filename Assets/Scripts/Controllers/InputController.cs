@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AneroeInputs {
 
-	public class InputController : MonoBehaviour {
+	public class InputController : BaseController {
 		// state of game's input limitations
 		// Free: if all inputs are allowed
 		// UI: if no in game input is allowed
@@ -26,12 +26,8 @@ namespace AneroeInputs {
 
 		public Dictionary<string, string> axisPairings = new Dictionary<string, string>();
 
-		void Awake() {
+		public override void InternalSetup () {
 			iEvent = new InputEventWrapper ();
-		}
-
-		void Start () {
-		
 		}
 
 		void Update () {
@@ -50,7 +46,9 @@ namespace AneroeInputs {
 					e.actions.Add (pair.Key, new ActionOnInput (Input.GetAxis (pair.Key)));
 				}
 			}
-			iEvent.RegisterKeys (e);
+			if (iEvent != null && e.actions.Count > 0) {
+				iEvent.RegisterKeys (e);
+			}
 		}
 	}
 

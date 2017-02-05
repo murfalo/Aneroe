@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using InventoryEvents;
 using AneroeInputs;
@@ -10,7 +9,7 @@ using AneroeInputs;
 /// This class manages the inventory UI as well as a simple event system
 /// to allow easy inventory updating.
 /// </summary>
-public class InventoryController : MonoBehaviour, IPointerClickHandler
+public class InventoryController : BaseController
 {
 
     /// <section>Prefab for an inventory slot.</section>
@@ -28,10 +27,25 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
     /// <section>Original parent of the currently selected item.</section>
     private Transform parent { get; set; }
 
+	// Inventory gameobject being controlled
+	private GameObject inventory;
+
+	// Whether the ui is visible to the user
+	private bool IsVisibleUI;
+
     /// <section>Initializes the inventory to the size of the currently active character.</section>
-    public void Start()
-    {
-        GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ToggleVisibility);
+    public override void ExternalSetup()
+	{
+		GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ReceiveInput);
+		for (int i = 0; i < UI.transform.childCount; i++) {
+			Transform t = UI.transform.GetChild (i);
+			if (t.name.Equals("Inventory")) {
+				inventory = t.gameObject;
+				break;
+			}
+		}
+		IsVisibleUI = false;
+		ToggleVisibility (IsVisibleUI);
 
         for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
         {
@@ -39,23 +53,28 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
             if (i % 2 == 0)
                 Destroy(newSlot.transform.GetChild(0).gameObject);
             newSlot.name = "Slot." + i.ToString();
-            newSlot.transform.SetParent(transform.GetChild(0).transform);
+            newSlot.transform.SetParent(inventory.transform);
         }
     }
 
     /// <section>Causes the selected item to follow the mouse cursor.</section>
     public void Update()
-    {
-        
+	{
         if (selected)
             selected.transform.position = Input.mousePosition;
     }
 
-    public void ToggleVisibility(object source, InputEventArgs eventArgs)
+    public void ReceiveInput(object source, InputEventArgs eventArgs)
     {
-        if (eventArgs.WasPressed("inventory"))
-            UI.SetActive(!UI.activeSelf);
+		if (eventArgs.WasPressed ("inventory")) {
+			IsVisibleUI = !IsVisibleUI;
+			ToggleVisibility (IsVisibleUI);
+		}
     }
+
+	public void ToggleVisibility(bool visible) {
+		inventory.SetActive (visible);
+	}
 
     /// <section>Selects the target item from a UI slot.</section>
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
@@ -88,7 +107,7 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
             selected = null;
         }
 
-        prevSelected.transform.position = prevSelected.transform.parent.transform.position;
+        prevSelected.transform.position = prevSelected.transform.parent.position;
     }
 
     /// <section>Drops the selected item from the inventory.</section>
@@ -101,11 +120,9 @@ public class InventoryController : MonoBehaviour, IPointerClickHandler
 
     /// <section>Selects an item from or drops an item into a UI slot on left click.</section>
     /// <param name="eventData">Data about the pointer event.</param>
-    public void OnPointerClick(PointerEventData eventData)
+    public void HandlePointerClick(GameObject target)
     {
-        if (eventData.button != PointerEventData.InputButton.Left) return;
-        var target = eventData.pointerCurrentRaycast.gameObject;
-        Debug.Log(selected);
+        //Debug.Log(selected);
         if (selected)
             MoveItem(target);
         else
