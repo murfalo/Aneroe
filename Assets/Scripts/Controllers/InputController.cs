@@ -19,8 +19,9 @@ namespace AneroeInputs {
 			{"right","d"},
 			{"down","s"},
 			{"inventory","i"},
-			{"attack","space"},
-			{"alternate","left shift"},
+			{"attack","mouse 0"},
+			{"defend","mouse 1"},
+			{"quicken","left shift"},
 			{"switch character","x"}
 		};
 
@@ -130,7 +131,7 @@ namespace AneroeInputs {
 			"c","d","e","f","g","h","i","j","k","l","m","n","o","p",
 			"q","r","s","t","u","v","w","x","y","z","numlock",
 			"caps lock","scroll lock","right shift","left shift",
-			"right ctrl","left ctrl","right alt","left alt"
+			"right ctrl","left ctrl","right alt","left alt","mouse 0","mouse 1"
 		};
 	}
 }

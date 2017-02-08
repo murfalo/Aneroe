@@ -71,6 +71,10 @@ public class Weapon : Item {
 		return 1;
 	}
 
+	public float GetRange() {
+		return .75f;
+	}
+
 	void OnTriggerEnter2D(Collider2D other) {
 		
 		// If collided with opponent's hitbox (weapon)

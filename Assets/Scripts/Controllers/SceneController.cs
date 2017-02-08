@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour {
 
-	public List<GameObject> DontDestroys;
 	public bool cutToStartScene;
 	public string startScene;
 
@@ -26,7 +25,7 @@ public class SceneController : MonoBehaviour {
 				SceneManager.LoadScene (startScene, LoadSceneMode.Additive);
 				//print (SceneManager.GetActiveScene ().name);
 				//print (SceneManager.GetSceneByName (startScene).name);
-				SceneManager.SetActiveScene (SceneManager.GetSceneByName (startScene));
+				//SceneManager.SetActiveScene (SceneManager.GetSceneByName (startScene));
 				SceneManager.sceneLoaded += LoadedScene;
 			}
 		}
@@ -58,5 +57,10 @@ public class SceneController : MonoBehaviour {
 		foreach (BaseController obj in gameObject.GetComponents<BaseController>()) {
 			obj.ExternalSetup ();
 		}
+	}
+
+	public void ReloadBaseScene() {
+		SceneManager.sceneLoaded -= LoadedScene;
+		SceneManager.LoadScene ("BaseScene", LoadSceneMode.Single);
 	}
 }

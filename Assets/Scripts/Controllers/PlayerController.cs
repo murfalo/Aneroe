@@ -5,22 +5,25 @@ using UnityEngine.SceneManagement;
 using AneroeInputs;
 using UnityEngine.UI;
 
-public class PlayerController : BaseController {
+public class PlayerController : EntityController {
 
 	public List<GameObject> characterPrefabs;
-	public static Entity activeCharacter;
+	public static PlayerEntity activeCharacter;
 
-	Entity[] characters;
+	PlayerEntity[] characters;
 	int characterIndex;
 	CameraController cam;
 	string[] directions;
 
 	public override void InternalSetup() {
+		actionResponses = new Dictionary<string, System.Action<Entity>> () {
+			{"die",RestartGame}
+		};
 		GameObject obj = new GameObject();
 		obj.name = "PlayerHolder";
-		characters = new Entity[characterPrefabs.Count];
+		characters = new PlayerEntity[characterPrefabs.Count];
 		for (int i = 0; i < characterPrefabs.Count; i++) {
-			characters [i] = ((GameObject)GameObject.Instantiate (characterPrefabs [i],obj.transform)).GetComponent<Entity> ();
+			characters [i] = ((GameObject)GameObject.Instantiate (characterPrefabs [i],obj.transform)).GetComponent<PlayerEntity> ();
 			characters [i].Setup ();
 			//print ("character: " + characters [i].name + "  parent:  " + characters [i].transform.parent);
 		}
@@ -35,35 +38,50 @@ public class PlayerController : BaseController {
 		cam.SetTarget (activeCharacter);
 	}
 
+	void FixedUpdate() {
+		if (activeCharacter != null)
+			activeCharacter.DoFixedUpdate ();
+	}
+
 	public void ReceiveInput(object sender, InputEventArgs e) {
-		if (activeCharacter.CanAct ()) {
-			// Inputs prioritized as such (by order of check):
-			// Attacking, Walking, Switching character
+		// Inputs prioritized as such (by order of check):
+		// Attacking, Walking, Switching character
 
-			// See if a direction was input and log it
-			bool dirChosen = false;
-			for (int i = 0; i < directions.Length; i++) { 
-				if (e.IsHeld(directions[i])) {
-					dirChosen = true;
-					activeCharacter.SetDirection (i + 1);
-					break;
-				}
-			}
+		//activeCharacter.Quicken (e.IsHeld ("quicken"));
 
-			if (e.WasPressed("attack")) {
-				if (e.IsHeld("alternate"))
-					activeCharacter.SetBlocking ();
-				else
-					activeCharacter.SetAttacking ();
-			} else if (dirChosen) {
-				activeCharacter.StartWalk ();
-			} else if (e.WasPressed("switch character")) {
-				characterIndex = (characterIndex + 1) % characters.Length;
-				activeCharacter = characters [characterIndex];
-				cam.SetTarget (activeCharacter);
-			} else if (e.WasPressed("interact")) {
-				activeCharacter.interact ();
+		// See if a direction was input and log it
+		bool dirChosen = false;
+		bool[] dirActive = new bool[4];
+		for (int i = 0; i < directions.Length; i++) { 
+			if (e.IsHeld (directions [i])) {
+				dirChosen = true;
+				dirActive [i] = true;
+			} else {
+				dirActive [i] = false;
 			}
 		}
+		activeCharacter.SetDirections (dirActive);
+			
+		if (e.WasPressed ("attack")) {
+			activeCharacter.TryAttacking ();
+		} else if (e.WasPressed ("defend")) {
+			activeCharacter.TryBlocking ();
+		} else if (e.WasPressed ("interact")) {
+			activeCharacter.TryInteracting ();
+		} else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
+			characterIndex = (characterIndex + 1) % characters.Length;
+			activeCharacter = characters [characterIndex];
+			cam.SetTarget (activeCharacter);
+		} else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
+			characterIndex = (characterIndex + 1) % characters.Length;
+			activeCharacter = characters [characterIndex];
+			cam.SetTarget (activeCharacter);
+		} else if (dirChosen) {
+			activeCharacter.TryWalk ();
+		}
+	}
+
+	void RestartGame(Entity e) {
+		GameObject.Find ("Control").GetComponent<SceneController> ().ReloadBaseScene ();
 	}
 }
