@@ -15,6 +15,7 @@ public class Weapon : Item {
 
 	// targets hit by current attack
 	// a target can only get hit once per attack
+	List<Entity> damageQueue;
 	List<Entity> targetsHit;
 
 	void Awake () {
@@ -22,7 +23,12 @@ public class Weapon : Item {
 		//durability = MAX_DURABILITY;
 
 		targetsHit = new List<Entity> ();
+		damageQueue = new List<Entity> ();
 		owner = GetComponentInParent<Entity> ();
+
+	}
+
+	public void ProcessDamageQueue() {
 
 	}
 
@@ -61,6 +67,10 @@ public class Weapon : Item {
 		return !targetsHit.Contains (e);
 	}
 
+	public void AddToDamageQueue(Entity e) {
+		damageQueue.Add (e);
+	}
+
 	public void AddToDamaged(Entity e) {
 		targetsHit.Add (e);
 	}
@@ -83,6 +93,7 @@ public class Weapon : Item {
 			if (IsAttacking () && !otherW.IsAttacking ()) {
 				Entity entity = GetEntity ();
 				if (otherW.CanDamage(entity)) {
+					//AddToDamageQueue (entity);
 					entity.Damage (otherW.DamageToInflict ());
 					otherW.AddToDamaged(entity);
 					//print ("Damaging: " + entity.name);
@@ -90,6 +101,7 @@ public class Weapon : Item {
 			} else if (!IsAttacking () && otherW.IsAttacking ()) {
 				Entity enemy = otherW.GetEntity ();
 				if (!targetsHit.Contains (enemy)) {
+					//AddToDamageQueue (enemy);
 					enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name);
@@ -102,7 +114,10 @@ public class Weapon : Item {
 				// Don't hurt ourselves
 				if (enemy.Equals (GetEntity ()))
 					return;
+				if (enemy.InAttack ())
+					return;
 				if (!targetsHit.Contains (enemy)) {
+					//AddToDamageQueue (enemy);
 					enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name + "  " + other.name);

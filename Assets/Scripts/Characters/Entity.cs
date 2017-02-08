@@ -78,6 +78,13 @@ public class Entity : MonoBehaviour {
 	}
 
     public void DoFixedUpdate() {
+		if (stunTimer > 0) {
+			stunTimer -= Time.fixedDeltaTime;
+			if (stunTimer <= 0) {
+				GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+				stunTimer = 0;
+			}
+		}
 		//print (gameObject.name + "  " + (CharacterState)anim.GetInteger ("state"));
 		//print (gameObject.name + "  " + (CharacterState)anim.GetInteger ("state") + "  " + anim.GetInteger ("dir") + "  " + speedFactor);
 		switch (anim.GetInteger ("state")) {
@@ -88,6 +95,7 @@ public class Entity : MonoBehaviour {
 		case (int)CharacterState.Blocking:
 			if (primaryDir > 0)
 				ExecuteWalk ();
+			activeWeapon.ProcessDamageQueue ();
 			break;
 		default:
 			//print (gameObject.name + "  " + new Vector2 (0, 0));
@@ -136,7 +144,7 @@ public class Entity : MonoBehaviour {
 		return GetState() <= CharacterState.Walking && GetState() != CharacterState.Immobile;
 	}
 
-	protected bool InAttack() {
+	public bool InAttack() {
 		return GetState() == CharacterState.Attacking || GetState() == CharacterState.Blocking;
 	}
 
@@ -221,6 +229,8 @@ public class Entity : MonoBehaviour {
 		if (stats.GetStat("health") <= 0) {
 			Kill ();
 		}
+		stunTimer = .2f;
+		GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
 		return false;
 	}
 
