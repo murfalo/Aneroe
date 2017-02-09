@@ -11,13 +11,13 @@ public class SaveController : MonoBehaviour
     private const string saveLocation = "/playerInfo.dat";
 
     /// <summary>Hashtable containing state information that will be saved</summary>
-    private Hashtable saveData;
+    private static Hashtable saveData;
 
     /// <summary>Event published when saving is about to occur.</summary>
-    public event EventHandler<EventArgs> playerSaving;
+    public static event EventHandler<EventArgs> playerSaving;
 
     /// <summary>Event published when loading has completed.</summary>
-    public event EventHandler<EventArgs> playerLoaded;
+    public static event EventHandler<EventArgs> playerLoaded;
 
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
     void Start()
@@ -28,7 +28,7 @@ public class SaveController : MonoBehaviour
     /// <section>Adds a value associated with key to saveData.</section>
     /// <param name="key">Key to associate value with in saveData.</param>
     /// <param name="value">Value to associate with key in saveData.</param>
-    public void SetValue<T>(object key, T value)
+    public static void SetValue<T>(string key, T value)
     {
         if (!saveData.ContainsKey(key))
             saveData.Add(key, value);
@@ -37,7 +37,7 @@ public class SaveController : MonoBehaviour
     /// <section>Gets a value from saveData associated with key.</section>
     /// <param name="key">Key of desired value in saveData.</param>
     /// <param name="value">Value to store data associated with key in saveData.</param>
-    public void GetValue<T>(string key, out T value)
+    public static void GetValue<T>(string key, out T value)
     {
         value = default(T);
         if (saveData.ContainsKey(key))
