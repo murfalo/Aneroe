@@ -47,20 +47,18 @@ public class PlayerController : EntityController {
 		// Inputs prioritized as such (by order of check):
 		// Attacking, Walking, Switching character
 
-		//activeCharacter.Quicken (e.IsHeld ("quicken"));
+		activeCharacter.Quicken (e.IsHeld ("quicken"));
 
 		// See if a direction was input and log it
 		bool dirChosen = false;
 		bool[] dirActive = new bool[4];
+		bool[] dirTapped = new bool[4];
 		for (int i = 0; i < directions.Length; i++) { 
-			if (e.IsHeld (directions [i])) {
-				dirChosen = true;
-				dirActive [i] = true;
-			} else {
-				dirActive [i] = false;
-			}
+			dirTapped [i] = e.WasPressed (directions[i]);
+			dirActive [i] = dirTapped [i] || e.IsHeld (directions [i]);
+			dirChosen = dirChosen || dirActive [i] || dirTapped [i];
 		}
-		activeCharacter.SetDirections (dirActive);
+		activeCharacter.SetDirections (dirActive, dirTapped);
 			
 		if (e.IsHeld ("attack")) {
 			activeCharacter.TryAttacking ();
@@ -68,10 +66,6 @@ public class PlayerController : EntityController {
 			activeCharacter.TryBlocking ();
 		} else if (e.WasPressed ("interact")) {
 			activeCharacter.TryInteracting ();
-		} else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
-			characterIndex = (characterIndex + 1) % characters.Length;
-			activeCharacter = characters [characterIndex];
-			cam.SetTarget (activeCharacter);
 		} else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
 			characterIndex = (characterIndex + 1) % characters.Length;
 			activeCharacter = characters [characterIndex];

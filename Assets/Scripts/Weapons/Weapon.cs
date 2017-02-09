@@ -28,10 +28,6 @@ public class Weapon : Item {
 
 	}
 
-	public void ProcessDamageQueue() {
-
-	}
-
 	public void StartAttack(int dir) {
 		anim.SetBool ("attack", true);
 		anim.SetInteger ("dir", dir);

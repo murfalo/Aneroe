@@ -31,6 +31,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1316186398275350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4629306787242018}
+  - component: {fileID: 61342954626335152}
+  m_Layer: 11
+  m_Name: Collidable
+  m_TagString: Wall
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1503387391778352
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,8 +91,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4404587600031872}
+  - {fileID: 4629306787242018}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4629306787242018
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1316186398275350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4627830762815720}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50355401593342832
 Rigidbody2D:
@@ -118,6 +148,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61342954626335152
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1316186398275350}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.003267616, y: 0.006535068}
+  serializedVersion: 2
+  m_Size: {x: 0.36608508, y: 0.37262058}
 --- !u!61 &61357726384060882
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -211,11 +255,12 @@ MonoBehaviour:
   speed: 2
   attack: 1
   defense: 1
-  characterRadius: 0
+  characterRadius: 0.5
   ATTACK_SPEED_FACTOR: 0.5
   BLOCK_SPEED_FACTOR: 0
   RUN_SPEED_FACTOR: 1.5
   NORMAL_SPEED_FACTOR: 1
+  DIRECTION_TAP_BUFFER: 0.099999994
 --- !u!212 &212246615379376156
 SpriteRenderer:
   m_ObjectHideFlags: 1

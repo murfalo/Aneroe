@@ -35,10 +35,13 @@ namespace AneroeInputs {
 			InputEventArgs e = new InputEventArgs ();
 			foreach (KeyValuePair<string,string> pair in inputPairings) {
 				if (Input.GetKeyDown (pair.Value)) {
+					//print ("Down " + pair.Value);
 					e.actions.Add (pair.Key, new ActionOnInput (0));
 				} else if (Input.GetKey (pair.Value)) {
+					//print ("Held " + pair.Value);
 					e.actions.Add (pair.Key, new ActionOnInput (1));
 				} else if (Input.GetKeyUp (pair.Value)) {
+					//print ("Up " + pair.Value);
 					e.actions.Add (pair.Key, new ActionOnInput (2));
 				}
 			}

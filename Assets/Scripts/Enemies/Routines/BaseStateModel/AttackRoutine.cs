@@ -11,7 +11,7 @@ public class AttackRoutine : AIRoutine {
 	public override void StartRoutine(AIEntity e) {
 		entity = e;
 		resting = false;
-		currentDelay = 0;
+		currentDelay = Random.Range(-1f,0f);
 	}
 
 
@@ -20,17 +20,22 @@ public class AttackRoutine : AIRoutine {
 		if (Vector3.Distance (entity.transform.position, PlayerController.activeCharacter.transform.position) > entity.GetWeaponRange ())
 			return AIEntity.BaseState.Approaching;
 		if (!resting) {
-			// For animation
-			DetermineDirections (targetVector.normalized);
-			// To prevent walking
-			entity.ResetDirs ();
-			entity.TryAttacking ();
-			resting = true;
+			if (currentDelay < 0) {
+				currentDelay += Time.deltaTime;
+			} else {
+				print ("Attacking");
+				// For animation
+				DetermineDirections (targetVector.normalized);
+				// To prevent walking
+				entity.ResetDirs ();
+				entity.TryAttacking ();
+				resting = true;
+			}
 		} else if (entity.GetState() == Entity.CharacterState.Still) {
 			currentDelay += Time.deltaTime;
 			if (currentDelay > attackDelay) {
 				resting = false;
-				currentDelay = 0;
+				currentDelay = Random.Range(-1f,0f);
 			}
 		}
 		return baseState;

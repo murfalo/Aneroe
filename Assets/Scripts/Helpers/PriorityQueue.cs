@@ -26,6 +26,8 @@ public class PriorityQueue<T> where T : IComparable<T>
 
 	public T Dequeue()
 	{
+		if (data.Count == 0)
+			return default(T);
 		int li = data.Count - 1;
 		T frontItem = data[0];
 		data[0] = data[li];
@@ -52,6 +54,14 @@ public class PriorityQueue<T> where T : IComparable<T>
 	public bool Contains(T item) {
 		foreach (T datum in data) {
 			if (datum.Equals (item))
+				return true;
+		}
+		return false;
+	}
+
+	public bool ContainsByCompare(T item) {
+		foreach (T datum in data) {
+			if (datum.CompareTo (item) == 0)
 				return true;
 		}
 		return false;

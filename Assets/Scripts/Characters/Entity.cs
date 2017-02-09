@@ -33,16 +33,14 @@ public class Entity : MonoBehaviour {
 		Digging,
 	};
 
-	// Internal states
-	public float ATTACK_SPEED_FACTOR = .5f;
-	public float BLOCK_SPEED_FACTOR = 0f;
-	public float RUN_SPEED_FACTOR = 1.5f;
-	public float NORMAL_SPEED_FACTOR = 1f;
+	protected float ATTACK_SPEED_FACTOR = .5f;
+	protected float BLOCK_SPEED_FACTOR = 0f;
+	protected float RUN_SPEED_FACTOR = 2f;
+	protected float NORMAL_SPEED_FACTOR = 1f;
+
 	protected float speedFactor;
-	protected bool slideDirs;
 	protected int primaryDir;
 	protected int secondaryDir;
-
 	protected float stunTimer;
 	// Character alternates step animation; this toggles which one
 	protected bool oddStep;
@@ -64,10 +62,10 @@ public class Entity : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		activeWeapon = GetComponentInChildren<Weapon> ();
 
+		stunTimer = 0;
 		anim.SetInteger ("state", (int)CharacterState.Still);
 		anim.SetInteger ("dir", (int)Dir.Down);
 		oddStep = false;
-		slideDirs = false;
 		speedFactor = NORMAL_SPEED_FACTOR;
 		stats = new StatInfo (new Dictionary<string, float>() {
 			{"health",MAX_HEALTH},
@@ -77,16 +75,17 @@ public class Entity : MonoBehaviour {
 		});
 	}
 
-    public void DoFixedUpdate() {
-		if (stunTimer > 0) {
-			stunTimer -= Time.fixedDeltaTime;
-			if (stunTimer <= 0) {
-				GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
-				stunTimer = 0;
-			}
-		}
+	public virtual void DoFixedUpdate() {
 		//print (gameObject.name + "  " + (CharacterState)anim.GetInteger ("state"));
 		//print (gameObject.name + "  " + (CharacterState)anim.GetInteger ("state") + "  " + anim.GetInteger ("dir") + "  " + speedFactor);
+
+		// Timer updates
+		if (stunTimer > 0 && DecrementTimer (stunTimer, out stunTimer)) {
+			GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+			stunTimer = 0;
+		}
+
+		// State-based updates
 		switch (anim.GetInteger ("state")) {
 		case (int)CharacterState.Walking:
 			ExecuteWalk ();
@@ -95,7 +94,6 @@ public class Entity : MonoBehaviour {
 		case (int)CharacterState.Blocking:
 			if (primaryDir > 0)
 				ExecuteWalk ();
-			activeWeapon.ProcessDamageQueue ();
 			break;
 		default:
 			//print (gameObject.name + "  " + new Vector2 (0, 0));
@@ -103,20 +101,35 @@ public class Entity : MonoBehaviour {
 		}
 	}
 
+	protected bool DecrementTimer(float value, out float timer)
+	{
+		timer = value -= Time.fixedDeltaTime;
+		return timer <= 0;
+	}
+
 	void ExecuteWalk() {
 		int dir = primaryDir - 1;
 		if (dir < 0)
-			dir = anim.GetInteger ("dir") - 1;
+			dir = GetDirection() - 1;
 		Vector3 dirVector = directionVectors [dir];
 		if (secondaryDir > 0) {
 			dirVector = Vector3.Normalize(dirVector + secondaryDirFactor * (Vector3)directionVectors [secondaryDir - 1]);
 		}
 		Vector3 move = speedFactor * speed * Time.fixedDeltaTime * dirVector;
-		RaycastHit2D r = Physics2D.Raycast (transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
 
-		if (r.collider == null) {
-			transform.Translate (move);
+		// BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
+		/*RaycastHit2D[] hits = Physics2D.RaycastAll (transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		bool noCollisions = true;
+		foreach (RaycastHit2D hit in hits) {
+			if (hit.collider != null && !hit.collider.GetComponentInParent<Entity> ().Equals (this)) {
+				noCollisions = false;
+				break;
+			}
 		}
+		if (noCollisions)
+			transform.Translate (move);*/
+		
+		transform.Translate (move);
 	}
 
 	public void Quicken(bool active) {
@@ -129,19 +142,24 @@ public class Entity : MonoBehaviour {
 		}
 	}
 		
-	public void EndWeaponUseAnim() {
+	public virtual void EndWeaponUseAnim() {
 		anim.SetInteger ("state", (int)CharacterState.Still);
 		speedFactor = NORMAL_SPEED_FACTOR;
 	}
 
-	public void EndMovementAnim() {
+	public virtual void EndMovementAnim() {
 		if (!CanActOutOfMovement())
 			return;
 		anim.SetInteger ("state", (int)CharacterState.Still);
 	}
 
 	protected bool CanActOutOfMovement() {
-		return GetState() <= CharacterState.Walking && GetState() != CharacterState.Immobile;
+		if (GetState () > CharacterState.Walking || GetState () == CharacterState.Immobile) {
+			return false;
+		}
+		if (stunTimer > 0)
+			return false;
+		return true;
 	}
 
 	public bool InAttack() {
@@ -149,34 +167,34 @@ public class Entity : MonoBehaviour {
 	}
 
 	public bool CanSwitchFrom() {
-		return anim.GetInteger ("state") <= (int)CharacterState.Still;
+		return GetState() <= CharacterState.Still;
 	}
 		
 	// Sets animation state for walking
-	public void TryWalk() {
-		if ((CharacterState)anim.GetInteger ("state") != CharacterState.Still)
-			return;
-		speedFactor = NORMAL_SPEED_FACTOR;
+	public virtual void TryWalk() {
+		if (GetState() != CharacterState.Still)
+			return;			
 		// Alternate the step this walk cycle executes with
 		oddStep = !oddStep;
 		anim.SetTime (0);
 		anim.SetInteger ("state", (int)CharacterState.Walking);
 		anim.SetBool ("oddStep", oddStep);
+		speedFactor = NORMAL_SPEED_FACTOR;
 	}
 
 	// Sets animation state for attacking
-	public void TryAttacking() {
-		if (!CanActOutOfMovement())
-			return;
+	public virtual void TryAttacking() {
+		if (!CanActOutOfMovement ())
+			return;			
 		anim.SetTime (0);
 		anim.SetInteger ("state", (int)CharacterState.Attacking);
 		activeWeapon.StartAttack (GetDirection());
 		speedFactor = ATTACK_SPEED_FACTOR;
 	}
 
-	public void TryBlocking() {
-		if (!CanActOutOfMovement())
-			return;
+	public virtual void TryBlocking() {
+		if (!CanActOutOfMovement ())
+			return;			
 		anim.SetTime (0);
 		anim.SetInteger ("state", (int)CharacterState.Blocking);
 		activeWeapon.StartBlock (GetDirection());
@@ -187,51 +205,20 @@ public class Entity : MonoBehaviour {
 		return (CharacterState)anim.GetInteger ("state");
 	}
 
-	public void SetDirections(bool[] directions) {
-		if (!CanActOutOfMovement ()) {
-			if (InAttack ()) {
-				slideDirs = true;
-			} else
-				return;
-		} else {
-			slideDirs = false;
-		}
-
-		// If primary direction isn't still held, reset primaryDir;
-		if (primaryDir > 0 && !directions [primaryDir - 1]) {
-			primaryDir = 0;
-			if (secondaryDir > 0 && directions [secondaryDir - 1])
-				primaryDir = secondaryDir;
-			secondaryDir = 0;
-		}
-		if (secondaryDir > 0 && !directions [secondaryDir - 1]) {
-			secondaryDir = 0;
-		}
-		for (int i = 0; i < directions.Length; i++) {
-			if (directions [i]) {
-				if (primaryDir == 0)
-					primaryDir = i + 1;
-				else if (secondaryDir == 0 && (primaryDir + i + 1) % 2 != 0)
-					secondaryDir = i + 1;
-			}
-		}
-		if (primaryDir > 0 && !slideDirs)
-			anim.SetInteger ("dir", primaryDir);
-	}
 
 	public int GetDirection() {
 		return anim.GetInteger ("dir");
 	}
-
+		
 	// Damages character, returns true if character is at 0 health
-	public bool Damage(float amount) {
+	public void Damage(float amount) {
 		stats.ChangeStat("health",-amount);
-		if (stats.GetStat("health") <= 0) {
+		if (stats.GetStat ("health") <= 0) {
 			Kill ();
+		} else {
+			stunTimer = .2f;
+			GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
 		}
-		stunTimer = .2f;
-		GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
-		return false;
 	}
 
 	public void Kill() {

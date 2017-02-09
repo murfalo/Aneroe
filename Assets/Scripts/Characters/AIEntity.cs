@@ -40,6 +40,10 @@ public class AIEntity : Entity
 		}
 	}
 
+	public override void DoFixedUpdate() {
+		base.DoFixedUpdate ();
+	}
+
 	public float GetWeaponRange() {
 		return activeWeapon.GetRange ();
 	}
