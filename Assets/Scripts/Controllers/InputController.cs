@@ -19,6 +19,7 @@ namespace AneroeInputs {
 			{"right","d"},
 			{"down","s"},
 			{"inventory","i"},
+			{"mainmenu", "escape"},
 			{"attack","mouse 0"},
 			{"defend","mouse 1"},
 			{"quicken","left shift"},
