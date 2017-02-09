@@ -62,9 +62,9 @@ public class PlayerController : EntityController {
 		}
 		activeCharacter.SetDirections (dirActive);
 			
-		if (e.WasPressed ("attack")) {
+		if (e.IsHeld ("attack")) {
 			activeCharacter.TryAttacking ();
-		} else if (e.WasPressed ("defend")) {
+		} else if (e.IsHeld ("defend")) {
 			activeCharacter.TryBlocking ();
 		} else if (e.WasPressed ("interact")) {
 			activeCharacter.TryInteracting ();
