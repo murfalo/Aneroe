@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SaveController : MonoBehaviour
+public class SaveController : BaseController
 {
     /// <summary>Location to save data in the persistent data path.</summary>
     private const string saveLocation = "/playerInfo.dat";
@@ -23,6 +22,8 @@ public class SaveController : MonoBehaviour
     void Start()
     {
         Load();
+        if (saveData == null)
+            saveData = new Hashtable();
     }
 
     /// <section>Adds a value associated with key to saveData.</section>
@@ -44,7 +45,7 @@ public class SaveController : MonoBehaviour
             value = (T)saveData[key];
     }
 
-    //// <summary>Loads the save data from file into the hashtable in memory.</summary>
+    /// <summary>Loads the save data from file into the hashtable in memory.</summary>
     public void Load()
     {
         string path = Application.persistentDataPath + saveLocation;

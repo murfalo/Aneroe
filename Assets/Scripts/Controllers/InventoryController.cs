@@ -15,9 +15,6 @@ public class InventoryController : BaseController
     /// <section>Prefab for an inventory slot.</section>
     [SerializeField] GameObject UISlot;
 
-    /// <section>UI GameObject</section>
-    [SerializeField] GameObject UI;
-
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
 
@@ -27,25 +24,11 @@ public class InventoryController : BaseController
     /// <section>Original parent of the currently selected item.</section>
     private Transform parent { get; set; }
 
-	// Inventory gameobject being controlled
-	private GameObject inventory;
-
-	// Whether the ui is visible to the user
-	private bool IsVisibleUI;
-
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public override void ExternalSetup()
-	{
-		GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ReceiveInput);
-		for (int i = 0; i < UI.transform.childCount; i++) {
-			Transform t = UI.transform.GetChild (i);
-			if (t.name.Equals("Inventory")) {
-				inventory = t.gameObject;
-				break;
-			}
-		}
-		IsVisibleUI = false;
-		ToggleVisibility (IsVisibleUI);
+    {
+        SceneController.timeSwapped += RefreshInventory<EventArgs>;
+        SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
         for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
         {
@@ -53,28 +36,16 @@ public class InventoryController : BaseController
             if (i % 2 == 0)
                 Destroy(newSlot.transform.GetChild(0).gameObject);
             newSlot.name = "Slot." + i.ToString();
-            newSlot.transform.SetParent(inventory.transform);
+            newSlot.transform.SetParent(UIController.inventory.transform);
         }
     }
 
     /// <section>Causes the selected item to follow the mouse cursor.</section>
     public void Update()
-	{
+    {
         if (selected)
             selected.transform.position = Input.mousePosition;
     }
-
-    public void ReceiveInput(object source, InputEventArgs eventArgs)
-    {
-		if (eventArgs.WasPressed ("inventory")) {
-			IsVisibleUI = !IsVisibleUI;
-			ToggleVisibility (IsVisibleUI);
-		}
-    }
-
-	public void ToggleVisibility(bool visible) {
-		inventory.SetActive (visible);
-	}
 
     /// <section>Selects the target item from a UI slot.</section>
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
@@ -139,5 +110,14 @@ public class InventoryController : BaseController
             Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
         if (itemMoved != null && newSlot != prevSlot)
             itemMoved(this, new InventoryEvents.ItemMovedEventArgs(item, prevSlot, newSlot));
+    }
+
+    /// <section>Refreshes the inventory using the active player's inventory data.</section>
+    /// <param name="source">Publisher of event.</section>
+    /// <param name=""></section>
+    private void RefreshInventory<T>(object source, T eventArgs)
+    {
+        if (!typeof(T).IsAssignableFrom(typeof(EventArgs))) return;
+        // Do things
     }
 }
