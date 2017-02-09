@@ -22,13 +22,13 @@ public class SaveController : MonoBehaviour
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
     void Start()
     {
-        saveData = new Hashtable();
+        Load();
     }
 
     /// <section>Adds a value associated with key to saveData.</section>
     /// <param name="key">Key to associate value with in saveData.</param>
     /// <param name="value">Value to associate with key in saveData.</param>
-    public void SetValue<T>(string key, T value)
+    public void SetValue<T>(object key, T value)
     {
         if (!saveData.ContainsKey(key))
             saveData.Add(key, value);
@@ -47,11 +47,12 @@ public class SaveController : MonoBehaviour
     //// <summary>Loads the save data from file into the hashtable in memory.</summary>
     public void Load()
     {
+        string path = Application.persistentDataPath + saveLocation;
+        if (!File.Exists(path)) return;
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream lf = File.Open(Application.persistentDataPath + saveLocation, FileMode.Open);
+        FileStream lf = File.Open(path, FileMode.Open);
         saveData = (Hashtable)bf.Deserialize(lf);
         lf.Close();
-
         if (playerLoaded != null)
             playerLoaded(this, new EventArgs());
     }
@@ -61,7 +62,6 @@ public class SaveController : MonoBehaviour
     {
         if (playerSaving != null)
             playerSaving(this, new EventArgs());
-
         BinaryFormatter bf = new BinaryFormatter();
         FileStream sf = File.Create(Application.persistentDataPath + saveLocation);
         bf.Serialize(sf, saveData);
