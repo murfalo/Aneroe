@@ -14,7 +14,7 @@ public class UIController : BaseController
 
 
     /// <section>Load in UI game objects.</section>
-    void Start()
+	public override void InternalSetup()
     {
         for (int i = 0; i < UI.transform.childCount; i++)
         {
@@ -28,7 +28,7 @@ public class UIController : BaseController
 
     public override void ExternalSetup()
     {
-        GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ReceiveInput);
+       InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
     }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)

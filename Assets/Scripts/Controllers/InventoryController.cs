@@ -27,7 +27,7 @@ public class InventoryController : BaseController
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public override void ExternalSetup()
     {
-        SceneController.timeSwapped += RefreshInventory<EventArgs>;
+		SceneController.timeSwapped += RefreshInventory<EventArgs>;
         SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
         for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)

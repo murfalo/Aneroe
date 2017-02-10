@@ -9,47 +9,41 @@ public class SceneController : BaseController
     public bool cutToStartScene;
     public string startScene;
 
-    /// <summary>Camera on the currently selected scene.</summary>
-    private CameraController cam;
-
-    public static event EventHandler<EventArgs> timeSwapped;
+	public static event EventHandler timeSwapped;
+	public static event EventHandler mergedNewScene;
 
     Scene oldScene;
 
     void Awake()
     {
         oldScene = SceneManager.GetActiveScene();
-        // Take every gameobject in base scene hierarchy
-        //foreach (GameObject obj in DontDestroys) {
-        //	DontDestroyOnLoad (obj);
-        //}
-    }
-
-    /// <section>Grab the correct camera object and set it's target to the active character.</section>
-    public override void ExternalSetup()
-    {
-        cam = GameObject.Find("Control").GetComponent<CameraController>();
-        cam.SetTarget(PlayerController.activeCharacter);
     }
 
     void Start()
-    {
-        // Load correct scene
+	{
+		// Initialize controllers
+		foreach (BaseController obj in gameObject.GetComponents<BaseController>())
+		{
+			obj.InternalSetup();
+		}
+		foreach (BaseController obj in gameObject.GetComponents<BaseController>())
+		{
+			obj.ExternalSetup();
+		}
+        
+		// Activate initial time swap for start of game
+		if (timeSwapped != null)
+			timeSwapped(this, new EventArgs());
+		
+		// Load correct scene
         if (cutToStartScene)
         {
             if (!SceneManager.GetActiveScene().name.Equals(startScene))
             {
                 SceneManager.LoadScene(startScene, LoadSceneMode.Additive);
-                //print (SceneManager.GetActiveScene ().name);
-                //print (SceneManager.GetSceneByName (startScene).name);
-                //SceneManager.SetActiveScene (SceneManager.GetSceneByName (startScene));
                 SceneManager.sceneLoaded += LoadedScene;
             }
         }
-    }
-
-    void Update()
-    {
     }
 
     public void LoadedScene(Scene newScene, LoadSceneMode sceneMode)
@@ -69,19 +63,23 @@ public class SceneController : BaseController
             yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
 
+		GameObject rootOfNewScene = new GameObject();
+		rootOfNewScene.name = newScene.name + "Scene";
+		foreach (GameObject rootObject in newScene.GetRootGameObjects()) {
+			if (rootObject.name.Equals ("Temp")) {
+				// To make sure the rootObject doesn't interfere before it is destroyed
+				rootObject.SetActive (false);
+				// Destroy it with fire
+				Destroy (rootObject);
+			} else {
+				rootObject.transform.SetParent (rootOfNewScene.transform);
+			}
+		}
         SceneManager.MergeScenes(oldScene, newScene);
         oldScene = newScene;
-        if (timeSwapped != null)
-            timeSwapped(this, new EventArgs());
 
-        foreach (BaseController obj in gameObject.GetComponents<BaseController>())
-        {
-            obj.InternalSetup();
-        }
-        foreach (BaseController obj in gameObject.GetComponents<BaseController>())
-        {
-            obj.ExternalSetup();
-        }
+		if (mergedNewScene != null)
+			mergedNewScene (this, new EventArgs ());
     }
 
     public void ReloadBaseScene()
@@ -91,13 +89,10 @@ public class SceneController : BaseController
     }
 
     public void ChangeActiveCharacter()
-    {
-        cam.SetTarget(PlayerController.activeCharacter);
-        // Add scene loading functionality here
-        // timeSwapped(this, new EventArgs());
-        Scene newScene = default(Scene);
-        // If loaded new scene, do not call time swapped yet
-        if (newScene != default(Scene)) return;
+	{
+		// Add scene loading functionality here
+		//Scene newScene = default(Scene);
+
         if (timeSwapped != null)
             timeSwapped(this, new EventArgs());
     }

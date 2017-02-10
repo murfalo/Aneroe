@@ -230,3 +230,10 @@ public class Entity : MonoBehaviour {
 	}
 
 }
+
+[System.Serializable]
+public struct EntitySaveData {
+	public float posX;
+	public float posY;
+	public Dictionary<string, float> statLevels;
+}

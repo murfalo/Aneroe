@@ -10,13 +10,17 @@ public class CameraController : BaseController {
 		cam = GameObject.Find ("Main Camera");
 	}
 
+	public override void ExternalSetup() {
+		SceneController.timeSwapped += SetTarget;
+	}
+
 	void Update() {
 		if (target != null) {
 			cam.transform.position = target.transform.position + new Vector3(0,0,-10);
 		}
 	}
 
-	public void SetTarget(Entity t) {
-		target = t;
+	void SetTarget(object sender, System.EventArgs e) {
+		target = PlayerController.activeCharacter;
 	}
 }

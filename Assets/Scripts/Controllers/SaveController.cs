@@ -19,11 +19,11 @@ public class SaveController : BaseController
     public static event EventHandler<EventArgs> playerLoaded;
 
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
-    void Start()
-    {
-        Load();
-        if (saveData == null)
-            saveData = new Hashtable();
+	public override void InternalSetup()
+	{
+		if (saveData == null)
+			saveData = new Hashtable();
+		SceneController.mergedNewScene += LoadByEvent;
     }
 
     /// <section>Adds a value associated with key to saveData.</section>
@@ -45,6 +45,10 @@ public class SaveController : BaseController
             value = (T)saveData[key];
     }
 
+	public void LoadByEvent(object sender, EventArgs e) {
+		Load ();
+	}
+
     /// <summary>Loads the save data from file into the hashtable in memory.</summary>
     public void Load()
     {
@@ -52,7 +56,13 @@ public class SaveController : BaseController
         if (!File.Exists(path)) return;
         BinaryFormatter bf = new BinaryFormatter();
         FileStream lf = File.Open(path, FileMode.Open);
-        saveData = (Hashtable)bf.Deserialize(lf);
+		try {
+        	saveData = (Hashtable)bf.Deserialize(lf);
+		} catch {
+			lf.Close ();
+			File.Delete (path);
+			return;
+		}
         lf.Close();
         if (playerLoaded != null)
             playerLoaded(this, new EventArgs());

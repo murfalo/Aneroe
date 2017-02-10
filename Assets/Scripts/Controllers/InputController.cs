@@ -11,7 +11,7 @@ namespace AneroeInputs {
 		// UI: if no in game input is allowed
 		// Paused: if in the escape menu
 		public InputInfo.InputMode mode;
-		public InputEventWrapper iEvent;
+		public static InputEventWrapper iEvent;
 
 		public Dictionary<string, string> inputPairings = new Dictionary<string, string> {
 			{"up","w"},

@@ -15,7 +15,7 @@ public class PlayerController : EntityController
     int characterIndex;
     string[] directions;
 
-    public override void InternalSetup()
+	public override void InternalSetup()
     {
         actionResponses = new Dictionary<string, System.Action<Entity>>() {
             {"die",RestartGame}
@@ -27,7 +27,6 @@ public class PlayerController : EntityController
         {
             characters[i] = ((GameObject)GameObject.Instantiate(characterPrefabs[i], obj.transform)).GetComponent<PlayerEntity>();
             characters[i].Setup();
-            //print ("character: " + characters [i].name + "  parent:  " + characters [i].transform.parent);
         }
         characterIndex = 0;
         activeCharacter = characters[0];
@@ -36,7 +35,9 @@ public class PlayerController : EntityController
 
     public override void ExternalSetup()
     {
-        GameObject.Find("Control").GetComponent<InputController>().iEvent.inputed += new InputEventHandler(ReceiveInput);
+        InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
+		SaveController.playerLoaded += Load;
+		SaveController.playerSaving += Save;
     }
 
     void FixedUpdate()
@@ -79,7 +80,6 @@ public class PlayerController : EntityController
         {
             characterIndex = (characterIndex + 1) % characters.Length;
             activeCharacter = characters[characterIndex];
-            // cam.SetTarget (activeCharacter);
             GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter();
         }
         else if (dirChosen)
@@ -92,4 +92,25 @@ public class PlayerController : EntityController
     {
         GameObject.Find("Control").GetComponent<SceneController>().ReloadBaseScene();
     }
+
+	public void Load(object sender, System.EventArgs e) {
+		for (int i = 0; i < characters.Length; i++) {
+			PlayerEntity player = characters [i];
+			EntitySaveData esd;
+			SaveController.GetValue (SaveKeys.players [i], out esd);
+			player.transform.position = new Vector3(esd.posX, esd.posY, 0);
+			player.stats = new StatInfo(esd.statLevels);
+		}
+	}
+
+	public void Save(object sender, System.EventArgs e) {
+		for (int i = 0; i < characters.Length; i++) {
+			PlayerEntity player = characters [i];
+			EntitySaveData esd = new EntitySaveData ();
+			esd.posX = player.transform.position.x;
+			esd.posY = player.transform.position.y;
+			esd.statLevels = player.stats.GetStats();
+			SaveController.SetValue (SaveKeys.players [i], esd);
+		}
+	}
 }
