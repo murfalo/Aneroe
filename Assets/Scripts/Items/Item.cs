@@ -16,23 +16,33 @@ public class Item : MonoBehaviour {
 	// Weight of item. Prevents too many items from being held in a backpack
 	public float weight;
 
-	void Start () {
+	// Number of units of the item
+	public int count;
+
+	protected virtual void Awake () {
 		sRend = GetComponent<SpriteRenderer> ();
+		pickupCollider = GetComponent<Collider2D> ();
 	}
 
-	void Update () {
-	
-	}
-
-	// If a Entity picks up an item, it is moved in the heirarchy to a child of their gameobject
 	public virtual void PickupItem(Entity e) {
-		// Add code to add the item to the backpack
-		transform.parent = e.transform;
 		owner = e;
+		sRend.enabled = false;
+		pickupCollider.enabled = false;
+	}
+
+	public virtual void DropItem(Vector3 pos) {
+		owner = null;
+		transform.position = pos;
+		sRend.enabled = true;
+		pickupCollider.enabled = true;
 	}
 
 	// Returns entity that holds item
 	public Entity GetEntity() {
 		return owner;
+	}
+
+	public Sprite GetSprite() {
+		return sRend.sprite;
 	}
 }

@@ -25,4 +25,15 @@ namespace InventoryEvents
 		public int prevSlot;
 		public int? newSlot;
     }
+
+	public class ItemPickupEventArgs : EventArgs
+	{
+		public ItemPickupEventArgs(Item i, Inventory inv) {
+			this.item = i;
+			this.inventory = inv;
+		}
+
+		public Item item;
+		public Inventory inventory;
+	}
 }

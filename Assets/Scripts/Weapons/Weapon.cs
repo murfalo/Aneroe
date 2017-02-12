@@ -18,7 +18,8 @@ public class Weapon : Item {
 	List<Entity> damageQueue;
 	List<Entity> targetsHit;
 
-	void Awake () {
+	protected override void Awake () {
+		base.Awake ();
 		anim = GetComponent<Animator> ();
 		//durability = MAX_DURABILITY;
 

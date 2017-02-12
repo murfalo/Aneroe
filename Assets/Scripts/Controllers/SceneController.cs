@@ -9,7 +9,7 @@ public class SceneController : BaseController
     public bool cutToStartScene;
     public string startScene;
 
-	public static event EventHandler timeSwapped;
+	public static event EventHandler<PlayerSwitchEventArgs> timeSwapped;
 	public static event EventHandler mergedNewScene;
 
     Scene oldScene;
@@ -33,7 +33,7 @@ public class SceneController : BaseController
         
 		// Activate initial time swap for start of game
 		if (timeSwapped != null)
-			timeSwapped(this, new EventArgs());
+			timeSwapped(this, new PlayerSwitchEventArgs(null,PlayerController.activeCharacter));
 		
 		// Load correct scene
         if (cutToStartScene)
@@ -84,16 +84,30 @@ public class SceneController : BaseController
 
     public void ReloadBaseScene()
     {
+		foreach (BaseController obj in gameObject.GetComponents<BaseController>()) {
+			obj.RemoveEventListeners();
+		}
         SceneManager.sceneLoaded -= LoadedScene;
         SceneManager.LoadScene("BaseScene", LoadSceneMode.Single);
     }
 
-    public void ChangeActiveCharacter()
+	public void ChangeActiveCharacter(PlayerEntity oldP, PlayerEntity newP)
 	{
 		// Add scene loading functionality here
 		//Scene newScene = default(Scene);
 
         if (timeSwapped != null)
-            timeSwapped(this, new EventArgs());
+			timeSwapped(this, new PlayerSwitchEventArgs(oldP, newP));
     }
+}
+
+public class PlayerSwitchEventArgs : EventArgs {
+
+	public PlayerSwitchEventArgs(PlayerEntity oldP, PlayerEntity newP) {
+		newPlayer = newP;
+		oldPlayer = oldP;
+	}
+
+	public PlayerEntity oldPlayer;
+	public PlayerEntity newPlayer;
 }

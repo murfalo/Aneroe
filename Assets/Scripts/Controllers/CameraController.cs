@@ -14,13 +14,17 @@ public class CameraController : BaseController {
 		SceneController.timeSwapped += SetTarget;
 	}
 
+	public override void RemoveEventListeners() {
+		SceneController.timeSwapped -= SetTarget;
+	}
+
 	void Update() {
 		if (target != null) {
 			cam.transform.position = target.transform.position + new Vector3(0,0,-10);
 		}
 	}
 
-	void SetTarget(object sender, System.EventArgs e) {
+	void SetTarget(object sender, PlayerSwitchEventArgs e) {
 		target = PlayerController.activeCharacter;
 	}
 }

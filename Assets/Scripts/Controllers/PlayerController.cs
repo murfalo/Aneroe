@@ -38,7 +38,16 @@ public class PlayerController : EntityController
         InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
 		SaveController.playerLoaded += Load;
 		SaveController.playerSaving += Save;
+		// Subscribe to the inventory controller events to handle UI events appropriately.
+		InventoryController.itemMoved += OnItemMoved;
     }
+
+	public override void RemoveEventListeners() {
+		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
+		SaveController.playerLoaded -= Load;
+		SaveController.playerSaving -= Save;
+		InventoryController.itemMoved -= OnItemMoved;
+	}
 
     void FixedUpdate()
     {
@@ -48,6 +57,8 @@ public class PlayerController : EntityController
 
     public void ReceiveInput(object sender, InputEventArgs e)
     {
+		if (InputController.mode != InputInfo.InputMode.Free)
+			return;
         // Inputs prioritized as such (by order of check):
         // Attacking, Walking, Switching character
         activeCharacter.Quicken(e.IsHeld("quicken"));
@@ -78,15 +89,28 @@ public class PlayerController : EntityController
         }
         else if (e.WasPressed("switch character") && activeCharacter.CanSwitchFrom())
         {
+			PlayerEntity oldC = activeCharacter;
             characterIndex = (characterIndex + 1) % characters.Length;
             activeCharacter = characters[characterIndex];
-            GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter();
+			GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter(oldC, activeCharacter);
         }
         else if (dirChosen)
         {
             activeCharacter.TryWalk();
         }
     }
+
+	/// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
+	/// <param name="source">Originator of itemMoved event.</param>
+	/// <param name="eventArgs">Useful context of the itemMoved event.</param>
+	public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
+	{
+		activeCharacter.OnItemMoved (eventArgs);	
+	}
+
+	public PlayerEntity[] GetPlayers() {
+		return characters;
+	}
 
     void RestartGame(Entity e)
     {

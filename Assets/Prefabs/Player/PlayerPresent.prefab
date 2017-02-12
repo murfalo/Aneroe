@@ -122,12 +122,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!50 &50836718382956512
 Rigidbody2D:
   serializedVersion: 4
@@ -256,11 +256,6 @@ MonoBehaviour:
   attack: 1
   defense: 1
   characterRadius: 0.5
-  ATTACK_SPEED_FACTOR: 0.5
-  BLOCK_SPEED_FACTOR: 0
-  RUN_SPEED_FACTOR: 1.5
-  NORMAL_SPEED_FACTOR: 1
-  DIRECTION_TAP_BUFFER: 0.099999994
 --- !u!212 &212103776189548720
 SpriteRenderer:
   m_ObjectHideFlags: 1

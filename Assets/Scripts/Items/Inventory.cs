@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using InventoryEvents;
 
 /// <summary>Wrapper class for a list used to manage the player's inventory.</summary>
 public class Inventory
@@ -8,12 +10,18 @@ public class Inventory
     public Inventory()
     {
         level = 1;
+		itemSlotsUsed = 0;
         items = new List<Item[]>();
         items.Add(new Item[LEVEL_ITEMS]);
-    }
+		hotkeyItems = new Item[10];
+	}
+
 
     /// <summary>List of items in the player's inventory.</summary>
     public List<Item[]> items;
+
+	/// <summary>hotkey items on player</summary>
+	public Item[] hotkeyItems;
 
     /// <summary>
     /// Current level of the inventory.  Used in calculating the maximum number of items
@@ -21,6 +29,10 @@ public class Inventory
     /// </summary>
     /// <remarks>This variable could also be named numRows as that is what it represents.</remarks>
     private int level { get; set; }
+
+	private int itemSlotsUsed;
+
+	private const int MAX_HOTKEY_ITEMS = 10;
 
     /// <summary>Maximum possible level for the inventory.</summary>
     private const int MAX_LEVEL = 5;
@@ -77,13 +89,31 @@ public class Inventory
     /// <param name="newItem">Item to add to the end of the inventory's inventory.</summary>
     public void AddItem(Item newItem)
     {
-        for (int i = 0; i < LEVEL_ITEMS; i++)
-        {
-            if (items[items.Count - 1][i] != null) continue;
-            items[items.Count - 1][i] = newItem;
-            return;
-        }
+		for (int j = items.Count - 1; j >= 0; j--) {
+			for (int i = 0; i < LEVEL_ITEMS; i++) {
+				if (items [j] [i] != null)
+					continue;
+				items [j] [i] = newItem;
+				itemSlotsUsed++;
+			}
+		}
     }
+
+	public int NextAvailableSlot() {
+		for (int j = items.Count - 1; j >= 0; j--) {
+			for (int i = 0; i < LEVEL_ITEMS; i++) {
+				if (items [j] [i] != null)
+					continue;
+				return j * LEVEL_ITEMS + i;
+			}
+		}
+		return -1;
+	}
+
+	public bool IsFull() 
+	{
+		return itemSlotsUsed == maxItems;
+	}
 
     /// <summary>Removes an item form the inventory's inventory.</summary>
     /// <param name="itemIndex">Index of the item to be removed.</param>
@@ -91,8 +121,10 @@ public class Inventory
     {
         int row, col;
         GetIndices(itemIndex, out row, out col);
-        if (row < items.Count)
-            items[row][col] = null;
+		if (row < items.Count) {
+			itemSlotsUsed--;
+			items [row] [col] = null;
+		}
     }
 
     /// <summary>Gets the inventory's current level.</summary>

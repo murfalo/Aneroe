@@ -12,14 +12,16 @@ using AneroeInputs;
 /// </summary>
 public class InventoryController : BaseController
 {
-    /// <section>How far to drop items from player.</section>
-    private const float DROP_DIST = 0.5f;
-
     /// <section>Prefab for an inventory slot.</section>
     [SerializeField] private GameObject UISlot;
 
+	/// <section>Prefab for an inventory item slot.</section>
+	[SerializeField] private GameObject InvSlot;
+
     /// <section>Prefab for a physical (non-UI) item.</section>
     [SerializeField] private GameObject Item;
+
+	private GameObject[] slots;
 
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
@@ -33,18 +35,34 @@ public class InventoryController : BaseController
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public override void ExternalSetup()
     {
-        SceneController.timeSwapped += RefreshInventory<EventArgs>;
-        SaveController.playerLoaded += RefreshInventory<EventArgs>;
+		SceneController.timeSwapped += RefreshInventory<EventArgs>;
+		SceneController.timeSwapped += RebindListener;
+		SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
-        for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
+		slots = new GameObject[PlayerController.activeCharacter.inv.maxItems];
+		GameObject itemHolder = GameObject.Find ("Items");
+		for (int i = 0; i < slots.Length; i++)
         {
             var newSlot = (GameObject)Instantiate(UISlot);
-            if (i % 2 == 0)
-                Destroy(newSlot.transform.GetChild(0).gameObject);
+			if (i % 2 != 0) {
+				GameObject invSlot = (GameObject)Instantiate (InvSlot);
+				invSlot.transform.SetParent (newSlot.transform);
+				GameObject item = (GameObject)Instantiate (Item);
+				item.transform.SetParent (itemHolder.transform);
+				invSlot.GetComponent<InventorySlot> ().SetUnsetItem (item.GetComponent<Item>());
+			}
+			
             newSlot.name = "Slot." + i.ToString();
             newSlot.transform.SetParent(UIController.inventory.transform);
+			slots [i] = newSlot;
         }
     }
+
+	public override void RemoveEventListeners() {
+		SceneController.timeSwapped -= RefreshInventory<EventArgs>;
+		SceneController.timeSwapped -= RebindListener;
+		SaveController.playerLoaded -= RefreshInventory<EventArgs>;
+	}
 
     /// <section>Causes the selected item to follow the mouse cursor.</section>
     public void Update()
@@ -87,27 +105,22 @@ public class InventoryController : BaseController
         prevSelected.transform.position = prevSelected.transform.parent.position;
     }
 
-    /// <section>Generates a physical, non-UI item from a UI item.</section>
-    /// <param name="uiItem">UI Item to generate a physical item from.</param>
-    private GameObject UIItemToItem(GameObject uiItem)
-    {
-        var newItem = Instantiate(Item);
-        System.Type type = uiItem.GetComponent<Item>().GetType();
-        Component dest = newItem.GetComponent(type);
-        FieldInfo[] fields = type.GetFields();
-        foreach (FieldInfo field in fields)
-            field.SetValue(dest, field.GetValue(uiItem.GetComponent<Item>()));
-        return newItem;
-    }
+	public void PickupItem(object source, InventoryEvents.ItemPickupEventArgs e)
+	{
+		var uiItem = slots [e.inventory.NextAvailableSlot ()];
+		GameObject invItem = ((GameObject)Instantiate (InvSlot));
+		invItem.transform.SetParent (uiItem.transform);
+		invItem.GetComponent<InventorySlot> ().SetUnsetItem (e.item);
+	}
 
     /// <section>Drops the selected item from the inventory.</section>
     /// <param name="item">The item to drop from the inventory.</param>
     private void DropItem(GameObject item)
     {
         var activeCharacter = PlayerController.activeCharacter;
-        var newItem = UIItemToItem(item);
-        newItem.transform.SetParent(GameObject.Find("Items").transform);
-        newItem.transform.position = activeCharacter.transform.position + activeCharacter.transform.up * DROP_DIST;
+		var newItem = item.GetComponent<InventorySlot>().GetItem();
+        //newItem.transform.SetParent(GameObject.Find("Items").transform);
+		newItem.DropItem(activeCharacter.GetInteractPosition());
         OnItemMoved(item, parent);
         Destroy(item);
     }
@@ -142,5 +155,12 @@ public class InventoryController : BaseController
     {
         if (!typeof(T).IsAssignableFrom(typeof(EventArgs))) return;
         // Do things
+
     }
+
+	private void RebindListener(object source, PlayerSwitchEventArgs e) {
+		if (e.oldPlayer)
+			e.oldPlayer.itemPickup -= PickupItem;
+		e.newPlayer.itemPickup += PickupItem;
+	}
 }

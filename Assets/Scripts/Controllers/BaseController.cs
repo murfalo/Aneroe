@@ -7,4 +7,6 @@ public class BaseController : MonoBehaviour {
 	// Called by scene controller to initialize this controller
 	public virtual void InternalSetup() {}
 	public virtual void ExternalSetup() {}
+
+	public virtual void RemoveEventListeners() {}
 }

@@ -26,6 +26,10 @@ public class SaveController : BaseController
 		SceneController.mergedNewScene += LoadByEvent;
     }
 
+	public override void RemoveEventListeners() {
+		SceneController.mergedNewScene -= LoadByEvent;
+	}
+
     /// <section>Adds a value associated with key to saveData.</section>
     /// <param name="key">Key to associate value with in saveData.</param>
     /// <param name="value">Value to associate with key in saveData.</param>

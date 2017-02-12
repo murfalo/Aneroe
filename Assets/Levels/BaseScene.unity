@@ -462,6 +462,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1430202473246470, guid: afbe9dd10e1124b2a8999b790ed3daaf,
         type: 2}
+    - target: {fileID: 114168319270462106, guid: 4d4260720fa6dda458da023540ecf177,
+        type: 2}
+      propertyPath: InvSlot
+      value: 
+      objectReference: {fileID: 1151138698362450, guid: 6db058cd62e55684da3bbfb09d11d82f,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d4260720fa6dda458da023540ecf177, type: 2}
   m_IsPrefabParent: 0

@@ -12,6 +12,7 @@ public class UIController : BaseController
     /// <section>The game object representing the main menu.</section>
     public static GameObject mainMenu;
 
+	GameObject activeMenu;
 
     /// <section>Load in UI game objects.</section>
 	public override void InternalSetup()
@@ -31,11 +32,35 @@ public class UIController : BaseController
        InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
     }
 
+	public override void RemoveEventListeners() {
+		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
+	}
+
     public void ReceiveInput(object source, InputEventArgs eventArgs)
-    {
-        if (eventArgs.WasPressed("inventory"))
-            inventory.SetActive(!inventory.activeSelf);
-        else if (eventArgs.WasPressed("mainmenu"))
-            mainMenu.SetActive(!mainMenu.activeSelf);
+	{
+		if (eventArgs.WasPressed ("inventory")) {
+			inventory.SetActive (!inventory.activeSelf);
+			if (inventory.activeSelf)
+				activeMenu = inventory;
+			else
+				activeMenu = null;
+		} else if (eventArgs.WasPressed ("mainmenu")) {
+			if (activeMenu != null && activeMenu != mainMenu) {
+				activeMenu.SetActive (false);
+				activeMenu = null;
+			} else {
+				mainMenu.SetActive (!mainMenu.activeSelf);
+			}
+			if (mainMenu.activeSelf)
+				activeMenu = mainMenu;
+			else
+				activeMenu = null;
+		}
+
+		if (activeMenu) {
+			InputController.mode = InputInfo.InputMode.UI;
+		} else {
+			InputController.mode = InputInfo.InputMode.Free;
+		}
     }
 }

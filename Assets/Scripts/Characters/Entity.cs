@@ -19,9 +19,6 @@ public class Entity : MonoBehaviour {
 	public float attack = 1f;
 	public float defense = 1f;
 
-	// Collision stats
-	public float characterRadius;
-
 	// State (used for animation also) 
 	public enum CharacterState { 
 		Dead,
@@ -46,7 +43,7 @@ public class Entity : MonoBehaviour {
 	protected bool oddStep;
 
 	// Convention used for directions, but not using the enum for simplicity
-	public static Vector2[] directionVectors = new Vector2[4] {
+	public static Vector2[] directionVectors = new Vector2[] {
 		new Vector2(0,1), new Vector2(1,0), new Vector2(0,-1), new Vector2(-1,0)
 	};
 	public static float secondaryDirFactor = .5f;

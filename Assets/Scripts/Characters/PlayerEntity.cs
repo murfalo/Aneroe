@@ -10,13 +10,23 @@ public class PlayerEntity : Entity {
 	protected int combatDir;
 	protected float combatDirTimer;
 	protected float combatLinkTimer;
+
 	public Inventory inv;
+	public event System.EventHandler<InventoryEvents.ItemPickupEventArgs> itemPickup;
+
+	// Stores top item on ground player is able to pickup
+	private Item topItemOnGround;
 
 	// For use in queue comparisons
 	CharacterStateAction[] defaultActions;
 
 	// Internal states
 	PriorityQueue<CharacterStateAction> queuedStateActions;
+
+	// Position offsets from transform.position for interact detection in each of four directions
+	Vector2[] interactOffsets;
+	float interactRadius;
+	int interactLayerMask;
 
 	public override void Setup() {
 		base.Setup ();
@@ -26,14 +36,20 @@ public class PlayerEntity : Entity {
 		for (int i = 0; i < defaultActions.Length; i++) {
 			defaultActions[i] = new CharacterStateAction ((CharacterState)i);
 		}
-
+		BoxCollider2D col = GetComponent<BoxCollider2D> ();
+		interactLayerMask = LayerMask.GetMask (new string[2] {"InteractiveTile","Item"});
+		interactRadius = .5f * ((col.size.x + col.size.y) / 2);
+		interactOffsets = new Vector2[4] { 
+			new Vector2(0,1.25f*(.5f*col.size.y)), 
+			new Vector2(1.5f*(.5f*col.size.x),0), 
+			new Vector2(0,-1.75f*(.5f*col.size.y)), 
+			new Vector2(-1.5f*(.5f*col.size.x),0)
+		};
 		combatDirTimer = 0;
 		combatLinkTimer = 0;
 
 		controller = GameObject.Find("Control").GetComponent<EntityController> ();
 		inv = new Inventory();
-		// Subscribe to the inventory controller events to handle UI events appropriately.
-		InventoryController.itemMoved += OnItemMoved;
 	}
 
 	public override void DoFixedUpdate() {
@@ -171,43 +187,45 @@ public class PlayerEntity : Entity {
 		return GetDirection();
 	}
 
-	/// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
-	/// <param name="source">Originator of itemMoved event.</param>
-	/// <param name="eventArgs">Useful context of the itemMoved event.</param>
-	public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
-	{
+	public void OnItemMoved(InventoryEvents.ItemMovedEventArgs eventArgs) {
 		inv.RemoveItem(eventArgs.prevSlot);
 		if (eventArgs.newSlot != null)
 			inv.SetItem((int)eventArgs.newSlot, eventArgs.item);
 	}
 
+	public Vector2 GetInteractPosition() {
+		return (Vector2)transform.position + interactOffsets [GetDirection () - 1];
+	}
+
 	public void TryInteracting() {
 		if (!CanActOutOfMovement())
 			return;
-		// right now, it only tries to place first item into ItemMound below
-		Item i = inv.GetItem(0);
-		Collider2D coll = Physics2D.OverlapCircle (transform.position, 0.01f, 1 << LayerMask.NameToLayer ("ItemMound"));
-		if (i != null && coll != null && coll.gameObject.GetComponent<ItemMound> ().CanUseItem (i)) {
-			coll.gameObject.GetComponent<ItemMound> ().UseItem (i);
-			inv.RemoveItem (0);
-			print("Putting Item into mound");
-		} else if (coll != null) {
-			inv.AddItem (coll.gameObject.GetComponent<ItemMound> ().RetrieveItem (this));
-			print ("Taking Item out of mound");
+		Collider2D[] cols = Physics2D.OverlapCircleAll (GetInteractPosition(), interactRadius, interactLayerMask);
+		if (cols.Length == 0)
+			return;
+		else if (cols.Length == 1) {
+			if (cols [0].gameObject.layer == LayerMask.NameToLayer ("Item")) {
+				if (!inv.IsFull ()) {
+					print ("Picking up");
+					Item i = cols [0].GetComponent<Item> ();
+					i.PickupItem (this);
+					itemPickup (this, new InventoryEvents.ItemPickupEventArgs (i, inv));
+				}
+			} else {
+				//Add options
+				//cols [0].GetComponent<Tile> ().CanUseItem()
+			}
 		} else {
-			print ("Miss");
+			//Add options
 		}
 	}
 
 	public void OnTriggerEnter2D (Collider2D coll) {
-		// Attempting to pick up items off the ground
-		Item i = coll.gameObject.GetComponent<Item> ();
-		if (i != null && i.GetEntity() == null) {
-			print (i.transform.parent.name);
-			inv.AddItem (i);
-			i.gameObject.GetComponent<Renderer> ().enabled = false;
-			i.gameObject.GetComponent<Collider2D> ().enabled = false;
+		if (coll.gameObject.layer.Equals (LayerMask.NameToLayer ("Item"))) {
+			// Attempting to pick up items off the ground
+			if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
+				topItemOnGround = coll.gameObject.GetComponent<Item> ();
+			}
 		}
-
 	}
 }

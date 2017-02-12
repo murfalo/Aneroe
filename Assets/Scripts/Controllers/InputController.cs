@@ -10,7 +10,7 @@ namespace AneroeInputs {
 		// Free: if all inputs are allowed
 		// UI: if no in game input is allowed
 		// Paused: if in the escape menu
-		public InputInfo.InputMode mode;
+		public static InputInfo.InputMode mode;
 		public static InputEventWrapper iEvent;
 
 		public Dictionary<string, string> inputPairings = new Dictionary<string, string> {
@@ -23,7 +23,8 @@ namespace AneroeInputs {
 			{"attack","mouse 0"},
 			{"defend","mouse 1"},
 			{"quicken","left shift"},
-			{"switch character","x"}
+			{"switch character","space"},
+			{"interact","z"}
 		};
 
 		public Dictionary<string, string> axisPairings = new Dictionary<string, string>();
