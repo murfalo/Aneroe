@@ -10,6 +10,7 @@ TagManager:
   - UI
   - UISlot
   - UIItem
+  - Item
   layers:
   - Default
   - TransparentFX
