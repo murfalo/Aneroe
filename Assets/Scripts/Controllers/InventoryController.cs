@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using InventoryEvents;
+using System.Reflection;
 using AneroeInputs;
 
 
@@ -11,9 +12,14 @@ using AneroeInputs;
 /// </summary>
 public class InventoryController : BaseController
 {
+    /// <section>How far to drop items from player.</section>
+    private const float DROP_DIST = 0.5f;
 
     /// <section>Prefab for an inventory slot.</section>
-    [SerializeField] GameObject UISlot;
+    [SerializeField] private GameObject UISlot;
+
+    /// <section>Prefab for a physical (non-UI) item.</section>
+    [SerializeField] private GameObject Item;
 
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
@@ -27,7 +33,7 @@ public class InventoryController : BaseController
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public override void ExternalSetup()
     {
-		SceneController.timeSwapped += RefreshInventory<EventArgs>;
+        SceneController.timeSwapped += RefreshInventory<EventArgs>;
         SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
         for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
@@ -81,10 +87,27 @@ public class InventoryController : BaseController
         prevSelected.transform.position = prevSelected.transform.parent.position;
     }
 
+    /// <section>Generates a physical, non-UI item from a UI item.</section>
+    /// <param name="uiItem">UI Item to generate a physical item from.</param>
+    private GameObject UIItemToItem(GameObject uiItem)
+    {
+        var newItem = Instantiate(Item);
+        System.Type type = uiItem.GetComponent<Item>().GetType();
+        Component dest = newItem.GetComponent(type);
+        FieldInfo[] fields = type.GetFields();
+        foreach (FieldInfo field in fields)
+            field.SetValue(dest, field.GetValue(uiItem.GetComponent<Item>()));
+        return newItem;
+    }
+
     /// <section>Drops the selected item from the inventory.</section>
     /// <param name="item">The item to drop from the inventory.</param>
     private void DropItem(GameObject item)
     {
+        var activeCharacter = PlayerController.activeCharacter;
+        var newItem = UIItemToItem(item);
+        newItem.transform.SetParent(GameObject.Find("Items").transform);
+        newItem.transform.position = activeCharacter.transform.position + activeCharacter.transform.up * DROP_DIST;
         OnItemMoved(item, parent);
         Destroy(item);
     }
