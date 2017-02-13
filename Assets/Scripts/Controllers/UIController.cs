@@ -12,6 +12,9 @@ public class UIController : BaseController
     /// <section>The game object representing the main menu.</section>
     public static GameObject mainMenu;
 
+	/// <section>The game object representing the crafting menu.</section>
+	public static GameObject crafting;
+
 	GameObject activeMenu;
 
     /// <section>Load in UI game objects.</section>
@@ -20,10 +23,12 @@ public class UIController : BaseController
         for (int i = 0; i < UI.transform.childCount; i++)
         {
             Transform t = UI.transform.GetChild(i);
-            if (t.name.Equals("Inventory"))
-                inventory = t.gameObject;
-            else if (t.name.Equals("MainMenu"))
-                mainMenu = t.gameObject;
+			switch (t.name)
+			{
+				case "Inventory": inventory = t.gameObject; break;
+				case "MainMenu": mainMenu = t.gameObject; break;
+				case "Crafting": crafting = t.gameObject; break;
+			}
         }
     }
 
@@ -38,19 +43,13 @@ public class UIController : BaseController
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
 	{
-		if (eventArgs.WasPressed ("inventory") && (activeMenu == null || activeMenu == inventory)) {
-			// If inventory triggered and no other menu is active
-			inventory.SetActive (!inventory.activeSelf);
-			// Update active menu
-			if (inventory.activeSelf)
-				activeMenu = inventory;
-			else
-				activeMenu = null;
+		if (eventArgs.WasPressed ("inventory")) {
+			if (activeMenu == null || activeMenu == inventory)
+				ToggleInventory();
 		} else if (eventArgs.WasPressed ("mainmenu")) {
 			// If possible, deactivate other menu instead of activate main menu
 			if (activeMenu != null && activeMenu != mainMenu) {
-				activeMenu.SetActive (false);
-				activeMenu = null;
+				ToggleInventory();
 			} else {
 				mainMenu.SetActive (!mainMenu.activeSelf);
 			}
@@ -67,4 +66,11 @@ public class UIController : BaseController
 			InputController.mode = InputInfo.InputMode.Free;
 		}
     }
+
+	public void ToggleInventory()
+	{
+        inventory.SetActive(!inventory.activeSelf);
+        crafting.SetActive(!crafting.activeSelf);
+		activeMenu = (activeMenu != null) ? null : inventory;
+	}
 }
