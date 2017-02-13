@@ -63,6 +63,7 @@ public class PlayerController : EntityController
         // Inputs prioritized as such (by order of check):
         // Attacking, Walking, Switching character
         activeCharacter.Quicken(e.IsHeld("quicken"));
+		activeCharacter.Slowen (e.IsHeld ("slowen"));
 
         // See if a direction was input and log it
         bool dirChosen = false;

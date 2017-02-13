@@ -36,6 +36,7 @@ public class Entity : MonoBehaviour {
 	protected float BLOCK_SPEED_FACTOR = 0f;
 	protected float RUN_SPEED_FACTOR = 2f;
 	protected float NORMAL_SPEED_FACTOR = 1f;
+	protected float SLOW_SPEED_FACTOR = .33f;
 
 	protected float speedFactor;
 	protected int primaryDir;
@@ -123,10 +124,13 @@ public class Entity : MonoBehaviour {
 		Vector3 moveY = new Vector3 (0, move.y, 0);
 		move = new Vector3 (0, 0, 0);
 		// BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
-		RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveX,moveX.magnitude,collisionLayerMask);// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveX,moveX.magnitude,collisionLayerMask);
 		bool xHit = false;
 		for (int i = 0; i < hits.Length; i++) {
-			if (hits [i].transform.root != transform.root) {
+			// If didn't hit self
+			Entity possibleHit = hits [i].collider.GetComponentInParent<Entity>();
+			if (possibleHit != this) {
 				xHit = true;
 				break;
 			}
@@ -134,10 +138,12 @@ public class Entity : MonoBehaviour {
 		if (!xHit) {
 			transform.Translate (moveX);
 		}
-		hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveY,moveY.magnitude,collisionLayerMask);// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveY,moveY.magnitude,collisionLayerMask);
 		bool yHit = false;
 		for (int i = 0; i < hits.Length; i++) {
-			if (hits [i].transform.root != transform.root) {
+			Entity possibleHit = hits [i].collider.GetComponentInParent<Entity>();
+			if (possibleHit != this) {
 				yHit = true;
 				break;
 			}
@@ -159,6 +165,16 @@ public class Entity : MonoBehaviour {
 		}
 	}
 		
+	public void Slowen(bool active) {
+		if (!CanActOutOfMovement())
+			return;
+		if (active) {
+			speedFactor = SLOW_SPEED_FACTOR;
+		} else if (Mathf.Abs(speedFactor - SLOW_SPEED_FACTOR) < .001) {
+			speedFactor = NORMAL_SPEED_FACTOR;
+		}
+	}
+
 	public virtual void EndWeaponUseAnim() {
 		anim.SetInteger ("state", (int)CharacterState.Still);
 		speedFactor = NORMAL_SPEED_FACTOR;

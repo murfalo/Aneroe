@@ -217,7 +217,14 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 				//cols [0].GetComponent<Tile> ().CanUseItem()
 			}
 		} else {
-			//Add options
+			//Change later to not just pick an item but display ui for options of choice
+			if (cols [0].gameObject.layer == LayerMask.NameToLayer ("Item")) {
+				if (!inv.IsFull ()) {
+					Item i = cols [0].GetComponent<Item> ();
+					i.PickupItem (this);
+					itemPickup (this, new InventoryEvents.ItemPickupEventArgs (i, inv));
+				}
+			} 
 		}
 	}
 

@@ -23,6 +23,7 @@ namespace AneroeInputs {
 			{"attack","mouse 0"},
 			{"defend","mouse 1"},
 			{"quicken","left shift"},
+			{"slowen","left ctrl"},
 			{"switch character","space"},
 			{"interact","z"}
 		};
@@ -65,7 +66,8 @@ namespace AneroeInputs {
 		public event InputEventHandler inputed;
 
 		public void RegisterKeys(InputEventArgs e) {
-			inputed (this, e);
+			if (inputed != null)
+				inputed (this, e);
 		}
 	}
 

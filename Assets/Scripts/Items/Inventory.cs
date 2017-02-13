@@ -112,7 +112,7 @@ public class Inventory : ISavable<InvSaveData>
 
 	public bool IsFull() 
 	{
-		return itemSlotsUsed == maxItems;
+		return NextAvailableSlot () == -1;
 	}
 
     /// <summary>Removes an item form the inventory's inventory.</summary>
