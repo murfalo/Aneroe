@@ -100,13 +100,9 @@ public class Inventory
     }
 
 	public int NextAvailableSlot() {
-		for (int j = items.Count - 1; j >= 0; j--) {
-			for (int i = 0; i < LEVEL_ITEMS; i++) {
-				if (items [j] [i] != null)
-					continue;
-				return j * LEVEL_ITEMS + i;
-			}
-		}
+		for (int i = 0; i < maxItems; i++)
+			if (GetItem (i) == null)
+				return i;
 		return -1;
 	}
 

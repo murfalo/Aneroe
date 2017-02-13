@@ -188,8 +188,9 @@ public class PlayerEntity : Entity {
 	}
 
 	public void OnItemMoved(InventoryEvents.ItemMovedEventArgs eventArgs) {
-		inv.RemoveItem(eventArgs.prevSlot);
-		if (eventArgs.newSlot != null)
+		if (eventArgs.prevSlot >= 0)
+			inv.RemoveItem(eventArgs.prevSlot);
+		if (eventArgs.newSlot >= 0)
 			inv.SetItem((int)eventArgs.newSlot, eventArgs.item);
 	}
 
@@ -206,7 +207,6 @@ public class PlayerEntity : Entity {
 		else if (cols.Length == 1) {
 			if (cols [0].gameObject.layer == LayerMask.NameToLayer ("Item")) {
 				if (!inv.IsFull ()) {
-					print ("Picking up");
 					Item i = cols [0].GetComponent<Item> ();
 					i.PickupItem (this);
 					itemPickup (this, new InventoryEvents.ItemPickupEventArgs (i, inv));

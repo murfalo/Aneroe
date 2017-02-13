@@ -15,6 +15,9 @@ public class AIEntity : Entity
 		Attacking
 	};
 
+	public string[] itemDropNames;
+	public float[] itemDropWeights;
+
 	// For each base state, a routine executes to determine how the entity acts when in that state
 	Dictionary<BaseState, AIRoutine> routines;
 
@@ -68,6 +71,25 @@ public class AIEntity : Entity
 
 	public void NotifyController(string action) {
 		controller.RespondToEntityAction (this, action);
+	}
+
+	public GameObject[] GetDrops() {
+		GameObject[] items = new GameObject[itemDropNames.Length];
+		for (int i = 0; i < itemDropNames.Length; i++) {
+			items [i] = (GameObject)Resources.Load ("Prefabs/Items/" + itemDropNames [i]);
+		}
+		return items;
+	}
+
+	public int GetRandomItemIndex() {
+		float rand = Random.Range (0, 1f);
+		for (int i = 0; i < itemDropWeights.Length; i++) {
+			float weight = itemDropWeights [i];
+			if (rand < weight)
+				return i;
+			rand -= weight;
+		}
+		return 0;
 	}
 }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using InventoryEvents;
@@ -21,7 +22,7 @@ public class InventoryController : BaseController
     /// <section>Prefab for a physical (non-UI) item.</section>
     [SerializeField] private GameObject Item;
 
-	private GameObject[] slots;
+	private List<GameObject> slots;
 
     /// <section>Item currently selected by the player.</section>
     private GameObject selected { get; set; }
@@ -30,7 +31,7 @@ public class InventoryController : BaseController
     public static event EventHandler<ItemMovedEventArgs> itemMoved;
 
     /// <section>Original parent of the currently selected item.</section>
-    private Transform parent { get; set; }
+	private int parentIndex;
 
     /// <section>Initializes the inventory to the size of the currently active character.</section>
     public override void ExternalSetup()
@@ -39,9 +40,9 @@ public class InventoryController : BaseController
 		SceneController.timeSwapped += RebindListener;
 		SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
-		slots = new GameObject[PlayerController.activeCharacter.inv.maxItems];
+		slots = new List<GameObject> ();
 		GameObject itemHolder = GameObject.Find ("Items");
-		for (int i = 0; i < slots.Length; i++)
+		for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
         {
             var newSlot = (GameObject)Instantiate(UISlot);
 			if (i % 2 != 0) {
@@ -50,11 +51,12 @@ public class InventoryController : BaseController
 				GameObject item = (GameObject)Instantiate (Item);
 				item.transform.SetParent (itemHolder.transform);
 				invSlot.GetComponent<InventorySlot> ().SetUnsetItem (item.GetComponent<Item>());
+				OnItemMoved (invSlot, -1, i);
 			}
 			
             newSlot.name = "Slot." + i.ToString();
             newSlot.transform.SetParent(UIController.inventory.transform);
-			slots [i] = newSlot;
+			slots.Add(newSlot);
         }
     }
 
@@ -78,7 +80,7 @@ public class InventoryController : BaseController
         if (target.CompareTag("UISlot")) selected = null;
         if (!target.CompareTag("UIItem")) return;
         selected = target;
-        parent = selected.transform.parent;
+		parentIndex = slots.IndexOf(selected.transform.parent.gameObject);
         selected.transform.SetParent(selected.GetComponentInParent<Canvas>().transform);
         target.GetComponent<Image>().raycastTarget = false;
     }
@@ -92,9 +94,10 @@ public class InventoryController : BaseController
         if (target.CompareTag("UIItem") || target.CompareTag("UISlot"))
         {
             var newParent = (target.CompareTag("UIItem")) ? target.transform.parent : target.transform;
+			int newParentIndex = slots.IndexOf (newParent.gameObject);
             prevSelected.transform.SetParent(newParent);
             SelectItem(target);
-            OnItemMoved(prevSelected, parent, newParent);
+            OnItemMoved(prevSelected, parentIndex, newParentIndex);
         }
         else
         {
@@ -107,10 +110,12 @@ public class InventoryController : BaseController
 
 	public void PickupItem(object source, InventoryEvents.ItemPickupEventArgs e)
 	{
-		var uiItem = slots [e.inventory.NextAvailableSlot ()];
+		int nextSlot = e.inventory.NextAvailableSlot ();
+		var uiItem = slots [nextSlot];
 		GameObject invItem = ((GameObject)Instantiate (InvSlot));
 		invItem.transform.SetParent (uiItem.transform);
 		invItem.GetComponent<InventorySlot> ().SetUnsetItem (e.item);
+		OnItemMoved(invItem, -1, nextSlot);
 	}
 
     /// <section>Drops the selected item from the inventory.</section>
@@ -121,7 +126,7 @@ public class InventoryController : BaseController
 		var newItem = item.GetComponent<InventorySlot>().GetItem();
         //newItem.transform.SetParent(GameObject.Find("Items").transform);
 		newItem.DropItem(activeCharacter.GetInteractPosition());
-        OnItemMoved(item, parent);
+        OnItemMoved(item, parentIndex, -1);
         Destroy(item);
     }
 
@@ -137,13 +142,12 @@ public class InventoryController : BaseController
     }
 
     /// <section>Publishes the itemMoved event if an item has changed positions in the inventory.</section>
-    private void OnItemMoved(GameObject go, Transform prevParent, Transform newParent = null)
+	private void OnItemMoved(GameObject go, int prevSlot, int newSlot)
     {
-        int prevSlot, newSlot = -1;
-        var item = go.GetComponent<Item>();
-        Int32.TryParse(prevParent.name.Split('.')[1], out prevSlot);
-        if (newParent)
-            Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
+		var item = go.GetComponent<InventorySlot> ().GetItem ();
+        //Int32.TryParse(prevParent.name.Split('.')[1], out prevSlot);
+        //if (newParent)
+        //    Int32.TryParse(newParent.name.Split('.')[1], out newSlot);
         if (itemMoved != null && newSlot != prevSlot)
             itemMoved(this, new InventoryEvents.ItemMovedEventArgs(item, prevSlot, newSlot));
     }
