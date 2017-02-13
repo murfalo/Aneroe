@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour {
 	protected Animator anim;
 	protected Weapon activeWeapon;
 	protected EntityController controller;
-	//Collider2D hurtbox;
+	Collider2D hurtbox;
 
 	// Combat stats
 	public StatInfo stats;
@@ -18,6 +18,8 @@ public class Entity : MonoBehaviour {
 	public float speed = 1f;
 	public float attack = 1f;
 	public float defense = 1f;
+
+	int collisionLayerMask;
 
 	// State (used for animation also) 
 	public enum CharacterState { 
@@ -59,6 +61,7 @@ public class Entity : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		activeWeapon = GetComponentInChildren<Weapon> ();
 		activeWeapon.Setup ();
+		hurtbox = GetComponent<BoxCollider2D> ();
 
 		stunTimer = 0;
 		anim.SetInteger ("state", (int)CharacterState.Still);
@@ -71,6 +74,8 @@ public class Entity : MonoBehaviour {
 			{"defense",defense},
 			{"speed",speed}
 		});
+
+		collisionLayerMask = LayerMask.GetMask (new string[2] {"Wall","Character"});
 	}
 
 	public virtual void DoFixedUpdate() {
@@ -114,20 +119,34 @@ public class Entity : MonoBehaviour {
 			dirVector = Vector3.Normalize(dirVector + secondaryDirFactor * (Vector3)directionVectors [secondaryDir - 1]);
 		}
 		Vector3 move = speedFactor * speed * Time.fixedDeltaTime * dirVector;
-
+		Vector3 moveX = new Vector3 (move.x, 0, 0);
+		Vector3 moveY = new Vector3 (0, move.y, 0);
+		move = new Vector3 (0, 0, 0);
 		// BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
-		/*RaycastHit2D[] hits = Physics2D.RaycastAll (transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-		bool noCollisions = true;
-		foreach (RaycastHit2D hit in hits) {
-			if (hit.collider != null && !hit.collider.GetComponentInParent<Entity> ().Equals (this)) {
-				noCollisions = false;
+		RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveX,moveX.magnitude,collisionLayerMask);// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		bool xHit = false;
+		for (int i = 0; i < hits.Length; i++) {
+			if (hits [i].transform.root != transform.root) {
+				xHit = true;
 				break;
 			}
 		}
-		if (noCollisions)
-			transform.Translate (move);*/
+		if (!xHit) {
+			transform.Translate (moveX);
+		}
+		hits = Physics2D.BoxCastAll(transform.position,hurtbox.bounds.size, 0.0f,moveY,moveY.magnitude,collisionLayerMask);// Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
+		bool yHit = false;
+		for (int i = 0; i < hits.Length; i++) {
+			if (hits [i].transform.root != transform.root) {
+				yHit = true;
+				break;
+			}
+		}
+		if (!yHit) {
+			transform.Translate (moveY);
+		}
 		
-		transform.Translate (move);
+
 	}
 
 	public void Quicken(bool active) {
