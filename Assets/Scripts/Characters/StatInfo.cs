@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StatInfo {
 	public static Dictionary<string, float> defaultLevels = new Dictionary<string, float>() {
 		{"health",3},
@@ -13,7 +14,10 @@ public class StatInfo {
 	Dictionary<string, float> statLevels;
 
 	public StatInfo() {
-		statLevels = defaultLevels;
+		statLevels = new Dictionary<string, float> ();
+		foreach (KeyValuePair<string, float> pair in defaultLevels) {
+			statLevels.Add (pair.Key, pair.Value);
+		}
 	}
 
 	public StatInfo(Dictionary<string, float> stats) {

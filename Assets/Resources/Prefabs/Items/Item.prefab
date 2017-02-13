@@ -64,12 +64,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1430202473246470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758690432ad7ddb4a8e8137c0c979052, type: 3}
+  m_Script: {fileID: 11500000, guid: eb9ec2de4db210e4e80fe8bf689b0b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: Item
   smallItem: 0
-  weight: 1000
-  count: 0
+  count: 1
 --- !u!212 &212377542363965644
 SpriteRenderer:
   m_ObjectHideFlags: 1

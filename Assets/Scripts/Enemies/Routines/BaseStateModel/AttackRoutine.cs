@@ -23,7 +23,6 @@ public class AttackRoutine : AIRoutine {
 			if (currentDelay < 0) {
 				currentDelay += Time.deltaTime;
 			} else {
-				print ("Attacking");
 				// For animation
 				DetermineDirections (targetVector.normalized);
 				// To prevent walking

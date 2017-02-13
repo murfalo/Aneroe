@@ -54,9 +54,9 @@ public class SpawnerController : EntityController {
 	void DestroyEntity(Entity e) {
 		GameObject[] itemsToSpawn = ((AIEntity)e).GetDrops();
 		GameObject item = (GameObject)Instantiate(itemsToSpawn [((AIEntity)e).GetRandomItemIndex ()]);
-		item.transform.SetParent (GameObject.Find ("Items").transform);
-		item.transform.position = e.transform.position;
-		item.GetComponent<SpriteRenderer> ().enabled = true;
+		Item i = item.GetComponent<Item> ();
+		i.Setup ();
+		i.DropItem (e.transform.position);
 		spawnedEntities.Remove ((AIEntity)e);
 		if (spawnedEntities.Count == 0) {
 			AIController.RemoveSpawner (this);

@@ -13,9 +13,12 @@ public class SaveController : BaseController
     private static Hashtable saveData;
 
     /// <summary>Event published when saving is about to occur.</summary>
-    public static event EventHandler<EventArgs> playerSaving;
+    public static event EventHandler<EventArgs> fileSaving;
 
-    /// <summary>Event published when loading has completed.</summary>
+	/// <summary>Event published when file loading has completed.</summary>
+	public static event EventHandler<EventArgs> fileLoaded;
+
+    /// <summary>Event published when player loading has completed.</summary>
     public static event EventHandler<EventArgs> playerLoaded;
 
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
@@ -35,8 +38,10 @@ public class SaveController : BaseController
     /// <param name="value">Value to associate with key in saveData.</param>
     public static void SetValue<T>(string key, T value)
     {
-        if (!saveData.ContainsKey(key))
-            saveData.Add(key, value);
+		if (!saveData.ContainsKey (key))
+			saveData.Add (key, value);
+		else
+			saveData [key] = value;
     }
 
     /// <section>Gets a value from saveData associated with key.</section>
@@ -68,15 +73,17 @@ public class SaveController : BaseController
 			return;
 		}
         lf.Close();
-        if (playerLoaded != null)
-            playerLoaded(this, new EventArgs());
+        if (fileLoaded != null)
+			fileLoaded(this, new EventArgs());
+		if (playerLoaded != null)
+			playerLoaded(this, new EventArgs());
     }
 
     /// <summary>Saves the hash table from memory to a file.</summary>
     public void Save()
     {
-        if (playerSaving != null)
-            playerSaving(this, new EventArgs());
+        if (fileSaving != null)
+            fileSaving(this, new EventArgs());
         BinaryFormatter bf = new BinaryFormatter();
         FileStream sf = File.Create(Application.persistentDataPath + saveLocation);
         bf.Serialize(sf, saveData);

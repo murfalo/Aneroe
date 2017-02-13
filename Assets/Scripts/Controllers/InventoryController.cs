@@ -41,18 +41,18 @@ public class InventoryController : BaseController
 		SaveController.playerLoaded += RefreshInventory<EventArgs>;
 
 		slots = new List<GameObject> ();
-		GameObject itemHolder = GameObject.Find ("Items");
+		//GameObject itemHolder = GameObject.Find ("Items");
 		for (int i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
         {
             var newSlot = (GameObject)Instantiate(UISlot);
-			if (i % 2 != 0) {
+			/*if (i % 2 != 0) {
 				GameObject invSlot = (GameObject)Instantiate (InvSlot);
 				invSlot.transform.SetParent (newSlot.transform);
 				GameObject item = (GameObject)Instantiate (Item);
 				item.transform.SetParent (itemHolder.transform);
 				invSlot.GetComponent<InventorySlot> ().SetUnsetItem (item.GetComponent<Item>());
 				OnItemMoved (invSlot, -1, i);
-			}
+			}*/
 			
             newSlot.name = "Slot." + i.ToString();
             newSlot.transform.SetParent(UIController.inventory.transform);
@@ -157,9 +157,25 @@ public class InventoryController : BaseController
     /// <param name=""></section>
     private void RefreshInventory<T>(object source, T eventArgs)
     {
-        if (!typeof(T).IsAssignableFrom(typeof(EventArgs))) return;
-        // Do things
+        if (!typeof(T).IsAssignableFrom(typeof(EventArgs))) 
+			return;
 
+		Inventory activeInv = PlayerController.activeCharacter.inv;
+		GameObject invSlot;
+		int numSlots = activeInv.maxItems;
+
+		for (int i = 0; i < numSlots; i++) {
+			Item item = activeInv.GetItem (i);
+			InventorySlot oldSlot = slots [i].GetComponentInChildren<InventorySlot> ();
+			if (oldSlot != null)
+				Destroy (oldSlot.gameObject);
+			if (item == null) {
+				continue;
+			}
+			invSlot = (GameObject)Instantiate (InvSlot);
+			invSlot.transform.SetParent (slots [i].transform);
+			invSlot.GetComponent<InventorySlot> ().SetUnsetItem (item);
+		}
     }
 
 	private void RebindListener(object source, PlayerSwitchEventArgs e) {

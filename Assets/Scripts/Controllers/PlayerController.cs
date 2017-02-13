@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using AneroeInputs;
 using UnityEngine.UI;
+using SaveData;
 
 public class PlayerController : EntityController
 {
@@ -36,16 +37,16 @@ public class PlayerController : EntityController
     public override void ExternalSetup()
     {
         InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
-		SaveController.playerLoaded += Load;
-		SaveController.playerSaving += Save;
+		SaveController.fileLoaded += Load;
+		SaveController.fileSaving += Save;
 		// Subscribe to the inventory controller events to handle UI events appropriately.
 		InventoryController.itemMoved += OnItemMoved;
     }
 
 	public override void RemoveEventListeners() {
 		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
-		SaveController.playerLoaded -= Load;
-		SaveController.playerSaving -= Save;
+		SaveController.fileLoaded -= Load;
+		SaveController.fileSaving -= Save;
 		InventoryController.itemMoved -= OnItemMoved;
 	}
 
@@ -117,24 +118,17 @@ public class PlayerController : EntityController
         GameObject.Find("Control").GetComponent<SceneController>().ReloadBaseScene();
     }
 
-	public void Load(object sender, System.EventArgs e) {
+	public void Save(object sender, System.EventArgs e) {
 		for (int i = 0; i < characters.Length; i++) {
-			PlayerEntity player = characters [i];
-			EntitySaveData esd;
-			SaveController.GetValue (SaveKeys.players [i], out esd);
-			player.transform.position = new Vector3(esd.posX, esd.posY, 0);
-			player.stats = new StatInfo(esd.statLevels);
+			SaveController.SetValue (SaveKeys.players [i], characters [i].Save (default(EntitySaveData)));
 		}
 	}
 
-	public void Save(object sender, System.EventArgs e) {
+	public void Load(object sender, System.EventArgs e) {
 		for (int i = 0; i < characters.Length; i++) {
-			PlayerEntity player = characters [i];
-			EntitySaveData esd = new EntitySaveData ();
-			esd.posX = player.transform.position.x;
-			esd.posY = player.transform.position.y;
-			esd.statLevels = player.stats.GetStats();
-			SaveController.SetValue (SaveKeys.players [i], esd);
+			EntitySaveData esd;
+			SaveController.GetValue (SaveKeys.players [i], out esd);
+			characters [i].Load (esd);
 		}
 	}
 }

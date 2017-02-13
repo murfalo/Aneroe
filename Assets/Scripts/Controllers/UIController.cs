@@ -38,19 +38,23 @@ public class UIController : BaseController
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
 	{
-		if (eventArgs.WasPressed ("inventory")) {
+		if (eventArgs.WasPressed ("inventory") && (activeMenu == null || activeMenu == inventory)) {
+			// If inventory triggered and no other menu is active
 			inventory.SetActive (!inventory.activeSelf);
+			// Update active menu
 			if (inventory.activeSelf)
 				activeMenu = inventory;
 			else
 				activeMenu = null;
 		} else if (eventArgs.WasPressed ("mainmenu")) {
+			// If possible, deactivate other menu instead of activate main menu
 			if (activeMenu != null && activeMenu != mainMenu) {
 				activeMenu.SetActive (false);
 				activeMenu = null;
 			} else {
 				mainMenu.SetActive (!mainMenu.activeSelf);
 			}
+			// Update active menu
 			if (mainMenu.activeSelf)
 				activeMenu = mainMenu;
 			else

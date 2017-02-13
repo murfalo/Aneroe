@@ -31,6 +31,8 @@ public class SceneController : BaseController
 			obj.ExternalSetup();
 		}
         
+		SaveController.playerLoaded += RemoveTempGameObjects;
+
 		// Activate initial time swap for start of game
 		if (timeSwapped != null)
 			timeSwapped(this, new PlayerSwitchEventArgs(null,PlayerController.activeCharacter));
@@ -99,6 +101,12 @@ public class SceneController : BaseController
         if (timeSwapped != null)
 			timeSwapped(this, new PlayerSwitchEventArgs(oldP, newP));
     }
+
+	public void RemoveTempGameObjects(object sender, EventArgs e) {
+		Destroy (GameObject.Find ("Items"));
+		GameObject newHolder = new GameObject ();
+		newHolder.name = "Items";
+	}
 }
 
 public class PlayerSwitchEventArgs : EventArgs {

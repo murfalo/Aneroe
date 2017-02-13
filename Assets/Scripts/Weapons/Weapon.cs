@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SaveData;
 
 public class Weapon : Item {
 
@@ -8,6 +9,9 @@ public class Weapon : Item {
 	Animator anim;
 
 	// Properties
+	public string[] statNames;
+	public float[] statValues;
+
 	public float speed = 1f;
 	public float attack = 1f;
 	public float defense = 1f;
@@ -18,15 +22,14 @@ public class Weapon : Item {
 	List<Entity> damageQueue;
 	List<Entity> targetsHit;
 
-	protected override void Awake () {
-		base.Awake ();
+	public override void Setup () {
+		base.Setup ();
 		anim = GetComponent<Animator> ();
 		//durability = MAX_DURABILITY;
 
 		targetsHit = new List<Entity> ();
 		damageQueue = new List<Entity> ();
 		owner = GetComponentInParent<Entity> ();
-
 	}
 
 	public void StartAttack(int dir) {
@@ -126,5 +129,19 @@ public class Weapon : Item {
 				tb.UseItem (this); 
 			} 
 		}
+	}
+
+	public override ItemSaveData Save (ItemSaveData baseItem)
+	{
+		WeaponSaveData wsd = new WeaponSaveData ();
+		wsd = (WeaponSaveData)base.Save (wsd);
+		// Save statInfo now
+		return wsd;
+	}
+
+	public override void Load (ItemSaveData isd)
+	{
+		base.Load (isd);
+		WeaponSaveData wsd = (WeaponSaveData)isd;
 	}
 }

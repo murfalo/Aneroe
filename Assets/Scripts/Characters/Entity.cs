@@ -58,6 +58,7 @@ public class Entity : MonoBehaviour {
 	public virtual void Setup () {
 		anim = GetComponent<Animator> ();
 		activeWeapon = GetComponentInChildren<Weapon> ();
+		activeWeapon.Setup ();
 
 		stunTimer = 0;
 		anim.SetInteger ("state", (int)CharacterState.Still);
@@ -226,11 +227,4 @@ public class Entity : MonoBehaviour {
 		}
 	}
 
-}
-
-[System.Serializable]
-public struct EntitySaveData {
-	public float posX;
-	public float posY;
-	public Dictionary<string, float> statLevels;
 }

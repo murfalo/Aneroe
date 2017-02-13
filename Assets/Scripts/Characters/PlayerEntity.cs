@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SaveData;
 
-public class PlayerEntity : Entity {
+public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 
 	float DIRECTION_TAP_BUFFER = .2f;
 	float LINK_ATTACKS_BUFFER = .1f;
@@ -226,6 +227,35 @@ public class PlayerEntity : Entity {
 			if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
 				topItemOnGround = coll.gameObject.GetComponent<Item> ();
 			}
+		}
+	}
+
+	public EntitySaveData Save (EntitySaveData baseObj) {
+		EntitySaveData esd = new EntitySaveData ();
+		esd.posX = transform.position.x;
+		esd.posY = transform.position.y;
+		esd.statLevels = stats.GetStats();
+		esd.inv = inv.Save (default(InvSaveData));
+		return esd;
+	}
+
+	public void Load(EntitySaveData esd) {
+		transform.position = new Vector3 (esd.posX, esd.posY, 0);
+		stats = new StatInfo (esd.statLevels);
+		if (inv == default(Inventory))
+			inv = new Inventory ();
+		inv.Load (esd.inv);
+		// Destroy old entity items
+		foreach (Item item in GetComponentsInChildren<Item>()) {
+			// Hacky way of disassociating weapon for now
+			if (item.name != "Dagger")
+				Destroy (item.gameObject);
+		}
+		// "Pickup" newly created entity items
+		for (int i = 0; i < inv.maxItems; i++) {
+			Item item = inv.GetItem (i);
+			if (item != null)
+				item.PickupItem (this);
 		}
 	}
 }

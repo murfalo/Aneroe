@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InventoryEvents;
+using SaveData;
 
 /// <summary>Wrapper class for a list used to manage the player's inventory.</summary>
-public class Inventory
+public class Inventory : ISavable<InvSaveData>
 {
     /// <summary>Initializes a new inventory object with a single row of items!</summary>
     public Inventory()
@@ -41,7 +42,9 @@ public class Inventory
     /// Number of items in available per level.  Used in calculating the maximum number of items
     /// that can be stored by the inventory.
     /// </summary>
-    private const int LEVEL_ITEMS = 7;
+	private const int LEVEL_ITEMS = 7;
+
+	public const int MAX_POSSIBLE_ITEMS = MAX_LEVEL * LEVEL_ITEMS;
 
     /// <summary>Calculates the maximum number of items an inventory of a level can hold.</summary>
     /// <param name="invLevel">Level of inventory to calculate the max items for.</param>
@@ -53,6 +56,7 @@ public class Inventory
         }
     }
 
+		
     /// <summary>Calculates the row and column that an item is stored in given an item's index.</summary>
     /// <param name="itemIndex">Index of item in inventory to replace.</param>
     /// <param name="rowIndex">Row index of item in inventory.</param>
@@ -133,4 +137,57 @@ public class Inventory
         if (newLevel > 0 && newLevel < MAX_LEVEL)
             level = newLevel;
     }
+
+	public InvSaveData Save(InvSaveData baseObj) {
+		InvSaveData isd = new InvSaveData ();
+		Item item;
+		isd.items = new ItemSaveData[maxItems];
+		int row, col;
+		for (int i = 0; i < maxItems; i++) {
+			GetIndices (i, out row, out col);
+			item = items [row] [col];
+			if (item != null)
+				isd.items [i] = item.Save (default(ItemSaveData));
+		}
+		isd.hotkeyItems = new ItemSaveData[hotkeyItems.Length];
+		for (int i = 0; i < hotkeyItems.Length; i++) {
+			item = hotkeyItems [i];
+			if (item != null)
+				isd.hotkeyItems [i] = item.Save (default(ItemSaveData));
+				
+		}
+		isd.level = level;
+		isd.itemSlotsUsed = itemSlotsUsed;
+		return isd;
+	}
+
+	public void Load(InvSaveData isd) {
+		int row, col, i;
+		GameObject item;
+		ItemSaveData itemSave;
+
+		for (i = 0; i < maxItems; i++) {
+			itemSave = isd.items [i];
+			GetIndices (i, out row, out col);
+			if (itemSave != null) {
+				item = GameObject.Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + isd.items [i].prefabName));
+				items [row] [col] = item.GetComponent<Item> ();
+				items [row] [col].Setup ();
+				items [row] [col].Load (itemSave);
+			} else
+				items [row] [col] = null;
+		}
+		for (i = 0; i < hotkeyItems.Length; i++) {
+			itemSave = isd.hotkeyItems [i];
+			if (itemSave != null) {
+				item = GameObject.Instantiate(Resources.Load<GameObject> ("Prefabs/Items/" + isd.hotkeyItems[i].prefabName));
+				hotkeyItems [i] = item.GetComponent<Item> ();
+				hotkeyItems [i].Setup ();
+				hotkeyItems [i].Load (itemSave);
+			} else 
+				hotkeyItems [i] = null;
+		}
+		level = isd.level;
+		itemSlotsUsed = isd.itemSlotsUsed;
+	}
 }
