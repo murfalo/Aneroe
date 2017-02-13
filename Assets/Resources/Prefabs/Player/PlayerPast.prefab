@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503387391778352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.438, y: 0.161, z: 0}
+  m_LocalPosition: {x: -100, y: 0.161, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4404587600031872}
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallItem: 0
   weight: 0
+  count: 0
   speed: 1
   attack: 1
   defense: 1
@@ -255,7 +256,6 @@ MonoBehaviour:
   speed: 2
   attack: 1
   defense: 1
-  characterRadius: 0.5
 --- !u!212 &212246615379376156
 SpriteRenderer:
   m_ObjectHideFlags: 1
