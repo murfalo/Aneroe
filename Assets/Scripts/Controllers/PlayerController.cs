@@ -40,14 +40,14 @@ public class PlayerController : EntityController
 		SaveController.fileLoaded += Load;
 		SaveController.fileSaving += Save;
 		// Subscribe to the inventory controller events to handle UI events appropriately.
-		InventoryController.itemMoved += OnItemMoved;
+		//InventoryController.itemMoved += OnItemMoved;
     }
 
 	public override void RemoveEventListeners() {
 		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
 		SaveController.fileLoaded -= Load;
 		SaveController.fileSaving -= Save;
-		InventoryController.itemMoved -= OnItemMoved;
+		//InventoryController.itemMoved -= OnItemMoved;
 	}
 
     void FixedUpdate()
@@ -105,7 +105,7 @@ public class PlayerController : EntityController
 	/// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
 	/// <param name="source">Originator of itemMoved event.</param>
 	/// <param name="eventArgs">Useful context of the itemMoved event.</param>
-	public void OnItemMoved(object source, InventoryEvents.ItemMovedEventArgs eventArgs)
+	public void OnItemMoved(object source, UIEvents.ItemMovedEventArgs eventArgs)
 	{
 		activeCharacter.OnItemMoved (eventArgs);	
 	}

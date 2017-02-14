@@ -13,7 +13,7 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 	protected float combatLinkTimer;
 
 	public Inventory inv;
-	public event System.EventHandler<InventoryEvents.ItemPickupEventArgs> itemPickup;
+	public event System.EventHandler<UIEvents.ItemPickupEventArgs> itemPickup;
 
 	// Stores top item on ground player is able to pickup
 	private Item topItemOnGround;
@@ -188,7 +188,7 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 		return GetDirection();
 	}
 
-	public void OnItemMoved(InventoryEvents.ItemMovedEventArgs eventArgs) {
+	public void OnItemMoved(UIEvents.ItemMovedEventArgs eventArgs) {
 		if (eventArgs.prevSlot >= 0)
 			inv.RemoveItem(eventArgs.prevSlot);
 		if (eventArgs.newSlot >= 0)
@@ -210,7 +210,7 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 				if (!inv.IsFull ()) {
 					Item i = cols [0].GetComponent<Item> ();
 					i.PickupItem (this);
-					itemPickup (this, new InventoryEvents.ItemPickupEventArgs (i, inv));
+					itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
 				}
 			} else {
 				//Add options
@@ -222,7 +222,7 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 				if (!inv.IsFull ()) {
 					Item i = cols [0].GetComponent<Item> ();
 					i.PickupItem (this);
-					itemPickup (this, new InventoryEvents.ItemPickupEventArgs (i, inv));
+					itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
 				}
 			} 
 		}

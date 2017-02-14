@@ -1,76 +1,158 @@
+using System;
 using AneroeInputs;
+using UIEvents;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : BaseController
 {
-    /// <section>The game object representing the user interface.</section>
+    /// <summary>The game object representing the user interface.</summary>
     [SerializeField] private GameObject UI;
 
-    /// <section>The game object representing the inventory.</section>
-    public static GameObject inventory;
+    /// <summary>The game object representing the inventory.</summary>
+    public static GameObject Inventory;
 
-    /// <section>The game object representing the main menu.</section>
-    public static GameObject mainMenu;
+    /// <summary>The game object representing the main menu.</summary>
+    public static GameObject MainMenu;
 
-	/// <section>The game object representing the crafting menu.</section>
-	public static GameObject crafting;
+    /// <summary>The game object representing the crafting menu.</summary>
+    public static GameObject Crafting;
 
-	GameObject activeMenu;
+    /// <summary>Item currently selected by the player.</summary>
+    public static GameObject Selected;
 
-    /// <section>Load in UI game objects.</section>
-	public override void InternalSetup()
+    /// <summary>Event published when an item selected in the UI.</summary>
+    public static event EventHandler<ItemSelectedEventArgs> ItemSelected;
+
+    private GameObject _activeMenu;
+
+    /// <summary>Causes the selected item to follow the mouse cursor.</summary>
+    public void Update()
     {
-        for (int i = 0; i < UI.transform.childCount; i++)
+        if (Selected)
+            Selected.transform.position = Input.mousePosition;
+    }
+
+    /// <summary>Selects an item from or drops an item into a UI slot on left click.</summary>
+    /// <param name="target">The target of the pointer click.</param>
+    public void HandlePointerClick(GameObject target)
+    {
+        if (Selected)
+            MoveItem(target);
+        else
+            SelectItem(target);
+    }
+
+    /// <summary>Gets the UI section associated with the target object.</summary>
+    /// <param name="target">Object to find the UI section for.</param>
+    private string GetUISection(GameObject target)
+    {
+        var t = target.transform;
+        while (t.transform.parent != null && t.transform.parent.name != "UI")
+            t = t.transform.parent;
+        return t.name;
+    }
+
+    /// <summary>Selects the target item from a UI slot.</summary>
+    /// <param name="target">Either a UI item or UI slot to select an item from.</param>
+    private void SelectItem(GameObject target)
+    {
+        if (target.CompareTag("UISlot")) Selected = null;
+        if (!target.CompareTag("UIItem")) return;
+        Selected = target;
+        Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform);
+        target.GetComponent<Image>().raycastTarget = false;
+        if (ItemSelected != null)
+            ItemSelected(this, new ItemSelectedEventArgs(null, Selected));
+    }
+
+    /// <summary>Drops the selected item from the inventory.</summary>
+    /// <param name="item">The item to drop from the inventory.</param>
+    private void DropItem(GameObject item)
+    {
+        var activeCharacter = PlayerController.activeCharacter;
+        var newItem = item.GetComponent<InventorySlot>().GetItem();
+        //newItem.transform.SetParent(GameObject.Find("Items").transform);
+        newItem.DropItem(activeCharacter.GetInteractPosition());
+        Selected = null;
+        Destroy(item);
+        if (ItemSelected != null)
+            ItemSelected(this, new ItemSelectedEventArgs(Selected, null));
+    }
+
+    /// <summary>Moves the selected item in a UI slot.</summary>
+    /// <param name="target">Either a UI item or a UI slot to move the currently selected item into.</param>
+    private void MoveItem(GameObject target)
+    {
+        if (GetUISection(target) == "Canvas")
         {
-            Transform t = UI.transform.GetChild(i);
-			switch (t.name)
-			{
-				case "Inventory": inventory = t.gameObject; break;
-				case "MainMenu": mainMenu = t.gameObject; break;
-				case "Crafting": crafting = t.gameObject; break;
-			}
+            DropItem(Selected);
+        }
+        else if (target.CompareTag("UIItem") || target.CompareTag("UISlot"))
+        {
+            Selected.GetComponent<Image>().raycastTarget = true;
+            var newParent = target.CompareTag("UIItem") ? target.transform.parent : target.transform;
+            Selected.transform.SetParent(newParent);
+            SelectItem(target);
+            if (ItemSelected != null)
+                ItemSelected(this, new ItemSelectedEventArgs(Selected, target));
+        }
+    }
+
+    /// <summary>Load in UI game objects.</summary>
+    public override void InternalSetup()
+    {
+        for (var i = 0; i < UI.transform.childCount; i++)
+        {
+            var t = UI.transform.GetChild(i);
+            switch (t.name)
+            {
+                case "Inventory":
+                    Inventory = t.gameObject;
+                    break;
+                case "MainMenu":
+                    MainMenu = t.gameObject;
+                    break;
+                case "Crafting":
+                    Crafting = t.gameObject;
+                    break;
+            }
         }
     }
 
     public override void ExternalSetup()
     {
-       InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
+        InputController.iEvent.inputed += ReceiveInput;
     }
 
-	public override void RemoveEventListeners() {
-		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
-	}
+    public override void RemoveEventListeners()
+    {
+        InputController.iEvent.inputed -= ReceiveInput;
+    }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
-	{
-		if (eventArgs.WasPressed ("inventory")) {
-			if (activeMenu == null || activeMenu == inventory)
-				ToggleInventory();
-		} else if (eventArgs.WasPressed ("mainmenu")) {
-			// If possible, deactivate other menu instead of activate main menu
-			if (activeMenu != null && activeMenu != mainMenu) {
-				ToggleInventory();
-			} else {
-				mainMenu.SetActive (!mainMenu.activeSelf);
-			}
-			// Update active menu
-			if (mainMenu.activeSelf)
-				activeMenu = mainMenu;
-			else
-				activeMenu = null;
-		}
+    {
+        if (eventArgs.WasPressed("inventory"))
+        {
+            if (_activeMenu == null || _activeMenu == Inventory)
+                ToggleInventory();
+        }
+        else if (eventArgs.WasPressed("mainmenu"))
+        {
+            // If possible, deactivate other menu instead of activate main menu
+            if (_activeMenu != null && _activeMenu != MainMenu) ToggleInventory();
+            else MainMenu.SetActive(!MainMenu.activeSelf);
+            // Update active menu
+            _activeMenu = MainMenu.activeSelf ? MainMenu : null;
+        }
 
-		if (activeMenu) {
-			InputController.mode = InputInfo.InputMode.UI;
-		} else {
-			InputController.mode = InputInfo.InputMode.Free;
-		}
+        InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;
     }
 
-	public void ToggleInventory()
-	{
-        inventory.SetActive(!inventory.activeSelf);
-        crafting.SetActive(!crafting.activeSelf);
-		activeMenu = (activeMenu != null) ? null : inventory;
-	}
+    private void ToggleInventory()
+    {
+        Inventory.SetActive(!Inventory.activeSelf);
+        Crafting.SetActive(!Crafting.activeSelf);
+        _activeMenu = _activeMenu != null ? null : Inventory;
+    }
 }

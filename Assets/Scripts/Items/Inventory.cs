@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using InventoryEvents;
+using UIEvents;
 using SaveData;
 
 /// <summary>Wrapper class for a list used to manage the player's inventory.</summary>

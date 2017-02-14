@@ -827,7 +827,7 @@ Prefab:
     - target: {fileID: 114626635419940120, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
       propertyPath: startScene
-      value: TutorialScene
+      value: InventoryTest
       objectReference: {fileID: 0}
     - target: {fileID: 114168319270462106, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}

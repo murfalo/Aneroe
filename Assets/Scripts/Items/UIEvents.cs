@@ -1,16 +1,27 @@
 using System;
 using UnityEngine;
 
-/// <section>
-/// This namespace defines the event arguments for all events relating to
-/// changes in the player's inventory.
-/// </section>
-namespace InventoryEvents
+namespace UIEvents
 {
-    /// <section>Information used when an item moves in the inventory.</section>
+    /// <summary>Information used when an item is selected in the UI.</summary>
+    public class ItemSelectedEventArgs : EventArgs
+    {
+        /// <param name="oldSelected">The previously selected GameObject.</param>
+        /// <param name="newSelected">The newly selected GameObject.</param>
+        public ItemSelectedEventArgs(GameObject oldSelected, GameObject newselected)
+        {
+            this.oldSelected = oldSelected;
+            this.newSelected = newSelected;
+        }
+
+        public GameObject oldSelected;
+        public GameObject newSelected;
+    }
+
+    /// <summary>Information used when an item moves in the inventory.</summary>
     public class ItemMovedEventArgs : EventArgs
     {
-        /// <section>Creates a new instance of ItemMovedEventArgs.</section>
+        /// <summary>Creates a new instance of ItemMovedEventArgs.</summary>
         /// <param name="item">The item being moved.</param>
         /// <param name="prevSlot">The identifier of item's old slot.</param>
         /// <param name="newSlot">The identifier of item's new slot.</param>
