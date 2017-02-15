@@ -60,10 +60,10 @@ public class UIController : BaseController
         if (target.CompareTag("UISlot")) Selected = null;
         if (!target.CompareTag("UIItem")) return;
         Selected = target;
-        Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform);
-        target.GetComponent<Image>().raycastTarget = false;
         if (ItemSelected != null)
             ItemSelected(this, new ItemSelectedEventArgs(null, Selected));
+        Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform);
+        target.GetComponent<Image>().raycastTarget = false;
     }
 
     /// <summary>Drops the selected item from the inventory.</summary>
@@ -73,11 +73,11 @@ public class UIController : BaseController
         var activeCharacter = PlayerController.activeCharacter;
         var newItem = item.GetComponent<InventorySlot>().GetItem();
         //newItem.transform.SetParent(GameObject.Find("Items").transform);
+        if (ItemSelected != null)
+            ItemSelected(this, new ItemSelectedEventArgs(Selected, null));
         newItem.DropItem(activeCharacter.GetInteractPosition());
         Selected = null;
         Destroy(item);
-        if (ItemSelected != null)
-            ItemSelected(this, new ItemSelectedEventArgs(Selected, null));
     }
 
     /// <summary>Moves the selected item in a UI slot.</summary>
@@ -93,9 +93,9 @@ public class UIController : BaseController
             Selected.GetComponent<Image>().raycastTarget = true;
             var newParent = target.CompareTag("UIItem") ? target.transform.parent : target.transform;
             Selected.transform.SetParent(newParent);
-            SelectItem(target);
             if (ItemSelected != null)
                 ItemSelected(this, new ItemSelectedEventArgs(Selected, target));
+            SelectItem(target);
         }
     }
 

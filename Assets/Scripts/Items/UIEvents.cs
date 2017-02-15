@@ -8,7 +8,7 @@ namespace UIEvents
     {
         /// <param name="oldSelected">The previously selected GameObject.</param>
         /// <param name="newSelected">The newly selected GameObject.</param>
-        public ItemSelectedEventArgs(GameObject oldSelected, GameObject newselected)
+        public ItemSelectedEventArgs(GameObject oldSelected, GameObject newSelected)
         {
             this.oldSelected = oldSelected;
             this.newSelected = newSelected;
