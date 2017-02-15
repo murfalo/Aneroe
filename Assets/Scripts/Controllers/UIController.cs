@@ -38,15 +38,16 @@ public class UIController : BaseController
     public void HandlePointerClick(GameObject target)
     {
         if (Selected)
-            MoveItem(target);
+            MoveItem(target, GetUISection(target) == "Inventory");
         else
             SelectItem(target, true);
     }
 
     /// <summary>Gets the UI section associated with the target object.</summary>
     /// <param name="target">Object to find the UI section for.</param>
-    private string GetUISection(GameObject target)
+    public static string GetUISection(GameObject target)
     {
+        if (target == null) return "";
         var t = target.transform;
         while (t.transform.parent != null && t.transform.parent.name != "UI")
             t = t.transform.parent;
@@ -55,6 +56,7 @@ public class UIController : BaseController
 
     /// <summary>Selects the target item from a UI slot.</summary>
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
+    /// <param name="signal">Whether or not to publish ItemSelected.</param>
     private void SelectItem(GameObject target, bool signal)
     {
         if (target.CompareTag("UISlot")) Selected = null;
@@ -81,7 +83,7 @@ public class UIController : BaseController
 
     /// <summary>Moves the selected item in a UI slot.</summary>
     /// <param name="target">Either a UI item or a UI slot to move the currently selected item into.</param>
-    private void MoveItem(GameObject target)
+    private void MoveItem(GameObject target, bool signal)
     {
         if (GetUISection(target) == "Canvas")
         {
@@ -92,7 +94,7 @@ public class UIController : BaseController
             Selected.GetComponent<Image>().raycastTarget = true;
             var newParent = target.CompareTag("UIItem") ? target.transform.parent : target.transform;
             Selected.transform.SetParent(newParent);
-            if (ItemSelected != null)
+            if (ItemSelected != null && signal)
                 ItemSelected(this, new ItemSelectedEventArgs(Selected, target));
             SelectItem(target, false);
         }

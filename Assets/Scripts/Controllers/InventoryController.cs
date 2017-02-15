@@ -72,9 +72,17 @@ public class InventoryController : BaseController
     private void SelectItem(object source, ItemSelectedEventArgs eventArgs)
     {
         if (eventArgs.newSelected == null || !eventArgs.newSelected.CompareTag("UIItem")) return;
-        _oldParentIndex = _newParentIndex;
-        _newParentIndex = _slots.IndexOf(eventArgs.newSelected.transform.parent.gameObject);
-        OnItemMoved(eventArgs.newSelected, _newParentIndex, -1);
+        if (UIController.GetUISection(eventArgs.newSelected) != "Inventory")
+        {
+            _oldParentIndex = -1;
+            _newParentIndex = -1;
+        }
+        else
+        {
+            _oldParentIndex = _newParentIndex;
+            _newParentIndex = _slots.IndexOf(eventArgs.newSelected.transform.parent.gameObject);
+            OnItemMoved(eventArgs.newSelected, _newParentIndex, -1);
+        }
     }
 
     /// <summary>Delegates item movement information according to UI item selection information.</summary>
