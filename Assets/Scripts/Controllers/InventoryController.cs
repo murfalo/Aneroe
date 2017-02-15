@@ -23,8 +23,11 @@ public class InventoryController : BaseController
     /// <summary>Event for an item moving in the inventory.</summary>
     public static event EventHandler<ItemMovedEventArgs> ItemMoved;
 
-    /// <summary>Original parent of the currently selected item.</summary>
-    private int _parentIndex;
+    /// <summary>Parent index of the newly selected item.</summary>
+    private int _newParentIndex;
+
+    /// <summary>Parent index of the previously selected item.</summary>
+    private int _oldParentIndex;
 
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
@@ -52,7 +55,7 @@ public class InventoryController : BaseController
         SceneController.timeSwapped -= RebindListener;
         SaveController.playerLoaded -= RefreshInventory;
         UIController.ItemSelected -= SelectItem;
-        UIController.ItemSelected -= SelectItem;
+        UIController.ItemSelected -= MoveItem;
     }
 
     public void PickupItem(object source, ItemPickupEventArgs e)
@@ -68,19 +71,24 @@ public class InventoryController : BaseController
     /// <summary>Stores state when an item is selected from a UI slot.</summary>
     private void SelectItem(object source, ItemSelectedEventArgs eventArgs)
     {
-        if (eventArgs.oldSelected != null || eventArgs.newSelected == null) return;
-        _parentIndex = _slots.IndexOf(eventArgs.newSelected.transform.parent.gameObject);
+        if (eventArgs.newSelected == null || !eventArgs.newSelected.CompareTag("UIItem")) return;
+        _oldParentIndex = _newParentIndex;
+        _newParentIndex = _slots.IndexOf(eventArgs.newSelected.transform.parent.gameObject);
+        OnItemMoved(eventArgs.newSelected, _newParentIndex, -1);
     }
 
     /// <summary>Delegates item movement information according to UI item selection information.</summary>
     private void MoveItem(object source, ItemSelectedEventArgs eventArgs)
     {
-        if (eventArgs.oldSelected == null)
-            return;
-        if (eventArgs.newSelected == null)
-            OnItemMoved(eventArgs.oldSelected, _parentIndex, -1);
+        if (eventArgs.oldSelected == null || eventArgs.newSelected == null) return;
+        if (eventArgs.newSelected.CompareTag("UISlot"))
+            OnItemMoved(eventArgs.oldSelected, _newParentIndex, _slots.IndexOf(eventArgs.newSelected.gameObject));
         else
-            OnItemMoved(eventArgs.oldSelected, _parentIndex, _slots.IndexOf(eventArgs.newSelected.gameObject));
+        {
+            OnItemMoved(eventArgs.oldSelected, _oldParentIndex, _newParentIndex);
+            _newParentIndex = -1;
+        }
+
     }
 
     /// <summary>Publishes the itemMoved event if an item has changed positions in the inventory.</summary>

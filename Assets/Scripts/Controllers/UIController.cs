@@ -40,7 +40,7 @@ public class UIController : BaseController
         if (Selected)
             MoveItem(target);
         else
-            SelectItem(target);
+            SelectItem(target, true);
     }
 
     /// <summary>Gets the UI section associated with the target object.</summary>
@@ -55,12 +55,12 @@ public class UIController : BaseController
 
     /// <summary>Selects the target item from a UI slot.</summary>
     /// <param name="target">Either a UI item or UI slot to select an item from.</param>
-    private void SelectItem(GameObject target)
+    private void SelectItem(GameObject target, bool signal)
     {
         if (target.CompareTag("UISlot")) Selected = null;
         if (!target.CompareTag("UIItem")) return;
         Selected = target;
-        if (ItemSelected != null)
+        if (ItemSelected != null && signal)
             ItemSelected(this, new ItemSelectedEventArgs(null, Selected));
         Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform);
         target.GetComponent<Image>().raycastTarget = false;
@@ -73,8 +73,6 @@ public class UIController : BaseController
         var activeCharacter = PlayerController.activeCharacter;
         var newItem = item.GetComponent<InventorySlot>().GetItem();
         //newItem.transform.SetParent(GameObject.Find("Items").transform);
-        if (ItemSelected != null)
-            ItemSelected(this, new ItemSelectedEventArgs(Selected, null));
         newItem.DropItem(activeCharacter.GetInteractPosition());
         Selected = null;
         Destroy(item);
@@ -95,7 +93,7 @@ public class UIController : BaseController
             Selected.transform.SetParent(newParent);
             if (ItemSelected != null)
                 ItemSelected(this, new ItemSelectedEventArgs(Selected, target));
-            SelectItem(target);
+            SelectItem(target, false);
         }
     }
 
