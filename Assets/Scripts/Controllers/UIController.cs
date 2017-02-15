@@ -68,8 +68,9 @@ public class UIController : BaseController
 
     /// <summary>Drops the selected item from the inventory.</summary>
     /// <param name="item">The item to drop from the inventory.</param>
-    private void DropItem(GameObject item)
+    public static void DropItem(GameObject item)
     {
+        if (item == null) return;
         var activeCharacter = PlayerController.activeCharacter;
         var newItem = item.GetComponent<InventorySlot>().GetItem();
         //newItem.transform.SetParent(GameObject.Find("Items").transform);
@@ -151,6 +152,8 @@ public class UIController : BaseController
     {
         Inventory.SetActive(!Inventory.activeSelf);
         Crafting.SetActive(!Crafting.activeSelf);
+        DropItem(Selected);
+        GameObject.Find("Control").GetComponent<CraftingController>().DropItems();
         _activeMenu = _activeMenu != null ? null : Inventory;
     }
 }
