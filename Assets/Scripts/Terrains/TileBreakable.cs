@@ -32,6 +32,7 @@ public class TileBreakable : Tile
 		if (this.CanUseItem (item)) {
 			sRend.sprite = brokenTileSprite;
 			coll.enabled = false;
+			SendDisableTileEvent ();
 		}
 	}
 }

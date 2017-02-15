@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class AttackRoutine : AIRoutine {
 
-	public float attackDelay = .5f;
 	float currentDelay;
 	bool resting;
 
 	public override void StartRoutine(AIEntity e) {
 		entity = e;
 		resting = false;
-		currentDelay = Random.Range(-1f,0f);
+		currentDelay = Random.Range(-.5f,0f);
 	}
 
 
@@ -22,19 +21,19 @@ public class AttackRoutine : AIRoutine {
 		if (!resting) {
 			if (currentDelay < 0) {
 				currentDelay += Time.deltaTime;
-			} else {
+			} else if (entity.CanActOutOfMovement()) {
 				// For animation
 				DetermineDirections (targetVector.normalized);
 				// To prevent walking
 				entity.ResetDirs ();
 				entity.TryAttacking ();
 				resting = true;
+				currentDelay = Random.Range(-.5f,0f);
 			}
-		} else if (entity.GetState() == Entity.CharacterState.Still) {
+		} else {
 			currentDelay += Time.deltaTime;
-			if (currentDelay > attackDelay) {
+			if (currentDelay > 0) {
 				resting = false;
-				currentDelay = Random.Range(-1f,0f);
 			}
 		}
 		return baseState;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TerrainEvents;
 
 public class Tile : MonoBehaviour {
 
@@ -22,7 +23,10 @@ public class Tile : MonoBehaviour {
 	// Other tile calls this to affect it with item used on other tile
 	public virtual void IndirectUseItem(Item item) {}
 
-	void Start () {}
+	protected void SendDisableTileEvent() {
+		TerrainEventArgs e = new TerrainEventArgs ();
+		e.tile = this;
+		AIController.TriggerModifiedTerrain (e);
+	}
 
-	void Update () {}
 }

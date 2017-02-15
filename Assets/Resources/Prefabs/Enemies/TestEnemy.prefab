@@ -25,8 +25,8 @@ GameObject:
   - component: {fileID: 61230897335995740}
   - component: {fileID: 50515230136157426}
   - component: {fileID: 114774803543731620}
-  - component: {fileID: 114828959836829300}
   - component: {fileID: 114965855957522250}
+  - component: {fileID: 114651906396462366}
   m_Layer: 8
   m_Name: TestEnemy
   m_TagString: Character
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4088643937815754}
   - component: {fileID: 61623946810554610}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Collidable (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -238,9 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5087bbc4d4466b4a9903b18f1be4c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: 
   smallItem: 0
-  weight: 0
   count: 0
+  statNames: []
+  statValues: []
   speed: 1
   attack: 1
   defense: 1
@@ -264,6 +266,18 @@ MonoBehaviour:
   - Item
   itemDropWeights:
   - 1
+--- !u!114 &114651906396462366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112819121045336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e3174f263fc7d4db032dcd2c32697e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseState: 1
 --- !u!114 &114774803543731620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -277,18 +291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseState: 0
   radiusOfSight: 3
---- !u!114 &114828959836829300
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1112819121045336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e048f8befbca1e4da96bb9b6b69d6f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseState: 1
 --- !u!114 &114965855957522250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,7 +303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseState: 2
-  attackDelay: 0.5
 --- !u!212 &212268944307583560
 SpriteRenderer:
   m_ObjectHideFlags: 1

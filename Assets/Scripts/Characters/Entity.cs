@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour {
 	protected int primaryDir;
 	protected int secondaryDir;
 	protected float stunTimer;
+	protected Vector3 stunVelocity;
 	// Character alternates step animation; this toggles which one
 	protected bool oddStep;
 
@@ -87,10 +88,12 @@ public class Entity : MonoBehaviour {
 		if (stunTimer > 0 && DecrementTimer (stunTimer, out stunTimer)) {
 			GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 			stunTimer = 0;
+			anim.SetInteger ("state", (int)CharacterState.Still);
 		}
 
 		// State-based updates
 		switch (anim.GetInteger ("state")) {
+		case (int)CharacterState.Immobile:
 		case (int)CharacterState.Walking:
 			ExecuteWalk ();
 			break;
@@ -112,14 +115,22 @@ public class Entity : MonoBehaviour {
 	}
 
 	void ExecuteWalk() {
-		int dir = primaryDir - 1;
-		if (dir < 0)
-			dir = GetDirection() - 1;
-		Vector3 dirVector = directionVectors [dir];
-		if (secondaryDir > 0) {
-			dirVector = Vector3.Normalize(dirVector + secondaryDirFactor * (Vector3)directionVectors [secondaryDir - 1]);
-		}
-		Vector3 move = speedFactor * speed * Time.fixedDeltaTime * dirVector;
+		Vector3 move;
+		// If stunned, just continue launching with stunVelocity
+		if (stunTimer > 0) {
+			move = stunVelocity * Time.fixedDeltaTime;
+		} else {
+			// Calculate direction vector
+			int dir = primaryDir - 1;
+			if (dir < 0)
+				dir = GetDirection () - 1;
+			Vector3 dirVector = directionVectors [dir];
+			if (secondaryDir > 0) {
+				dirVector = Vector3.Normalize (dirVector + secondaryDirFactor * (Vector3)directionVectors [secondaryDir - 1]);
+			}
+			move = speedFactor * speed * Time.fixedDeltaTime * dirVector;
+		}			
+
 		Vector3 moveX = new Vector3 (move.x, 0, 0);
 		Vector3 moveY = new Vector3 (0, move.y, 0);
 		move = new Vector3 (0, 0, 0);
@@ -151,8 +162,6 @@ public class Entity : MonoBehaviour {
 		if (!yHit) {
 			transform.Translate (moveY);
 		}
-		
-
 	}
 
 	public void Quicken(bool active) {
@@ -186,7 +195,7 @@ public class Entity : MonoBehaviour {
 		anim.SetInteger ("state", (int)CharacterState.Still);
 	}
 
-	protected bool CanActOutOfMovement() {
+	public bool CanActOutOfMovement() {
 		if (GetState () > CharacterState.Walking || GetState () == CharacterState.Immobile) {
 			return false;
 		}
@@ -238,18 +247,23 @@ public class Entity : MonoBehaviour {
 		return (CharacterState)anim.GetInteger ("state");
 	}
 
+	public float GetEntityStat(string statName) {
+		return stats.GetStat (statName);
+	}
 
 	public int GetDirection() {
 		return anim.GetInteger ("dir");
 	}
 		
 	// Damages character, returns true if character is at 0 health
-	public void Damage(float amount) {
+	public void Damage(float amount, int dirFrom, float stunTime, float stunVel) {
 		stats.ChangeStat("health",-amount);
 		if (stats.GetStat ("health") <= 0) {
 			Kill ();
 		} else {
-			stunTimer = .2f;
+			anim.SetInteger ("state", (int)CharacterState.Immobile);
+			stunTimer = stunTime;
+			stunVelocity = stunVel * directionVectors [dirFrom - 1];
 			GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
 		}
 	}

@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4492939727807512}
   - component: {fileID: 61218848820464554}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Collidable
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -235,8 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5087bbc4d4466b4a9903b18f1be4c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: 
   smallItem: 0
-  weight: 0
+  count: 0
+  statNames: []
+  statValues: []
   speed: 1
   attack: 1
   defense: 1
@@ -255,7 +258,6 @@ MonoBehaviour:
   speed: 2
   attack: 1
   defense: 1
-  characterRadius: 0.5
 --- !u!212 &212103776189548720
 SpriteRenderer:
   m_ObjectHideFlags: 1

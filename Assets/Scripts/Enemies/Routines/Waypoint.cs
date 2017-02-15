@@ -9,7 +9,7 @@ public class Waypoint : MonoBehaviour, IComparable<Waypoint>
 	/// Other Waypoints you can get to from this one with a straight-line path
 	/// </summary>
 	[NonSerialized]
-	public List<Waypoint> Neighbors = new List<Waypoint>();
+	public List<Waypoint> Neighbors;
 
 	/// <summary>
 	/// Used in path planning; next closest node to the start node
@@ -27,19 +27,57 @@ public class Waypoint : MonoBehaviour, IComparable<Waypoint>
 	/// </summary>
 	public void Setup(Waypoint[] allWaypoints)
 	{
+		// Check if already setup
+		if (AllWaypoints != null)
+			return;
+		
 		AllWaypoints = allWaypoints;
-		var position = transform.position;
 		if (AllWaypoints == null)
 		{
 			AllWaypoints = FindObjectsOfType<Waypoint>();
 		}
 
+		Neighbors = new List<Waypoint> ();
 		for (int i = 0; i < AllWaypoints.Length; i++) {
 			Waypoint wp = AllWaypoints [i];
 			if (wp == this)
 				indexW = i;
-			if (wp != this && CanReachPoints(position, wp.transform.position))
+			DetermineToAddNeighbor (wp);
+			/*if (wp != this && CanReachPoints (transform.position, wp.transform.position))
+				//Debug.DrawLine (transform.position, wp.transform.position, Color.black, 10);
+				Neighbors.Add (wp);*/
+		}
+	}
+
+	public void RecalculateNeighbors() {
+		Neighbors = new List<Waypoint> ();
+		for (int i = 0; i < AllWaypoints.Length; i++) {
+			Waypoint wp = AllWaypoints [i];
+			if (wp == this)
+				indexW = i;
+			DetermineToAddNeighbor (wp);
+		}
+	}
+
+	void DetermineToAddNeighbor(Waypoint wp) {
+		if (wp != this && CanReachPoints (transform.position, wp.transform.position)) {
+			bool canAdd = true;
+			Vector3 normalToWp = (wp.transform.position - transform.position).normalized;
+			foreach (Waypoint neighbor in Neighbors) {
+				if (neighbor.Neighbors == null)
+					continue;
+				if (neighbor.Neighbors.Contains (wp)) {
+					Vector3 toNeighbor = neighbor.transform.position - transform.position;
+					if (Vector3.Dot (toNeighbor.normalized, normalToWp) > .75f) {
+						canAdd = false;
+						break;
+					}
+				}
+			}
+			if (canAdd) {
+				//Debug.DrawLine (transform.position, wp.transform.position, Color.black, 10);
 				Neighbors.Add (wp);
+			}
 		}
 	}
 
@@ -84,6 +122,9 @@ public class Waypoint : MonoBehaviour, IComparable<Waypoint>
 
 	static List<Waypoint> FindPathAStar(Waypoint[] network, Waypoint start, Waypoint end) {
 		List<Waypoint> checkedW = new List<Waypoint> ();
+		if (start == null || end == null)
+			return checkedW;
+
 		bool[] withinChecked = new bool[network.Length]; 
 		for (int i = 0; i < withinChecked.Length; i++) {
 			withinChecked [i] = false;

@@ -77,8 +77,12 @@ public class Weapon : Item {
 
 	// Called by opponent when colliding with them
 	// Return damage done to opponent
-	public float DamageToInflict() {
-		return 1;
+	public void DealDamage(Entity damageE) {
+		// Replace with properties of weapon eventually
+		int damage = 1;
+		float stunTime = .1f;
+		float stunVel = 5f;
+		damageE.Damage (damage, GetEntity ().GetDirection (), stunTime, stunVel);
 	}
 
 	public float GetRange() {
@@ -93,16 +97,14 @@ public class Weapon : Item {
 			if (IsAttacking () && !otherW.IsAttacking ()) {
 				Entity entity = GetEntity ();
 				if (otherW.CanDamage(entity)) {
-					//AddToDamageQueue (entity);
-					entity.Damage (otherW.DamageToInflict ());
+					otherW.DealDamage(entity);//entity.Damage (otherW.DamageToInflict ());
 					otherW.AddToDamaged(entity);
 					//print ("Damaging: " + entity.name);
 				}
 			} else if (!IsAttacking () && otherW.IsAttacking ()) {
 				Entity enemy = otherW.GetEntity ();
 				if (!targetsHit.Contains (enemy)) {
-					//AddToDamageQueue (enemy);
-					enemy.Damage (DamageToInflict ());
+					DealDamage(enemy);//enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name);
 				}
@@ -117,8 +119,7 @@ public class Weapon : Item {
 				if (enemy.InAttack ())
 					return;
 				if (!targetsHit.Contains (enemy)) {
-					//AddToDamageQueue (enemy);
-					enemy.Damage (DamageToInflict ());
+					DealDamage(enemy);//enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name + "  " + other.name);
 				}

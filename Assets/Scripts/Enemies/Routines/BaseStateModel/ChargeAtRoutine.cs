@@ -10,7 +10,7 @@ public class ChargeAtRoutine : AIRoutine {
 
 	public override AIEntity.BaseState UpdateRoutine() {
 		Vector3 targetVector = PlayerController.activeCharacter.transform.position - entity.transform.position;
-		if (Vector3.Distance (entity.transform.position, PlayerController.activeCharacter.transform.position) < entity.GetWeaponRange ())
+		if (targetVector.magnitude < entity.GetWeaponRange ())
 			return AIEntity.BaseState.Attacking;
 
 		DetermineDirections (targetVector.normalized);

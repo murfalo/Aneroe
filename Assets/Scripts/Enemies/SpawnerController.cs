@@ -10,13 +10,16 @@ public class SpawnerController : EntityController {
 	List<AIEntity> spawnedEntities;
 	Waypoint[] waypointNetwork;
 
+	Entity targetToKill;
+
 	void Awake () {
 		spawnPoints = GetComponentsInChildren<SpawnPoint> ();	
 		spawnedEntities = new List<AIEntity> ();		
 		actionResponses = new Dictionary<string, System.Action<Entity>> () {
 			{"die",DestroyEntity}
 		};
-		waypointNetwork = GetComponentsInChildren<Waypoint> ();
+		//waypointNetwork = GetComponentsInChildren<Waypoint> ();
+		waypointNetwork = GameObject.Find("Waypoints").GetComponentsInChildren<Waypoint>();
 		foreach (Waypoint wp in waypointNetwork) {
 			wp.Setup (waypointNetwork);
 		}
@@ -51,6 +54,10 @@ public class SpawnerController : EntityController {
 		GetComponent<Collider2D> ().enabled = false;
 	}
 
+	public void ToggleSpawnerActivity(bool active) {
+
+	}
+
 	void DestroyEntity(Entity e) {
 		GameObject[] itemsToSpawn = ((AIEntity)e).GetDrops();
 		GameObject item = (GameObject)Instantiate(itemsToSpawn [((AIEntity)e).GetRandomItemIndex ()]);
@@ -66,6 +73,7 @@ public class SpawnerController : EntityController {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag.Equals ("Character")) {
+			targetToKill = other.GetComponent<Entity> ();
 			Spawn();
 		}
 	}
