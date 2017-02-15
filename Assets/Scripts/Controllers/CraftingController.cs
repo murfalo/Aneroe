@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class CraftingController : MonoBehaviour {
@@ -47,7 +49,9 @@ public class CraftingController : MonoBehaviour {
     /// <summary>Crafts a single item using the input items and places it in the output slot.</summary>
     public void CraftItem()
     {
-        foreach (var item in _inputItems)
-            Debug.Log(item);
+        if (_inputItems.Any(item => item == null)) return;
+        for (var i = 1; i < _inputItems.Length; i++)
+            Destroy(_inputItems[i]);
+        _outputItem = _inputItems[0];
     }
 }
