@@ -25,7 +25,8 @@ namespace AneroeInputs {
 			{"quicken","left shift"},
 			{"slowen","left ctrl"},
 			{"switch character","space"},
-			{"interact","z"}
+			{"interact","z"},
+			{"return","return"}
 		};
 
 		public Dictionary<string, string> axisPairings = new Dictionary<string, string>();

@@ -141,12 +141,18 @@ public class UIController : BaseController
                 ToggleInventory();
         }
         else if (eventArgs.WasPressed("mainmenu"))
-        {
-            // If possible, deactivate other menu instead of activate main menu
-            if (_activeMenu != null && _activeMenu != MainMenu) ToggleInventory();
-            else MainMenu.SetActive(!MainMenu.activeSelf);
-            // Update active menu
-            _activeMenu = MainMenu.activeSelf ? MainMenu : null;
+		{		
+			if (PromptController.activePrompt != null) {
+				PromptController.activePrompt.ContinuePrompt ();
+			} else {
+				// If possible, deactivate other menu instead of activate main menu
+				if (_activeMenu != null && _activeMenu != MainMenu)
+					ToggleInventory ();
+				else
+					MainMenu.SetActive (!MainMenu.activeSelf);
+				// Update active menu
+				_activeMenu = MainMenu.activeSelf ? MainMenu : null;
+			}
         }
 
         InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;
