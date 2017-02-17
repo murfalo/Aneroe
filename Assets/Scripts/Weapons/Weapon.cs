@@ -12,10 +12,12 @@ public class Weapon : Item {
 	public string[] statNames;
 	public float[] statValues;
 
-	public float speed = 1f;
+	StatInfo stats;
+
+	/*public float speed = 1f;
 	public float attack = 1f;
 	public float defense = 1f;
-	//float durability;
+	float durability;*/
 
 	// targets hit by current attack
 	// a target can only get hit once per attack
@@ -30,6 +32,11 @@ public class Weapon : Item {
 		targetsHit = new List<Entity> ();
 		damageQueue = new List<Entity> ();
 		owner = GetComponentInParent<Entity> ();
+
+		stats = new StatInfo ();
+		for (int i = 0; i < statNames.Length; i++) {
+			stats.SetStat (statNames [i], statValues [i]);
+		}
 	}
 
 	public void StartAttack(int dir) {
@@ -50,6 +57,10 @@ public class Weapon : Item {
 			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 		else 
 			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
+	}
+
+	public override void EquipItem(bool equip) {
+		sRend.enabled = equip;
 	}
 
 	// Called by animator
@@ -137,6 +148,7 @@ public class Weapon : Item {
 		WeaponSaveData wsd = new WeaponSaveData ();
 		wsd = (WeaponSaveData)base.Save (wsd);
 		// Save statInfo now
+		wsd.statLevels = stats.GetStats();
 		return wsd;
 	}
 
@@ -144,5 +156,6 @@ public class Weapon : Item {
 	{
 		base.Load (isd);
 		WeaponSaveData wsd = (WeaponSaveData)isd;
+		stats = new StatInfo(wsd.statLevels);
 	}
 }

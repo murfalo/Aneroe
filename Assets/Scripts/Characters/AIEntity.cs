@@ -23,6 +23,9 @@ public class AIEntity : Entity
 
 	public override void Setup() {
 		base.Setup ();
+		activeItem = GetComponentInChildren<Weapon> ();
+		activeItem.Setup ();
+
 		controller = GetComponentInParent<EntityController> ();
 		routines = new Dictionary<BaseState, AIRoutine> ();
 
@@ -48,7 +51,7 @@ public class AIEntity : Entity
 	}
 
 	public float GetWeaponRange() {
-		return activeWeapon.GetRange ();
+		return ((Weapon)activeItem).GetRange ();
 	}
 
 	public void SetDir(int dir, bool isPrimary) {
@@ -90,6 +93,11 @@ public class AIEntity : Entity
 			rand -= weight;
 		}
 		return 0;
+	}
+
+	public void ToggleEnabled(bool enabled) {
+		foreach (Animator anim in GetComponentsInChildren<Animator>())
+			anim.enabled = enabled;
 	}
 }
 

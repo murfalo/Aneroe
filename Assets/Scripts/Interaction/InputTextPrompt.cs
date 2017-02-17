@@ -45,7 +45,9 @@ public class InputTextPrompt : TextPrompt
 			return andPressed;
 		}
 		for (int i = 0; i < andInputNames.Length; i++) {
-			if (e.WasPressed (andInputNames [i]) || andPromptKeys[i] != promptIndex)
+			if (andPromptKeys [i] != promptIndex)
+				continue;
+			if (e.WasPressed (andInputNames [i]))
 				andsPressed [i] = true;
 			else if (!andsPressed[i])
 				allInputed = false;
@@ -59,7 +61,9 @@ public class InputTextPrompt : TextPrompt
 		if (orPressed)
 			return true;
 		for (int i = 0; i < orInputNames.Length; i++) {
-			if (e.WasPressed (orInputNames [i]) && orPromptKeys[i] == promptIndex) {
+			if (orPromptKeys [i] != promptIndex)
+				continue;
+			if (e.WasPressed (orInputNames [i])) {
 				orPressed = true;
 				return true;
 			}

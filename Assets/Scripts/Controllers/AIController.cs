@@ -64,6 +64,7 @@ public class AIController : BaseController {
 
 	public void PauseEnemies(object sender, PlayerSwitchEventArgs e) {
 		foreach (SpawnerController spawner in spawners) {
+			spawner.HandleSpawnerActivity (e);
 		}
 	}
 

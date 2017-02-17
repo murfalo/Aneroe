@@ -18,6 +18,9 @@ public class SaveController : BaseController
 	/// <summary>Event published when file loading has completed.</summary>
 	public static event EventHandler<EventArgs> fileLoaded;
 
+	public static event EventHandler<EventArgs> newGameStarted;
+	bool firstLoad;
+
     /// <summary>Event published when player loading has completed.</summary>
     public static event EventHandler<EventArgs> playerLoaded;
 
@@ -27,6 +30,7 @@ public class SaveController : BaseController
 		if (saveData == null)
 			saveData = new Hashtable();
 		SceneController.mergedNewScene += LoadByEvent;
+		firstLoad = true;
     }
 
 	public override void RemoveEventListeners() {
@@ -62,7 +66,14 @@ public class SaveController : BaseController
     public void Load()
     {
         string path = Application.persistentDataPath + saveLocation;
-        if (!File.Exists(path)) return;
+		if (!File.Exists (path)) {
+			if (firstLoad) {
+				firstLoad = false;
+				if (newGameStarted != null)
+					newGameStarted (this, new EventArgs ());
+			}
+			return;
+		}
         BinaryFormatter bf = new BinaryFormatter();
         FileStream lf = File.Open(path, FileMode.Open);
 		try {

@@ -48,6 +48,10 @@ public class Item : MonoBehaviour, ISavable<ItemSaveData> {
 		}
 	}
 
+	public virtual void EquipItem(bool equip) {
+		sRend.enabled = false;
+	}
+
 	// Returns entity that holds item
 	public Entity GetEntity() {
 		return owner;

@@ -11,6 +11,7 @@ public class SpawnerController : EntityController {
 	Waypoint[] waypointNetwork;
 
 	Entity targetToKill;
+	bool paused;
 
 	void Awake () {
 		spawnPoints = GetComponentsInChildren<SpawnPoint> ();	
@@ -23,15 +24,21 @@ public class SpawnerController : EntityController {
 		foreach (Waypoint wp in waypointNetwork) {
 			wp.Setup (waypointNetwork);
 		}
+
+		paused = false;
 	}
 		
 	void Update() {
+		if (paused)
+			return;
 		foreach (AIEntity e in spawnedEntities) {
 			e.UpdateEntity ();
 		}
 	}
 
 	void FixedUpdate() {
+		if (paused)
+			return;
 		foreach (AIEntity e in spawnedEntities) {
 			e.DoFixedUpdate ();
 		}
@@ -54,8 +61,11 @@ public class SpawnerController : EntityController {
 		GetComponent<Collider2D> ().enabled = false;
 	}
 
-	public void ToggleSpawnerActivity(bool active) {
-
+	public void HandleSpawnerActivity(PlayerSwitchEventArgs e) {
+		paused = e.newPlayer != targetToKill;
+		foreach (AIEntity aiE in spawnedEntities) {
+			aiE.ToggleEnabled (!paused);
+		}
 	}
 
 	void DestroyEntity(Entity e) {

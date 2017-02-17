@@ -7,8 +7,9 @@ public class Entity : MonoBehaviour {
 
 	// Components
 	protected Animator anim;
-	protected Weapon activeWeapon;
+	protected Item activeItem;
 	protected EntityController controller;
+	protected SpriteRenderer sRend;
 	Collider2D hurtbox;
 
 	// Combat stats
@@ -61,9 +62,8 @@ public class Entity : MonoBehaviour {
 
 	public virtual void Setup () {
 		anim = GetComponent<Animator> ();
-		activeWeapon = GetComponentInChildren<Weapon> ();
-		activeWeapon.Setup ();
 		hurtbox = GetComponent<BoxCollider2D> ();
+		sRend = GetComponent<SpriteRenderer> ();
 
 		stunTimer = 0;
 		anim.SetInteger ("state", (int)CharacterState.Still);
@@ -86,7 +86,7 @@ public class Entity : MonoBehaviour {
 
 		// Timer updates
 		if (stunTimer > 0 && DecrementTimer (stunTimer, out stunTimer)) {
-			GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+			sRend.color = new Color (1, 1, 1, 1);
 			stunTimer = 0;
 			anim.SetInteger ("state", (int)CharacterState.Still);
 		}
@@ -226,20 +226,20 @@ public class Entity : MonoBehaviour {
 
 	// Sets animation state for attacking
 	public virtual void TryAttacking() {
-		if (!CanActOutOfMovement ())
+		if (!CanActOutOfMovement () || !ActiveItemOfType(typeof(Weapon)))
 			return;			
 		anim.SetTime (0);
 		anim.SetInteger ("state", (int)CharacterState.Attacking);
-		activeWeapon.StartAttack (GetDirection());
+		((Weapon)activeItem).StartAttack (GetDirection());
 		speedFactor = ATTACK_SPEED_FACTOR;
 	}
 
 	public virtual void TryBlocking() {
-		if (!CanActOutOfMovement ())
+		if (!CanActOutOfMovement () || !ActiveItemOfType(typeof(Weapon)))
 			return;			
 		anim.SetTime (0);
 		anim.SetInteger ("state", (int)CharacterState.Blocking);
-		activeWeapon.StartBlock (GetDirection());
+		((Weapon)activeItem).StartBlock (GetDirection());
 		speedFactor = BLOCK_SPEED_FACTOR;
 	}
 
@@ -249,6 +249,10 @@ public class Entity : MonoBehaviour {
 
 	public float GetEntityStat(string statName) {
 		return stats.GetStat (statName);
+	}
+
+	protected bool ActiveItemOfType<T>(T typeOfObj) {
+		return activeItem != null && activeItem.GetType ().Equals (typeOfObj);
 	}
 
 	public int GetDirection() {
@@ -264,7 +268,7 @@ public class Entity : MonoBehaviour {
 			anim.SetInteger ("state", (int)CharacterState.Immobile);
 			stunTimer = stunTime;
 			stunVelocity = stunVel * directionVectors [dirFrom - 1];
-			GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
+			sRend.color = new Color (1, 0, 0, 1);
 		}
 	}
 

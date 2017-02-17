@@ -12,9 +12,10 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 	protected float combatDirTimer;
 	protected float combatLinkTimer;
 
-	public Inventory inv;
 	public event System.EventHandler<UIEvents.ItemPickupEventArgs> itemPickup;
 
+	public Inventory inv;
+	List<Item> defaultItems;
 	// Stores top item on ground player is able to pickup
 	private Item topItemOnGround;
 
@@ -51,6 +52,9 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 
 		controller = GameObject.Find("Control").GetComponent<EntityController> ();
 		inv = new Inventory();
+		defaultItems = new List<Item>(GetComponentsInChildren<Item> ());
+		foreach (Item item in defaultItems)
+			item.Setup ();
 	}
 
 	public override void DoFixedUpdate() {
@@ -88,21 +92,19 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 				speedFactor = NORMAL_SPEED_FACTOR;
 				break;
 			case CharacterState.Attacking:
-				if (!CanActOutOfMovement ()) {
+				if (!CanActOutOfMovement () || !ActiveItemOfType(typeof(Weapon)))
 					break;
-				}
 				anim.SetTime (0);
 				anim.SetInteger ("state", (int)CharacterState.Attacking);
-				activeWeapon.StartAttack (SwitchToCombatDirection());
+				((Weapon)activeItem).StartAttack (SwitchToCombatDirection());
 				speedFactor = ATTACK_SPEED_FACTOR;
 				break;
 			case CharacterState.Blocking:
-				if (!CanActOutOfMovement ()) {
+				if (!CanActOutOfMovement () || !ActiveItemOfType(typeof(Weapon)))
 					break;
-				}
 				anim.SetTime (0);
 				anim.SetInteger ("state", (int)CharacterState.Blocking);
-				activeWeapon.StartBlock (SwitchToCombatDirection());
+				((Weapon)activeItem).StartBlock (SwitchToCombatDirection());
 				speedFactor = BLOCK_SPEED_FACTOR;
 				break;
 			default:
@@ -195,6 +197,15 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 			inv.SetItem((int)eventArgs.newSlot, eventArgs.item);
 	}
 
+	public void ResetActiveItem() {
+		// Unequip old item
+		if (activeItem != null)
+			activeItem.EquipItem (false);
+		activeItem = inv.GetItem (inv.itemSlotEquipped);
+		if (activeItem != null)
+			activeItem.EquipItem (true);
+	}
+
 	public Vector2 GetInteractPosition() {
 		return (Vector2)transform.position + interactOffsets [GetDirection () - 1];
 	}
@@ -230,10 +241,16 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 
 	public void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.layer.Equals (LayerMask.NameToLayer ("Item"))) {
+
+			// THIS HURTS ME SO MUCH. IT PICKS ITEMS UP AUTOMATICALLY. But leave it in.
+			Item i = coll.GetComponent<Item> ();
+			i.PickupItem (this);
+			itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
+
 			// Attempting to pick up items off the ground
-			if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
+			/*if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
 				topItemOnGround = coll.gameObject.GetComponent<Item> ();
-			}
+			}*/
 		}
 	}
 
@@ -249,14 +266,15 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 	public void Load(EntitySaveData esd) {
 		transform.position = new Vector3 (esd.posX, esd.posY, 0);
 		stats = new StatInfo (esd.statLevels);
-		if (inv == default(Inventory))
+		if (inv == default(Inventory)) {
 			inv = new Inventory ();
+		}
 		inv.Load (esd.inv);
 		// Destroy old entity items
 		foreach (Item item in GetComponentsInChildren<Item>()) {
 			// Hacky way of disassociating weapon for now
-			if (item.name != "Dagger")
-				Destroy (item.gameObject);
+			//if (defaultItems.Contains(item))
+			Destroy (item.gameObject);
 		}
 		// "Pickup" newly created entity items
 		for (int i = 0; i < inv.maxItems; i++) {
@@ -264,5 +282,17 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 			if (item != null)
 				item.PickupItem (this);
 		}
+		// Set active item
+		ResetActiveItem();
+	}
+
+	public void LoadFirstTime() {
+		foreach (Item i in defaultItems) {
+			i.PickupItem (this);
+			if (itemPickup != null)
+				itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
+		}
+		// Set active item
+		ResetActiveItem();
 	}
 }

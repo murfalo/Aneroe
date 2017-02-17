@@ -13,6 +13,8 @@ namespace AneroeInputs {
 		public static InputInfo.InputMode mode;
 		public static InputEventWrapper iEvent;
 
+		bool inputingAllowed;
+
 		public Dictionary<string, string> inputPairings = new Dictionary<string, string> {
 			{"up","w"},
 			{"left","a"},
@@ -33,9 +35,17 @@ namespace AneroeInputs {
 
 		public override void InternalSetup () {
 			iEvent = new InputEventWrapper ();
+			inputingAllowed = false;
+			SceneController.mergedNewScene += ActivateInputs;
+		}
+
+		public override void RemoveEventListeners() {
+			SceneController.mergedNewScene -= ActivateInputs;
 		}
 
 		void Update () {
+			if (!inputingAllowed)
+				return;
 			InputEventArgs e = new InputEventArgs ();
 			foreach (KeyValuePair<string,string> pair in inputPairings) {
 				if (Input.GetKeyDown (pair.Value)) {
@@ -57,6 +67,10 @@ namespace AneroeInputs {
 			if (iEvent != null && e.actions.Count > 0) {
 				iEvent.RegisterKeys (e);
 			}
+		}
+
+		void ActivateInputs(object sender, EventArgs e) {
+			inputingAllowed = true;
 		}
 	}
 

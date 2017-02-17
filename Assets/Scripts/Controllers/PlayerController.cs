@@ -39,6 +39,7 @@ public class PlayerController : EntityController
         InputController.iEvent.inputed += new InputEventHandler(ReceiveInput);
 		SaveController.fileLoaded += Load;
 		SaveController.fileSaving += Save;
+		SaveController.newGameStarted += LoadFirstTime;
 		// Subscribe to the inventory controller events to handle UI events appropriately.
 		InventoryController.ItemMoved += OnItemMoved;
     }
@@ -47,6 +48,7 @@ public class PlayerController : EntityController
 		InputController.iEvent.inputed -= new InputEventHandler(ReceiveInput);
 		SaveController.fileLoaded -= Load;
 		SaveController.fileSaving -= Save;
+		SaveController.newGameStarted -= LoadFirstTime;
 		InventoryController.ItemMoved -= OnItemMoved;
 	}
 
@@ -130,6 +132,12 @@ public class PlayerController : EntityController
 			EntitySaveData esd;
 			SaveController.GetValue (SaveKeys.players [i], out esd);
 			characters [i].Load (esd);
+		}
+	}
+
+	public void LoadFirstTime(object sender, System.EventArgs e) {
+		for (int i = 0; i < characters.Length; i++) {
+			characters [i].LoadFirstTime ();
 		}
 	}
 }

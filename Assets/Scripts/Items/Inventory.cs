@@ -22,21 +22,22 @@ public class Inventory : ISavable<InvSaveData>
     /// <summary>hotkey items on player</summary>
     public Item[] hotkeyItems;
 
-
     /// <summary>List of items in the player's inventory.</summary>
     public List<Item[]> items;
 
+	public int itemSlotEquipped;
     private int itemSlotsUsed;
 
     /// <summary>Initializes a new inventory object with a single row of items!</summary>
     public Inventory()
-    {
-        level = 4;
-        itemSlotsUsed = 0;
-        items = new List<Item[]>();
-        for (var i = 0; i < level; i++)
-            items.Add(new Item[LEVEL_ITEMS]);
-        hotkeyItems = new Item[10];
+	{
+		level = 4;
+		itemSlotsUsed = 0;
+		itemSlotEquipped = 0;
+		items = new List<Item[]>();
+		for (var i = 0; i < level; i++)
+			items.Add(new Item[LEVEL_ITEMS]);
+		hotkeyItems = new Item[10];
     }
 
     /// <summary>
