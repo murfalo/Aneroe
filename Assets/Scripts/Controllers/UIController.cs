@@ -92,6 +92,7 @@ public class UIController : BaseController
         }
         else if (target.CompareTag("UIItem") || target.CompareTag("UISlot"))
         {
+            if (target.CompareTag("UISlot") && target.transform.childCount > 0) return;
             Selected.GetComponent<Image>().raycastTarget = true;
             var newParent = target.CompareTag("UIItem") ? target.transform.parent : target.transform;
             Selected.transform.SetParent(newParent);
