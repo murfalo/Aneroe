@@ -1,6 +1,6 @@
 using System;
-using System.Xml.Serialization;
 using AneroeInputs;
+using PlayerEvents;
 using UIEvents;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,10 +22,20 @@ public class UIController : BaseController
     /// <summary>Item currently selected by the player.</summary>
     public static GameObject Selected;
 
+    /// <summary>Item currently selected by the player.</summary>
+    public static GameObject PlayerStatus;
+
     /// <summary>Event published when an item selected in the UI.</summary>
     public static event EventHandler<ItemSelectedEventArgs> ItemSelected;
 
     private GameObject _activeMenu;
+
+    /// <summary>The text representing the player's health.</summary>
+    private string _healthText
+    {
+        get { return PlayerStatus.transform.GetChild(1).GetComponent<Text>().text; }
+        set { PlayerStatus.transform.GetChild(1).GetComponent<Text>().text = value; }
+    }
 
     /// <summary>Causes the selected item to follow the mouse cursor.</summary>
     public void Update()
@@ -102,6 +112,14 @@ public class UIController : BaseController
         }
     }
 
+    private void OnHealthChanged<T>(object source, T eventArgs)
+    {
+        if (typeof(T) == typeof(PlayerHealthChangedEventArgs))
+            _healthText = ((PlayerHealthChangedEventArgs) (object) eventArgs).NewHealth.ToString();
+        else if (typeof(T) == typeof(PlayerSwitchEventArgs))
+            _healthText = ((PlayerSwitchEventArgs) (object) eventArgs).newPlayer.stats.GetStat("health").ToString();
+    }
+
     /// <summary>Load in UI game objects.</summary>
     public override void InternalSetup()
     {
@@ -119,6 +137,9 @@ public class UIController : BaseController
                 case "Crafting":
                     Crafting = t.gameObject;
                     break;
+                case "PlayerStatus":
+                    PlayerStatus = t.gameObject;
+                    break;
             }
         }
     }
@@ -126,11 +147,15 @@ public class UIController : BaseController
     public override void ExternalSetup()
     {
         InputController.iEvent.inputed += ReceiveInput;
+        PlayerController.PlayerHealthChanged += OnHealthChanged;
+        SceneController.timeSwapped += OnHealthChanged;
     }
 
     public override void RemoveEventListeners()
     {
         InputController.iEvent.inputed -= ReceiveInput;
+        PlayerController.PlayerHealthChanged -= OnHealthChanged;
+        SceneController.timeSwapped -= OnHealthChanged;
     }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
@@ -141,18 +166,21 @@ public class UIController : BaseController
                 ToggleInventory();
         }
         else if (eventArgs.WasPressed("mainmenu"))
-		{		
-			if (PromptController.activePrompt != null) {
-				PromptController.activePrompt.ContinuePrompt ();
-			} else {
-				// If possible, deactivate other menu instead of activate main menu
-				if (_activeMenu != null && _activeMenu != MainMenu)
-					ToggleInventory ();
-				else
-					MainMenu.SetActive (!MainMenu.activeSelf);
-				// Update active menu
-				_activeMenu = MainMenu.activeSelf ? MainMenu : null;
-			}
+        {
+            if (PromptController.activePrompt != null)
+            {
+                PromptController.activePrompt.ContinuePrompt();
+            }
+            else
+            {
+                // If possible, deactivate other menu instead of activate main menu
+                if (_activeMenu != null && _activeMenu != MainMenu)
+                    ToggleInventory();
+                else
+                    MainMenu.SetActive(!MainMenu.activeSelf);
+                // Update active menu
+                _activeMenu = MainMenu.activeSelf ? MainMenu : null;
+            }
         }
 
         InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;

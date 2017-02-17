@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
 public class EntityController : BaseController
 {
-	protected Dictionary<string, Action<Entity>> actionResponses;
+    protected Dictionary<string, Action<Entity>> actionResponses;
 
-	public virtual void RespondToEntityAction(Entity e, string actionName) {
-		actionResponses [actionName] (e);
-	}
+    public virtual void RespondToEntityAction(Entity e, string actionName)
+    {
+        if (actionResponses.ContainsKey(actionName))
+            actionResponses[actionName](e);
+    }
 }
 
