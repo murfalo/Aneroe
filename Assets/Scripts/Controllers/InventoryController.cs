@@ -18,6 +18,9 @@ public class InventoryController : BaseController
     /// <summary>Prefab for a physical (non-UI) item.</summary>
     [SerializeField] private GameObject Item;
 
+    /// <summary>Number of items in a row of the inventory.</summary>
+    private const int ITEMS_PER_ROW = 7;
+
     private List<GameObject> _slots;
 
     /// <summary>Event for an item moving in the inventory.</summary>
@@ -44,7 +47,7 @@ public class InventoryController : BaseController
         {
             var newSlot = Instantiate(UISlot);
             newSlot.name = "Slot." + i;
-            newSlot.transform.SetParent(UIController.Inventory.transform);
+            newSlot.transform.SetParent(UIController.Inventory.transform.GetChild(((i / ITEMS_PER_ROW) == 0) ? 0 : 1).transform);
             _slots.Add(newSlot);
         }
     }
@@ -125,6 +128,7 @@ public class InventoryController : BaseController
             if (item == null)
                 continue;
             var invSlot = Instantiate(InvSlot);
+            if (i < 7) invSlot.GetComponent<UnityEngine.UI.Image>().raycastTarget = false;
             invSlot.transform.SetParent(_slots[i].transform);
             invSlot.GetComponent<InventorySlot>().SetUnsetItem(item);
         }

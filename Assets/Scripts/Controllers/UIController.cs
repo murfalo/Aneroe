@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using AneroeInputs;
 using UIEvents;
 using UnityEngine;
@@ -152,7 +153,15 @@ public class UIController : BaseController
 
     private void ToggleInventory()
     {
-        Inventory.SetActive(!Inventory.activeSelf);
+        var hotbar = Inventory.transform.GetChild(0).gameObject.transform;
+        foreach (Transform child in hotbar)
+        {
+            if (child.childCount == 0) continue;
+            var image = child.GetChild(0).GetComponent<Image>();
+            image.raycastTarget = !image.raycastTarget;
+        }
+        var extra = Inventory.transform.GetChild(1).gameObject;
+        extra.SetActive(!extra.activeSelf);
         Crafting.SetActive(!Crafting.activeSelf);
         DropItem(Selected);
         GameObject.Find("Control").GetComponent<CraftingController>().DropItems();
