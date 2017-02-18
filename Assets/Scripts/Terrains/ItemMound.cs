@@ -39,9 +39,11 @@ public class ItemMound : Tile {
 			item.transform.SetParent(transform);
 			buriedItem = item;
 			sRend.sprite = fullTileSprite;
-			((ItemMound) otherTile).buriedItem = item;
-			Debug.Log (((ItemMound)otherTile).buriedItem);
-			((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).fullTileSprite;
+			if (otherTile) {
+				((ItemMound)otherTile).buriedItem = item;
+				Debug.Log (((ItemMound)otherTile).buriedItem);
+				((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).fullTileSprite;
+			}
 			return true;
 		}
 		return false; 
@@ -55,8 +57,10 @@ public class ItemMound : Tile {
 		sRend.sprite = emptyTileSprite;
 		Item i = buriedItem;
 		buriedItem = null;
-		((ItemMound) otherTile).buriedItem = null;
-		((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).emptyTileSprite;
+		if (otherTile) {
+			((ItemMound) otherTile).buriedItem = null;
+			((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).emptyTileSprite;
+		}
 		return i;
 	}
 }

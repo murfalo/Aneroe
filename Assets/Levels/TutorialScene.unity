@@ -33309,7 +33309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1811533670}
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1027778472
@@ -43805,7 +43805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1996944985}
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!1 &1311444729
@@ -59447,7 +59447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1027778471}
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!1 &1815769293
@@ -66363,7 +66363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1311354424}
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1996944986

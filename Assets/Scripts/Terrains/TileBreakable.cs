@@ -4,6 +4,8 @@ using System.Collections;
 public class TileBreakable : Tile
 {
 
+	//NOTE: If othertile exists, it has to be a TileBreakable
+
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
@@ -33,6 +35,11 @@ public class TileBreakable : Tile
 			sRend.sprite = brokenTileSprite;
 			coll.enabled = false;
 			SendDisableTileEvent ();
+			if (otherTile) {
+				((TileBreakable)otherTile).sRend.sprite = ((TileBreakable)otherTile).brokenTileSprite;
+				((TileBreakable)otherTile).coll.enabled = false;
+				((TileBreakable)otherTile).SendDisableTileEvent ();
+			}
 			return true;
 		}
 		return false;
