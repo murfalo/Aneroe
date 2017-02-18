@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class InventorySelect : MonoBehaviour, IPointerClickHandler {
 
-	UIController uiControl;
+	private UIController _uiControl;
 
 	void Start() {
-		uiControl = GameObject.Find ("Control").GetComponent<UIController> ();
+		_uiControl = GameObject.Find ("Control").GetComponent<UIController> ();
 	}
 
 	/// <section>Selects an item from or drops an item into a UI slot on left click.</section>
@@ -17,6 +17,6 @@ public class InventorySelect : MonoBehaviour, IPointerClickHandler {
 	{
 		if (eventData.button != PointerEventData.InputButton.Left) return;
 		var target = eventData.pointerCurrentRaycast.gameObject;
-		uiControl.HandlePointerClick (target);
+		_uiControl.HandlePointerClick (target);
 	}
 }

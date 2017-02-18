@@ -31,7 +31,7 @@ public class Weapon : Item {
 
 		targetsHit = new List<Entity> ();
 		damageQueue = new List<Entity> ();
-		owner = GetComponentInParent<Entity> ();
+		Owner = GetComponentInParent<Entity> ();
 
 		stats = new StatInfo ();
 		for (int i = 0; i < statNames.Length; i++) {
@@ -54,13 +54,13 @@ public class Weapon : Item {
 	// Layer the sprite renderer so that the weapon is either in front the user or behind the user
 	void LayerSprite(int dir) {
 		if (dir == (int)Entity.Dir.Down)
-			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
+			SRend.sortingOrder = Owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 		else 
-			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
+			SRend.sortingOrder = Owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
 	}
 
 	public override void EquipItem(bool equip) {
-		sRend.enabled = equip;
+		SRend.enabled = equip;
 	}
 
 	// Called by animator

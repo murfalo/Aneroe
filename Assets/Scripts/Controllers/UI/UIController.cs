@@ -10,6 +10,9 @@ public class UIController : BaseController
     /// <summary>The game object representing the user interface.</summary>
     [SerializeField] private GameObject UI;
 
+    /// <summary>Tooltip object for displaying item names and descriptions.</summary>
+    public static GameObject Tooltip;
+
     /// <summary>The game object representing the inventory.</summary>
     public static GameObject Inventory;
 
@@ -23,7 +26,7 @@ public class UIController : BaseController
     public static GameObject Selected;
 
     /// <summary>Item currently selected by the player.</summary>
-    public static GameObject PlayerStatus;
+    [SerializeField] public static GameObject PlayerStatus;
 
     /// <summary>Event published when an item selected in the UI.</summary>
     public static event EventHandler<ItemSelectedEventArgs> ItemSelected;
@@ -142,6 +145,9 @@ public class UIController : BaseController
                     break;
             }
         }
+        Tooltip = Instantiate(Resources.Load("Prefabs/UI/Tooltip", typeof(GameObject)) as GameObject);
+        Tooltip.transform.SetParent(UI.transform);
+        Tooltip.SetActive(false);
     }
 
     public override void ExternalSetup()
