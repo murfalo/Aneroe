@@ -77,9 +77,15 @@ public class UIController : BaseController
         var activeCharacter = PlayerController.activeCharacter;
         var newItem = item.GetComponent<InventorySlot>().GetItem();
         //newItem.transform.SetParent(GameObject.Find("Items").transform);
-        newItem.DropItem(activeCharacter.GetInteractPosition());
-        Selected = null;
-        Destroy(item);
+		if (TerrainController.BuryItem (newItem, activeCharacter.transform.position)) {
+			Debug.Log ("Burying item");
+			newItem.BuryItem ();
+		} else {
+			Debug.Log ("Dropping on the ground");
+			newItem.DropItem (activeCharacter.GetInteractPosition ());
+		}
+		Selected = null;
+		Destroy (item);
     }
 
     /// <summary>Moves the selected item in a UI slot.</summary>

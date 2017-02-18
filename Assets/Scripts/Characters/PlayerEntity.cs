@@ -212,6 +212,13 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 					i.PickupItem (this);
 					itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
 				}
+			}  else if (cols [0].gameObject.layer == LayerMask.NameToLayer ("InteractiveTile")) {
+				Item j = TerrainController.RetrieveItem (transform.position);
+				Debug.Log (j);
+				if (j) {
+					j.PickupItem (this);
+					itemPickup (this, new UIEvents.ItemPickupEventArgs (j, inv));
+				}
 			} else {
 				//Add options
 				//cols [0].GetComponent<Tile> ().CanUseItem()
@@ -224,7 +231,14 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData> {
 					i.PickupItem (this);
 					itemPickup (this, new UIEvents.ItemPickupEventArgs (i, inv));
 				}
-			} 
+			} else if (cols [0].gameObject.layer == LayerMask.NameToLayer ("InteractiveTile")) {
+				Item j = TerrainController.RetrieveItem (transform.position);
+				Debug.Log (j);
+				if (j) {
+					j.PickupItem (this);
+					itemPickup (this, new UIEvents.ItemPickupEventArgs (j, inv));
+				}
+			}
 		}
 	}
 

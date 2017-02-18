@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour {
 	}
 
 	// Use item on tile
-	public virtual void UseItem(Item item) {}
+	public virtual bool UseItem(Item item) {return false;}
 
 	// Other tile calls this to affect it with item used on other tile
 	public virtual void IndirectUseItem(Item item) {}

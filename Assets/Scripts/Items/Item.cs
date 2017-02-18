@@ -41,6 +41,11 @@ public class Item : MonoBehaviour, ISavable<ItemSaveData> {
 		StartCoroutine (WaitToDespawn ());
 	}
 
+	public virtual void BuryItem() {
+		sRend.enabled = false;
+		pickupCollider.enabled = false;
+	}
+
 	IEnumerator WaitToDespawn() {
 		yield return new WaitForSeconds (30);
 		if (owner == null) {

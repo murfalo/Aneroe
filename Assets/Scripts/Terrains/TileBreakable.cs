@@ -27,13 +27,15 @@ public class TileBreakable : Tile
 		return base.CanUseItem (item);
 	}
 
-	public override void UseItem (Item item)
+	public override bool UseItem (Item item)
 	{
 		if (this.CanUseItem (item)) {
 			sRend.sprite = brokenTileSprite;
 			coll.enabled = false;
 			SendDisableTileEvent ();
+			return true;
 		}
+		return false;
 	}
 }
 

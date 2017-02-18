@@ -30,23 +30,33 @@ public class ItemMound : Tile {
 	}
 
 	public override bool CanUseItem(Item i){
-		return base.CanUseItem (i) && buriedItem == null;
+		return buriedItem == null;
 	}
 
 	// Bury item in mound
-	public override void UseItem(Item item) {
-		buriedItem = item;
-		sRend.sprite = fullTileSprite;
+	public override bool UseItem(Item item) {
+		if (this.CanUseItem(item)) {
+			item.transform.SetParent(transform);
+			buriedItem = item;
+			sRend.sprite = fullTileSprite;
+			((ItemMound) otherTile).buriedItem = item;
+			Debug.Log (((ItemMound)otherTile).buriedItem);
+			((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).fullTileSprite;
+			return true;
+		}
+		return false; 
 	}
 
 	// Other tile calls this to affect it with item buried in other tile
 	public override void IndirectUseItem(Item item) {}
 
 	// Dig up item in mound
-	public Item RetrieveItem(Entity c) {
+	public Item RetrieveItem() {
 		sRend.sprite = emptyTileSprite;
 		Item i = buriedItem;
 		buriedItem = null;
+		((ItemMound) otherTile).buriedItem = null;
+		((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).emptyTileSprite;
 		return i;
 	}
 }
