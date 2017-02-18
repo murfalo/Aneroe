@@ -6,6 +6,12 @@ public class Tile : MonoBehaviour {
 
 	public Tile otherTile;
 	public System.Type[] usableItemTypes;
+	public enum Timeline {
+		Past,
+		Present
+	};
+
+	public Timeline timeline;
 
 	public virtual bool CanUseItem(Item item) {
 		System.Type itemType = item.GetType ();

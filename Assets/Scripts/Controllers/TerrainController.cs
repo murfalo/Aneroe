@@ -8,7 +8,6 @@ public class TerrainController : BaseController
 		RaycastHit2D[] hits = Physics2D.CircleCastAll (pos, 0.1f, new Vector3 (0, 1, 0), 0.1f,1 << LayerMask.NameToLayer("InteractiveTile"));
 		for (int j = 0; j < hits.Length; j++) {
 			ItemMound buryTile = hits [j].collider.gameObject.GetComponent<ItemMound> ();
-			Debug.Log (buryTile);
 			if (buryTile != null) {
 				if (buryTile.UseItem(i)) {
 					return true;
@@ -22,10 +21,8 @@ public class TerrainController : BaseController
 		RaycastHit2D[] hits = Physics2D.CircleCastAll (pos, 0.1f, new Vector3 (0, 1, 0), 0.1f,1 << LayerMask.NameToLayer("InteractiveTile"));
 		for (int j = 0; j < hits.Length; j++) {
 			ItemMound buryTile = hits [j].collider.gameObject.GetComponent<ItemMound> ();
-			Debug.Log (buryTile);
 			if (buryTile != null) {
 				Item i = buryTile.RetrieveItem ();
-				Debug.Log (i);
 				if (i) {
 					return i;
 				}

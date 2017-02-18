@@ -35,7 +35,7 @@ public class TileBreakable : Tile
 			sRend.sprite = brokenTileSprite;
 			coll.enabled = false;
 			SendDisableTileEvent ();
-			if (otherTile) {
+			if (otherTile && timeline == Timeline.Past) {
 				((TileBreakable)otherTile).sRend.sprite = ((TileBreakable)otherTile).brokenTileSprite;
 				((TileBreakable)otherTile).coll.enabled = false;
 				((TileBreakable)otherTile).SendDisableTileEvent ();

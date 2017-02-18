@@ -10,6 +10,9 @@ public class ItemMound : Tile {
 	// Player can interact with this tile when colliding with this
 	Collider2D digRangeCollider;
 
+	// Only applicable for ItemMounds in the past when the future pulls it out
+	bool isHoldingItemForFuture;
+
 	// Array of 2 sprites:
 	// first sprite for when no item is buried 
 	// second sprite for when an item is buried
@@ -21,7 +24,8 @@ public class ItemMound : Tile {
 		sRend = GetComponent<SpriteRenderer> ();
 		buriedItem = null;
 		usableItemTypes = new System.Type[1];
-		usableItemTypes [0] = System.Type.GetType("Herb");
+		usableItemTypes [0] = System.Type.GetType("Item");
+		isHoldingItemForFuture = false;
 	}
 	
 	// Update is called once per frame
@@ -30,7 +34,7 @@ public class ItemMound : Tile {
 	}
 
 	public override bool CanUseItem(Item i){
-		return buriedItem == null;
+		return buriedItem == null && base.CanUseItem(i) && !isHoldingItemForFuture;
 	}
 
 	// Bury item in mound
@@ -39,9 +43,8 @@ public class ItemMound : Tile {
 			item.transform.SetParent(transform);
 			buriedItem = item;
 			sRend.sprite = fullTileSprite;
-			if (otherTile) {
+			if (otherTile && timeline == Timeline.Past) {
 				((ItemMound)otherTile).buriedItem = item;
-				Debug.Log (((ItemMound)otherTile).buriedItem);
 				((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).fullTileSprite;
 			}
 			return true;
@@ -54,13 +57,23 @@ public class ItemMound : Tile {
 
 	// Dig up item in mound
 	public Item RetrieveItem() {
-		sRend.sprite = emptyTileSprite;
-		Item i = buriedItem;
-		buriedItem = null;
-		if (otherTile) {
-			((ItemMound) otherTile).buriedItem = null;
-			((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).emptyTileSprite;
+		if (!isHoldingItemForFuture) {
+			sRend.sprite = emptyTileSprite;
+			Item i = buriedItem;
+			buriedItem = null;
+			if (otherTile) {
+				((ItemMound)otherTile).buriedItem = null;
+				if (timeline == Timeline.Present) {
+					((ItemMound)otherTile).isHoldingItemForFuture = true;
+				} else {
+					((ItemMound)otherTile).sRend.sprite = ((ItemMound)otherTile).emptyTileSprite;
+				}
+			}
+			return i;
+		} else {
+			// Place for a text popup for the player
+			Debug.Log ("This Tile is Holding an Item for the future");
 		}
-		return i;
+		return null;
 	}
 }
