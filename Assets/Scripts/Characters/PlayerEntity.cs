@@ -17,7 +17,7 @@ public class PlayerEntity : Entity
     public event EventHandler<ItemInteractEventArgs> itemInteracted;
 
     public Inventory inv;
-    private List<Item> defaultItems;
+	public string[] defaultItemPrefabNames;
 	private Tile interactTile;
 
     // For use in queue comparisons
@@ -54,9 +54,6 @@ public class PlayerEntity : Entity
 
         controller = GameObject.Find("Control").GetComponent<EntityController>();
         inv = new Inventory();
-        defaultItems = new List<Item>(GetComponentsInChildren<Item>());
-        foreach (var item in defaultItems)
-            item.Setup();
     }
 
     public override void DoFixedUpdate()
@@ -335,11 +332,6 @@ public class PlayerEntity : Entity
 		stats = new StatInfo((Dictionary<string, float>)esd["statLevels"]);
 		controller.RespondToEntityAction(this, "health");
 
-		for (int i = 0; i < defaultItems.Count; i++) {
-			Destroy (defaultItems [i].gameObject);
-		}
-		defaultItems.Clear ();
-
 		inv = new Inventory();
 		for (int i = 0; i < (int)esd["itemcount"]; i++) {
 			if (!esd.ContainsKey ("item" + i))
@@ -360,7 +352,11 @@ public class PlayerEntity : Entity
 
     public void LoadFirstTime()
     {
-		foreach (var i in defaultItems) {
+		foreach (string itemName in defaultItemPrefabNames) {
+			var itemObj = Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + itemName));
+			itemObj.transform.SetParent (transform);
+			Item i = itemObj.GetComponentInChildren<Item> ();
+			i.Setup();	
 			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication
 			i.PickupItem (this);
 			inv.AddItem (i);

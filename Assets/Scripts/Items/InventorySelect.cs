@@ -17,7 +17,6 @@ public class InventorySelect : MonoBehaviour, IPointerClickHandler {
 	{
 		if (eventData.button != PointerEventData.InputButton.Left) return;
 		var target = eventData.pointerCurrentRaycast.gameObject;
-		print (target);
 		_uiControl.HandlePointerClick (target);
 	}
 }

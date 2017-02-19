@@ -145,7 +145,7 @@ public class UIController : BaseController
                     break;
             }
         }
-        Tooltip = Instantiate(Resources.Load("Prefabs/UI/Tooltip", typeof(GameObject)) as GameObject);
+		Tooltip = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tooltip"));
         Tooltip.transform.SetParent(UI.transform);
         Tooltip.SetActive(false);
     }
