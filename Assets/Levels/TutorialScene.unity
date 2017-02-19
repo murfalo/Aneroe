@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &14190193
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &20572984
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &33062438
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &38319794
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &40250435
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &40964299
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &41049804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &43445192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,6 +1127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &46188388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &47724233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,6 +1603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &62084875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &62167275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &63287202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,6 +2187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &71777536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,6 +2329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &77523003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2392,6 +2407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &77851902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &80874316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,6 +2706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &88322856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,6 +2784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &90060797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,6 +2862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &90082455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,6 +3004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &93238974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,6 +3206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &97438735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3469,6 +3491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &106891290
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,6 +3569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &108282292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3623,6 +3647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &108688899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,6 +3725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &116302892
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,6 +3803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &121824266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,6 +4240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &131990191
 GameObject:
   m_ObjectHideFlags: 0
@@ -4290,6 +4318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &132435783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4559,6 +4588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &139378021
 GameObject:
   m_ObjectHideFlags: 0
@@ -4636,6 +4666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &139692290
 GameObject:
   m_ObjectHideFlags: 0
@@ -5343,6 +5374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &169526175
 GameObject:
   m_ObjectHideFlags: 0
@@ -5499,6 +5531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &175942210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,6 +5737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &182377238
 GameObject:
   m_ObjectHideFlags: 0
@@ -5924,6 +5958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &189176860
 GameObject:
   m_ObjectHideFlags: 0
@@ -6396,6 +6431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &204560490
 GameObject:
   m_ObjectHideFlags: 0
@@ -6473,6 +6509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &208528309
 GameObject:
   m_ObjectHideFlags: 0
@@ -6614,6 +6651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &210856231
 GameObject:
   m_ObjectHideFlags: 0
@@ -6834,6 +6872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &229204199
 GameObject:
   m_ObjectHideFlags: 0
@@ -6911,6 +6950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &229384358
 GameObject:
   m_ObjectHideFlags: 0
@@ -6988,6 +7028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &231836875
 GameObject:
   m_ObjectHideFlags: 0
@@ -7129,6 +7170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &235631438
 GameObject:
   m_ObjectHideFlags: 0
@@ -7206,6 +7248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &236211902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7362,6 +7405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &237840429
 GameObject:
   m_ObjectHideFlags: 0
@@ -7722,6 +7766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &247818769
 GameObject:
   m_ObjectHideFlags: 0
@@ -7799,6 +7844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &249575160
 GameObject:
   m_ObjectHideFlags: 0
@@ -7940,6 +7986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &252900237
 GameObject:
   m_ObjectHideFlags: 0
@@ -8017,6 +8064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &253666704
 GameObject:
   m_ObjectHideFlags: 0
@@ -8301,6 +8349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &262195538
 GameObject:
   m_ObjectHideFlags: 0
@@ -8521,6 +8570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &265194845
 GameObject:
   m_ObjectHideFlags: 0
@@ -8598,6 +8648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &266865914
 GameObject:
   m_ObjectHideFlags: 0
@@ -9055,6 +9106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &278650976
 GameObject:
   m_ObjectHideFlags: 0
@@ -9132,6 +9184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &279133902
 GameObject:
   m_ObjectHideFlags: 0
@@ -9352,6 +9405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &285341672
 GameObject:
   m_ObjectHideFlags: 0
@@ -9429,6 +9483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &285887192
 GameObject:
   m_ObjectHideFlags: 0
@@ -9506,6 +9561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &287081133
 GameObject:
   m_ObjectHideFlags: 0
@@ -9647,6 +9703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &292757328
 GameObject:
   m_ObjectHideFlags: 0
@@ -9800,6 +9857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &294996563
 GameObject:
   m_ObjectHideFlags: 0
@@ -9877,6 +9935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &296784458
 GameObject:
   m_ObjectHideFlags: 0
@@ -9954,6 +10013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &297197899
 GameObject:
   m_ObjectHideFlags: 0
@@ -10031,6 +10091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &297540081
 GameObject:
   m_ObjectHideFlags: 0
@@ -10379,6 +10440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &317764208
 GameObject:
   m_ObjectHideFlags: 0
@@ -10535,6 +10597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &325576088
 GameObject:
   m_ObjectHideFlags: 0
@@ -10834,6 +10897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &338207922
 GameObject:
   m_ObjectHideFlags: 0
@@ -10911,6 +10975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &342079788
 GameObject:
   m_ObjectHideFlags: 0
@@ -10988,6 +11053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &343129009
 GameObject:
   m_ObjectHideFlags: 0
@@ -11065,6 +11131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &344525767
 GameObject:
   m_ObjectHideFlags: 0
@@ -11270,6 +11337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &346436800
 GameObject:
   m_ObjectHideFlags: 0
@@ -11411,6 +11479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &349328359
 GameObject:
   m_ObjectHideFlags: 0
@@ -11567,6 +11636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &351708698
 GameObject:
   m_ObjectHideFlags: 0
@@ -11644,6 +11714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &351825373
 GameObject:
   m_ObjectHideFlags: 0
@@ -11721,6 +11792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &352956935
 GameObject:
   m_ObjectHideFlags: 0
@@ -11778,6 +11850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &352956939
@@ -12114,6 +12187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &358949986
 GameObject:
   m_ObjectHideFlags: 0
@@ -12255,6 +12329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &366414495
 GameObject:
   m_ObjectHideFlags: 0
@@ -12332,6 +12407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &367756621
 GameObject:
   m_ObjectHideFlags: 0
@@ -12473,6 +12549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &376731028
 GameObject:
   m_ObjectHideFlags: 0
@@ -12550,6 +12627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &378140213
 GameObject:
   m_ObjectHideFlags: 0
@@ -12691,6 +12769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &383336576
 GameObject:
   m_ObjectHideFlags: 0
@@ -12832,6 +12911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &386051040
 GameObject:
   m_ObjectHideFlags: 0
@@ -12909,6 +12989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &396215061
 GameObject:
   m_ObjectHideFlags: 0
@@ -13223,6 +13304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &411091793
 GameObject:
   m_ObjectHideFlags: 0
@@ -13300,6 +13382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &414303952
 GameObject:
   m_ObjectHideFlags: 0
@@ -13377,6 +13460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &415279939
 GameObject:
   m_ObjectHideFlags: 0
@@ -13454,6 +13538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &420504642
 GameObject:
   m_ObjectHideFlags: 0
@@ -13531,6 +13616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &420874670
 GameObject:
   m_ObjectHideFlags: 0
@@ -14067,6 +14153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &445287480
 GameObject:
   m_ObjectHideFlags: 0
@@ -14144,6 +14231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &446050513
 GameObject:
   m_ObjectHideFlags: 0
@@ -14300,6 +14388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &452028391
 GameObject:
   m_ObjectHideFlags: 0
@@ -14377,6 +14466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &453196316
 GameObject:
   m_ObjectHideFlags: 0
@@ -14454,6 +14544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &455735590
 GameObject:
   m_ObjectHideFlags: 0
@@ -14738,6 +14829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &462390383
 GameObject:
   m_ObjectHideFlags: 0
@@ -14894,6 +14986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &472586934
 GameObject:
   m_ObjectHideFlags: 0
@@ -15035,6 +15128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &477090839
 GameObject:
   m_ObjectHideFlags: 0
@@ -15112,6 +15206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &478350633
 GameObject:
   m_ObjectHideFlags: 0
@@ -15332,6 +15427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &486497801
 GameObject:
   m_ObjectHideFlags: 0
@@ -15409,6 +15505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &490494018
 GameObject:
   m_ObjectHideFlags: 0
@@ -16210,6 +16307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &503184196
 GameObject:
   m_ObjectHideFlags: 0
@@ -16287,6 +16385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &505268009
 GameObject:
   m_ObjectHideFlags: 0
@@ -16443,6 +16542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &505625723
 GameObject:
   m_ObjectHideFlags: 0
@@ -16520,6 +16620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &505978081
 GameObject:
   m_ObjectHideFlags: 0
@@ -16661,6 +16762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &509093230
 GameObject:
   m_ObjectHideFlags: 0
@@ -16872,6 +16974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &513312690
 GameObject:
   m_ObjectHideFlags: 0
@@ -17329,6 +17432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &523666589
 GameObject:
   m_ObjectHideFlags: 0
@@ -17470,6 +17574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &524678775
 GameObject:
   m_ObjectHideFlags: 0
@@ -17754,6 +17859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &532029712
 GameObject:
   m_ObjectHideFlags: 0
@@ -17831,6 +17937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &533331712
 GameObject:
   m_ObjectHideFlags: 0
@@ -17987,6 +18094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &540378533
 GameObject:
   m_ObjectHideFlags: 0
@@ -18128,6 +18236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &543131181
 GameObject:
   m_ObjectHideFlags: 0
@@ -18205,6 +18314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &546563186
 GameObject:
   m_ObjectHideFlags: 0
@@ -18282,6 +18392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &549832222
 GameObject:
   m_ObjectHideFlags: 0
@@ -18435,6 +18546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &552973020
 GameObject:
   m_ObjectHideFlags: 0
@@ -18576,6 +18688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &559788072
 GameObject:
   m_ObjectHideFlags: 0
@@ -18732,6 +18845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &567538703
 GameObject:
   m_ObjectHideFlags: 0
@@ -18809,6 +18923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &571263726
 GameObject:
   m_ObjectHideFlags: 0
@@ -18886,6 +19001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &571530619
 GameObject:
   m_ObjectHideFlags: 0
@@ -19278,6 +19394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &581956543
 GameObject:
   m_ObjectHideFlags: 0
@@ -19641,6 +19758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &589800190
 GameObject:
   m_ObjectHideFlags: 0
@@ -19782,6 +19900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &595868804
 GameObject:
   m_ObjectHideFlags: 0
@@ -19923,6 +20042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &598292991
 GameObject:
   m_ObjectHideFlags: 0
@@ -20000,6 +20120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &598849684
 GameObject:
   m_ObjectHideFlags: 0
@@ -20077,6 +20198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &600716923
 GameObject:
   m_ObjectHideFlags: 0
@@ -20233,6 +20355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &602530639
 GameObject:
   m_ObjectHideFlags: 0
@@ -20577,6 +20700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &608810806
 GameObject:
   m_ObjectHideFlags: 0
@@ -20654,6 +20778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &609870095
 GameObject:
   m_ObjectHideFlags: 0
@@ -21032,6 +21157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &619403463
 GameObject:
   m_ObjectHideFlags: 0
@@ -21395,6 +21521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &633111247
 GameObject:
   m_ObjectHideFlags: 0
@@ -21536,6 +21663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &641033812
 GameObject:
   m_ObjectHideFlags: 0
@@ -21897,6 +22025,7 @@ MonoBehaviour:
   - introWasd
   - introMouse
   overridePromptDuration: 2
+  noTimer: 1
   andInputNames:
   - up
   - down
@@ -22048,6 +22177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &659179244
 GameObject:
   m_ObjectHideFlags: 0
@@ -22125,6 +22255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &665011573
 GameObject:
   m_ObjectHideFlags: 0
@@ -22360,6 +22491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &668160676
 GameObject:
   m_ObjectHideFlags: 0
@@ -22437,6 +22569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &672951625
 GameObject:
   m_ObjectHideFlags: 0
@@ -22785,6 +22918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &688995344
 GameObject:
   m_ObjectHideFlags: 0
@@ -22862,6 +22996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &690386931
 GameObject:
   m_ObjectHideFlags: 0
@@ -22939,6 +23074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &692388634
 GameObject:
   m_ObjectHideFlags: 0
@@ -23321,6 +23457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &697949590
 GameObject:
   m_ObjectHideFlags: 0
@@ -23681,6 +23818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &709449151
 GameObject:
   m_ObjectHideFlags: 0
@@ -23837,6 +23975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &715022465
 GameObject:
   m_ObjectHideFlags: 0
@@ -24057,6 +24196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &720130712
 GameObject:
   m_ObjectHideFlags: 0
@@ -24134,6 +24274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &720664270
 GameObject:
   m_ObjectHideFlags: 0
@@ -24211,6 +24352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &724905190
 GameObject:
   m_ObjectHideFlags: 0
@@ -24288,6 +24430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &729595683
 GameObject:
   m_ObjectHideFlags: 0
@@ -24365,6 +24508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &730731140
 GameObject:
   m_ObjectHideFlags: 0
@@ -24442,6 +24586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &733642793
 GameObject:
   m_ObjectHideFlags: 0
@@ -24976,6 +25121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &742006627
 GameObject:
   m_ObjectHideFlags: 0
@@ -25160,6 +25306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &753647636
 GameObject:
   m_ObjectHideFlags: 0
@@ -26061,6 +26208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &785092438
 GameObject:
   m_ObjectHideFlags: 0
@@ -26567,6 +26715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &800801577
 GameObject:
   m_ObjectHideFlags: 0
@@ -26644,6 +26793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &801631035
 GameObject:
   m_ObjectHideFlags: 0
@@ -27233,6 +27383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &825290335
 GameObject:
   m_ObjectHideFlags: 0
@@ -27517,6 +27668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &856092828
 GameObject:
   m_ObjectHideFlags: 0
@@ -27594,6 +27746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &862055646
 GameObject:
   m_ObjectHideFlags: 0
@@ -27893,6 +28046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &865146112
 GameObject:
   m_ObjectHideFlags: 0
@@ -28177,6 +28331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &881133364
 GameObject:
   m_ObjectHideFlags: 0
@@ -28318,6 +28473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &885632858
 GameObject:
   m_ObjectHideFlags: 0
@@ -28538,6 +28694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &889498860
 GameObject:
   m_ObjectHideFlags: 0
@@ -28615,6 +28772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &890917523
 GameObject:
   m_ObjectHideFlags: 0
@@ -28756,6 +28914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &895504497
 GameObject:
   m_ObjectHideFlags: 0
@@ -28833,6 +28992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &897870324
 GameObject:
   m_ObjectHideFlags: 0
@@ -29427,6 +29587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &912751025
 GameObject:
   m_ObjectHideFlags: 0
@@ -30058,6 +30219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &928044410
 GameObject:
   m_ObjectHideFlags: 0
@@ -30135,6 +30297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &930779895
 GameObject:
   m_ObjectHideFlags: 0
@@ -30291,6 +30454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &936126251
 GameObject:
   m_ObjectHideFlags: 0
@@ -30526,6 +30690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &944654338
 GameObject:
   m_ObjectHideFlags: 0
@@ -30791,6 +30956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &951865218
 GameObject:
   m_ObjectHideFlags: 0
@@ -31169,6 +31335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &961376918
 GameObject:
   m_ObjectHideFlags: 0
@@ -31246,6 +31413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &961980229
 GameObject:
   m_ObjectHideFlags: 0
@@ -31466,6 +31634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &971230166
 GameObject:
   m_ObjectHideFlags: 0
@@ -31543,6 +31712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &975899247
 GameObject:
   m_ObjectHideFlags: 0
@@ -31684,6 +31854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &979716196
 GameObject:
   m_ObjectHideFlags: 0
@@ -31761,6 +31932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &980956624
 GameObject:
   m_ObjectHideFlags: 0
@@ -31838,6 +32010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &983024876
 GameObject:
   m_ObjectHideFlags: 0
@@ -31915,6 +32088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &983140860
 GameObject:
   m_ObjectHideFlags: 0
@@ -31992,6 +32166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &985404803
 GameObject:
   m_ObjectHideFlags: 0
@@ -32513,6 +32688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1003560917
 GameObject:
   m_ObjectHideFlags: 0
@@ -32590,6 +32766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1004007532
 GameObject:
   m_ObjectHideFlags: 0
@@ -32866,6 +33043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1014834059
 GameObject:
   m_ObjectHideFlags: 0
@@ -32943,6 +33121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1026358410
 GameObject:
   m_ObjectHideFlags: 0
@@ -33020,6 +33199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1026397071
 GameObject:
   m_ObjectHideFlags: 0
@@ -33097,6 +33277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1026838069
 GameObject:
   m_ObjectHideFlags: 0
@@ -33230,6 +33411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1027778472
@@ -33344,6 +33526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1032500592
 GameObject:
   m_ObjectHideFlags: 0
@@ -33485,6 +33668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1037280770
 GameObject:
   m_ObjectHideFlags: 0
@@ -33542,6 +33726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1037280774
@@ -33957,6 +34142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1045530294
 GameObject:
   m_ObjectHideFlags: 0
@@ -34034,6 +34220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1048333286
 GameObject:
   m_ObjectHideFlags: 0
@@ -34111,6 +34298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1048821552
 GameObject:
   m_ObjectHideFlags: 0
@@ -34252,6 +34440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1050974078
 GameObject:
   m_ObjectHideFlags: 0
@@ -34329,6 +34518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1051819087
 GameObject:
   m_ObjectHideFlags: 0
@@ -34406,6 +34596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1055050476
 GameObject:
   m_ObjectHideFlags: 0
@@ -34626,6 +34817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1060404689
 GameObject:
   m_ObjectHideFlags: 0
@@ -35543,6 +35735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1107513264
 GameObject:
   m_ObjectHideFlags: 0
@@ -35620,6 +35813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1107573296
 GameObject:
   m_ObjectHideFlags: 0
@@ -35697,6 +35891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1108277922
 GameObject:
   m_ObjectHideFlags: 0
@@ -36115,6 +36310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1119240801
 GameObject:
   m_ObjectHideFlags: 0
@@ -36192,6 +36388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1122406308
 GameObject:
   m_ObjectHideFlags: 0
@@ -36412,6 +36609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1131137260
 GameObject:
   m_ObjectHideFlags: 0
@@ -36553,6 +36751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1137185831
 GameObject:
   m_ObjectHideFlags: 0
@@ -36989,6 +37188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1145592232
 GameObject:
   m_ObjectHideFlags: 0
@@ -37066,6 +37266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1148332184
 GameObject:
   m_ObjectHideFlags: 0
@@ -37143,6 +37344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1151394761
 GameObject:
   m_ObjectHideFlags: 0
@@ -37220,6 +37422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1154992484
 GameObject:
   m_ObjectHideFlags: 0
@@ -37504,6 +37707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1161171492
 GameObject:
   m_ObjectHideFlags: 0
@@ -37645,6 +37849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1164040239
 GameObject:
   m_ObjectHideFlags: 0
@@ -37865,6 +38070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1169074910
 GameObject:
   m_ObjectHideFlags: 0
@@ -38064,6 +38270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1173861454
 GameObject:
   m_ObjectHideFlags: 0
@@ -38141,6 +38348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1173875819
 GameObject:
   m_ObjectHideFlags: 0
@@ -38218,6 +38426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1175385911
 GameObject:
   m_ObjectHideFlags: 0
@@ -38532,6 +38741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1181633134
 GameObject:
   m_ObjectHideFlags: 0
@@ -38609,6 +38819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1184410954
 GameObject:
   m_ObjectHideFlags: 0
@@ -38829,6 +39040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1201731090
 GameObject:
   m_ObjectHideFlags: 0
@@ -38906,6 +39118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1206072368
 GameObject:
   m_ObjectHideFlags: 0
@@ -39141,6 +39354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1212555222
 GameObject:
   m_ObjectHideFlags: 0
@@ -39425,6 +39639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1218329639
 GameObject:
   m_ObjectHideFlags: 0
@@ -39502,6 +39717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1219015442
 GameObject:
   m_ObjectHideFlags: 0
@@ -39689,6 +39905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1223487283
 GameObject:
   m_ObjectHideFlags: 0
@@ -39766,6 +39983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1228151700
 GameObject:
   m_ObjectHideFlags: 0
@@ -39922,6 +40140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1229228927
 GameObject:
   m_ObjectHideFlags: 0
@@ -40075,6 +40294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1231420626
 GameObject:
   m_ObjectHideFlags: 0
@@ -40280,6 +40500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1237908512
 GameObject:
   m_ObjectHideFlags: 0
@@ -40433,6 +40654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1243047283
 GameObject:
   m_ObjectHideFlags: 0
@@ -40574,6 +40796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1244158931
 GameObject:
   m_ObjectHideFlags: 0
@@ -40651,6 +40874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1245119852
 GameObject:
   m_ObjectHideFlags: 0
@@ -41154,6 +41378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1254856557
 GameObject:
   m_ObjectHideFlags: 0
@@ -41310,6 +41535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1261559908
 GameObject:
   m_ObjectHideFlags: 0
@@ -41387,6 +41613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1262779826
 GameObject:
   m_ObjectHideFlags: 0
@@ -41957,6 +42184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1278277921
 GameObject:
   m_ObjectHideFlags: 0
@@ -42034,6 +42262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1280341908
 GameObject:
   m_ObjectHideFlags: 0
@@ -42555,6 +42784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1290076949
 GameObject:
   m_ObjectHideFlags: 0
@@ -42775,6 +43005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1293261936
 GameObject:
   m_ObjectHideFlags: 0
@@ -42852,6 +43083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1293527687
 GameObject:
   m_ObjectHideFlags: 0
@@ -42929,6 +43161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1295126839
 GameObject:
   m_ObjectHideFlags: 0
@@ -43143,6 +43376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1300977300
 GameObject:
   m_ObjectHideFlags: 0
@@ -43220,6 +43454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1303880612
 GameObject:
   m_ObjectHideFlags: 0
@@ -43373,6 +43608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1307371729
 GameObject:
   m_ObjectHideFlags: 0
@@ -43666,6 +43902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!1 &1311444729
@@ -43745,6 +43982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1313139453
 GameObject:
   m_ObjectHideFlags: 0
@@ -43822,6 +44060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1313144324
 GameObject:
   m_ObjectHideFlags: 0
@@ -44042,6 +44281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1328774413
 GameObject:
   m_ObjectHideFlags: 0
@@ -44198,6 +44438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1333811462
 GameObject:
   m_ObjectHideFlags: 0
@@ -44433,6 +44674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1354559200
 GameObject:
   m_ObjectHideFlags: 0
@@ -44510,6 +44752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1355678065
 GameObject:
   m_ObjectHideFlags: 0
@@ -44587,6 +44830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1357204205
 GameObject:
   m_ObjectHideFlags: 0
@@ -44664,6 +44908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1360105296
 GameObject:
   m_ObjectHideFlags: 0
@@ -44881,6 +45126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1369737199
 GameObject:
   m_ObjectHideFlags: 0
@@ -44958,6 +45204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1371727228
 GameObject:
   m_ObjectHideFlags: 0
@@ -45035,6 +45282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1373509876
 GameObject:
   m_ObjectHideFlags: 0
@@ -45112,6 +45360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1373522404
 GameObject:
   m_ObjectHideFlags: 0
@@ -45539,6 +45788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1387464753
 GameObject:
   m_ObjectHideFlags: 0
@@ -45616,6 +45866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1388838842
 GameObject:
   m_ObjectHideFlags: 0
@@ -45693,6 +45944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1388938996
 GameObject:
   m_ObjectHideFlags: 0
@@ -45849,6 +46101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1392299725
 GameObject:
   m_ObjectHideFlags: 0
@@ -46069,6 +46322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1401917346
 GameObject:
   m_ObjectHideFlags: 0
@@ -46146,6 +46400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1403831562
 GameObject:
   m_ObjectHideFlags: 0
@@ -46366,6 +46621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1409908367
 GameObject:
   m_ObjectHideFlags: 0
@@ -46857,6 +47113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1421231372
 GameObject:
   m_ObjectHideFlags: 0
@@ -46998,6 +47255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1427705716
 GameObject:
   m_ObjectHideFlags: 0
@@ -47075,6 +47333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1428231969
 GameObject:
   m_ObjectHideFlags: 0
@@ -47152,6 +47411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1428233804
 GameObject:
   m_ObjectHideFlags: 0
@@ -47229,6 +47489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1429965298
 GameObject:
   m_ObjectHideFlags: 0
@@ -47528,6 +47789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1438272568
 GameObject:
   m_ObjectHideFlags: 0
@@ -48078,6 +48340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1447936425
 GameObject:
   m_ObjectHideFlags: 0
@@ -48219,6 +48482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1453203844
 GameObject:
   m_ObjectHideFlags: 0
@@ -48372,6 +48636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1457802638
 GameObject:
   m_ObjectHideFlags: 0
@@ -48717,6 +48982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1468288985
 GameObject:
   m_ObjectHideFlags: 0
@@ -48794,6 +49060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1475863597
 GameObject:
   m_ObjectHideFlags: 0
@@ -48950,6 +49217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1482662904
 GameObject:
   m_ObjectHideFlags: 0
@@ -49325,6 +49593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1489789011
 GameObject:
   m_ObjectHideFlags: 0
@@ -49481,6 +49750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1498379257
 GameObject:
   m_ObjectHideFlags: 0
@@ -49622,6 +49892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1499004098
 GameObject:
   m_ObjectHideFlags: 0
@@ -49699,6 +49970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1502970771
 GameObject:
   m_ObjectHideFlags: 0
@@ -49904,6 +50176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1506128069
 GameObject:
   m_ObjectHideFlags: 0
@@ -50139,6 +50412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1516451416
 GameObject:
   m_ObjectHideFlags: 0
@@ -50295,6 +50569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1520620011
 GameObject:
   m_ObjectHideFlags: 0
@@ -50515,6 +50790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1528904948
 GameObject:
   m_ObjectHideFlags: 0
@@ -50592,6 +50868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1529518129
 GameObject:
   m_ObjectHideFlags: 0
@@ -50748,6 +51025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1534582304
 GameObject:
   m_ObjectHideFlags: 0
@@ -51123,6 +51401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1547493903
 GameObject:
   m_ObjectHideFlags: 0
@@ -51348,6 +51627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1551070131
 GameObject:
   m_ObjectHideFlags: 0
@@ -51583,6 +51863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1554304848
 GameObject:
   m_ObjectHideFlags: 0
@@ -51739,6 +52020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1557351358
 GameObject:
   m_ObjectHideFlags: 0
@@ -51944,6 +52226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1563171341
 GameObject:
   m_ObjectHideFlags: 0
@@ -52021,6 +52304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1563930590
 GameObject:
   m_ObjectHideFlags: 0
@@ -52162,6 +52446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1567093295
 GameObject:
   m_ObjectHideFlags: 0
@@ -52239,6 +52524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1572872559
 GameObject:
   m_ObjectHideFlags: 0
@@ -52316,6 +52602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1573205004
 GameObject:
   m_ObjectHideFlags: 0
@@ -52472,6 +52759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1575172992
 GameObject:
   m_ObjectHideFlags: 0
@@ -52577,6 +52865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1576088567
 GameObject:
   m_ObjectHideFlags: 0
@@ -52846,6 +53135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1584478842
 GameObject:
   m_ObjectHideFlags: 0
@@ -53066,6 +53356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1597844654
 GameObject:
   m_ObjectHideFlags: 0
@@ -53222,6 +53513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1598822492
 GameObject:
   m_ObjectHideFlags: 0
@@ -53299,6 +53591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1600035193
 GameObject:
   m_ObjectHideFlags: 0
@@ -53376,6 +53669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1600895591
 GameObject:
   m_ObjectHideFlags: 0
@@ -53453,6 +53747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1601873557
 GameObject:
   m_ObjectHideFlags: 0
@@ -53530,6 +53825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1602413661
 GameObject:
   m_ObjectHideFlags: 0
@@ -53607,6 +53903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1608179434
 GameObject:
   m_ObjectHideFlags: 0
@@ -53842,6 +54139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1618137104
 GameObject:
   m_ObjectHideFlags: 0
@@ -54284,6 +54582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1630916784
 GameObject:
   m_ObjectHideFlags: 0
@@ -54569,6 +54868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!4 &1632556027
 Transform:
   m_ObjectHideFlags: 0
@@ -54816,6 +55116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1639536312
 GameObject:
   m_ObjectHideFlags: 0
@@ -55179,6 +55480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1661734284
 GameObject:
   m_ObjectHideFlags: 0
@@ -55256,6 +55558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1662983060
 GameObject:
   m_ObjectHideFlags: 0
@@ -55397,6 +55700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1665772080
 GameObject:
   m_ObjectHideFlags: 0
@@ -55538,6 +55842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1666825354
 GameObject:
   m_ObjectHideFlags: 0
@@ -55841,6 +56146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1683160160
 GameObject:
   m_ObjectHideFlags: 0
@@ -55997,6 +56303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1683549812
 GameObject:
   m_ObjectHideFlags: 0
@@ -56153,6 +56460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1684080088
 GameObject:
   m_ObjectHideFlags: 0
@@ -56230,6 +56538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1688720359
 GameObject:
   m_ObjectHideFlags: 0
@@ -56371,6 +56680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1689199252
 GameObject:
   m_ObjectHideFlags: 0
@@ -56448,6 +56758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1689317955
 GameObject:
   m_ObjectHideFlags: 0
@@ -56525,6 +56836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1696549738
 GameObject:
   m_ObjectHideFlags: 0
@@ -56602,6 +56914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1700212862
 GameObject:
   m_ObjectHideFlags: 0
@@ -56758,6 +57071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1700553624
 GameObject:
   m_ObjectHideFlags: 0
@@ -57176,6 +57490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1727727350
 GameObject:
   m_ObjectHideFlags: 0
@@ -57396,6 +57711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1738994316
 GameObject:
   m_ObjectHideFlags: 0
@@ -57473,6 +57789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1742950974
 GameObject:
   m_ObjectHideFlags: 0
@@ -57757,6 +58074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1757807424
 GameObject:
   m_ObjectHideFlags: 0
@@ -58117,6 +58435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1766104740
 GameObject:
   m_ObjectHideFlags: 0
@@ -58258,6 +58577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1773007467
 GameObject:
   m_ObjectHideFlags: 0
@@ -58335,6 +58655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1775180566
 GameObject:
   m_ObjectHideFlags: 0
@@ -58491,6 +58812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1776684890
 GameObject:
   m_ObjectHideFlags: 0
@@ -58632,6 +58954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1782036790
 GameObject:
   m_ObjectHideFlags: 0
@@ -58773,6 +59096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1787483614
 GameObject:
   m_ObjectHideFlags: 0
@@ -59186,6 +59510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1811533666
 GameObject:
   m_ObjectHideFlags: 0
@@ -59278,6 +59603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!1 &1815769293
@@ -59357,6 +59683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1816290648
 GameObject:
   m_ObjectHideFlags: 0
@@ -59434,6 +59761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1819760699
 GameObject:
   m_ObjectHideFlags: 0
@@ -59733,6 +60061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1825086286
 GameObject:
   m_ObjectHideFlags: 0
@@ -59953,6 +60282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1833502151
 GameObject:
   m_ObjectHideFlags: 0
@@ -60133,6 +60463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1834635913
 GameObject:
   m_ObjectHideFlags: 0
@@ -60590,6 +60921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1842875589
 GameObject:
   m_ObjectHideFlags: 0
@@ -60810,6 +61142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1850193341
 GameObject:
   m_ObjectHideFlags: 0
@@ -61030,6 +61363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1858388310
 GameObject:
   m_ObjectHideFlags: 0
@@ -61107,6 +61441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1861073584
 GameObject:
   m_ObjectHideFlags: 0
@@ -61184,6 +61519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1861078923
 GameObject:
   m_ObjectHideFlags: 0
@@ -61340,6 +61676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1863205245
 GameObject:
   m_ObjectHideFlags: 0
@@ -61496,6 +61833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1872116605
 GameObject:
   m_ObjectHideFlags: 0
@@ -61745,6 +62083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1876559682
 GameObject:
   m_ObjectHideFlags: 0
@@ -62420,6 +62759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1886254783
 GameObject:
   m_ObjectHideFlags: 0
@@ -62576,6 +62916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1887959461
 GameObject:
   m_ObjectHideFlags: 0
@@ -62796,6 +63137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1907452752
 GameObject:
   m_ObjectHideFlags: 0
@@ -62873,6 +63215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1912818076
 GameObject:
   m_ObjectHideFlags: 0
@@ -63029,6 +63372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1916318395
 GameObject:
   m_ObjectHideFlags: 0
@@ -63185,6 +63529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1916974184
 GameObject:
   m_ObjectHideFlags: 0
@@ -63262,6 +63607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1917837726
 GameObject:
   m_ObjectHideFlags: 0
@@ -63510,6 +63856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1926307106
 GameObject:
   m_ObjectHideFlags: 0
@@ -63587,6 +63934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1927970664
 GameObject:
   m_ObjectHideFlags: 0
@@ -63708,6 +64056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1928596542
@@ -63901,6 +64250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1932172655
 GameObject:
   m_ObjectHideFlags: 0
@@ -64042,6 +64392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1933802033
 GameObject:
   m_ObjectHideFlags: 0
@@ -64119,6 +64470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1934007474
 GameObject:
   m_ObjectHideFlags: 0
@@ -64477,6 +64829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1956451491
 GameObject:
   m_ObjectHideFlags: 0
@@ -64776,6 +65129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1961367918
 GameObject:
   m_ObjectHideFlags: 0
@@ -64853,6 +65207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1967366127
 GameObject:
   m_ObjectHideFlags: 0
@@ -64994,6 +65349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1973139786
 GameObject:
   m_ObjectHideFlags: 0
@@ -65071,6 +65427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1976043608
 GameObject:
   m_ObjectHideFlags: 0
@@ -65148,6 +65505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1977353996
 GameObject:
   m_ObjectHideFlags: 0
@@ -65289,6 +65647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1977972182
 GameObject:
   m_ObjectHideFlags: 0
@@ -65424,6 +65783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1981416245
 GameObject:
   m_ObjectHideFlags: 0
@@ -65629,6 +65989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1985718476
 GameObject:
   m_ObjectHideFlags: 0
@@ -65785,6 +66146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1989070838
 GameObject:
   m_ObjectHideFlags: 0
@@ -65906,6 +66268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1992203600
 GameObject:
   m_ObjectHideFlags: 0
@@ -66059,6 +66422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1995632604
 GameObject:
   m_ObjectHideFlags: 0
@@ -66136,6 +66500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1996944982
 GameObject:
   m_ObjectHideFlags: 0
@@ -66193,6 +66558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &1996944986
@@ -66383,6 +66749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &1999892641
 GameObject:
   m_ObjectHideFlags: 0
@@ -66518,6 +66885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2002724023
 GameObject:
   m_ObjectHideFlags: 0
@@ -66659,6 +67027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2005238173
 GameObject:
   m_ObjectHideFlags: 0
@@ -66736,6 +67105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2007016895
 GameObject:
   m_ObjectHideFlags: 0
@@ -66877,6 +67247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2008295736
 GameObject:
   m_ObjectHideFlags: 0
@@ -67432,6 +67803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2028003539
 GameObject:
   m_ObjectHideFlags: 0
@@ -67509,6 +67881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2031244190
 GameObject:
   m_ObjectHideFlags: 0
@@ -67665,6 +68038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2037152424
 GameObject:
   m_ObjectHideFlags: 0
@@ -67964,6 +68338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2045770448
 GameObject:
   m_ObjectHideFlags: 0
@@ -68120,6 +68495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2055560352
 GameObject:
   m_ObjectHideFlags: 0
@@ -68197,6 +68573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2056378565
 GameObject:
   m_ObjectHideFlags: 0
@@ -68466,6 +68843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2067300464
 GameObject:
   m_ObjectHideFlags: 0
@@ -68523,6 +68901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
 --- !u!212 &2067300468
@@ -68716,6 +69095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2076666477
 GameObject:
   m_ObjectHideFlags: 0
@@ -68872,6 +69252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2085850142
 GameObject:
   m_ObjectHideFlags: 0
@@ -69013,6 +69394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2089298807
 GameObject:
   m_ObjectHideFlags: 0
@@ -69090,6 +69472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2089805460
 GameObject:
   m_ObjectHideFlags: 0
@@ -69231,6 +69614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2091962172
 GameObject:
   m_ObjectHideFlags: 0
@@ -69308,6 +69692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2091986930
 GameObject:
   m_ObjectHideFlags: 0
@@ -69424,6 +69809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2094179948
 GameObject:
   m_ObjectHideFlags: 0
@@ -69708,6 +70094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2097248139
 GameObject:
   m_ObjectHideFlags: 0
@@ -69977,6 +70364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2115312136
 GameObject:
   m_ObjectHideFlags: 0
@@ -70054,6 +70442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2119165319
 GameObject:
   m_ObjectHideFlags: 0
@@ -70210,6 +70599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2132921945
 GameObject:
   m_ObjectHideFlags: 0
@@ -70379,6 +70769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2139306574
 GameObject:
   m_ObjectHideFlags: 0
@@ -70520,6 +70911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2140089969
 GameObject:
   m_ObjectHideFlags: 0
@@ -70597,6 +70989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherTile: {fileID: 0}
+  interactState: 0
 --- !u!1 &2143356664
 GameObject:
   m_ObjectHideFlags: 0

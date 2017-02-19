@@ -7,6 +7,7 @@ public class TextPrompt : MonoBehaviour {
 	public string[] imagePaths;
 	public string[] stringKeys;
 	public float overridePromptDuration = -1;
+	public bool noTimer;
 
 	Sprite[] images;
 	string[] stringPrompts;

@@ -39,7 +39,7 @@ public class PromptController : BaseController
 	public void Update() {
 		if (activePrompt != null) {
 			promptTimer += Time.deltaTime;
-			if (promptTimer > promptDuration) {
+			if (promptTimer > promptDuration && !activePrompt.noTimer) {
 				activePrompt.ContinuePrompt ();
 			} else {
 				activePrompt.CheckToContinue ();
