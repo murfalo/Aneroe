@@ -15,25 +15,28 @@ namespace AneroeInputs {
 
 		bool inputingAllowed;
 
-		public Dictionary<string, string> inputPairings = new Dictionary<string, string> {
-			{"up","w"},
-			{"left","a"},
-			{"right","d"},
-			{"down","s"},
-			{"inventory","e"},
-			{"mainmenu", "escape"},
-			{"attack","mouse 0"},
-			{"defend","mouse 1"},
-			{"quicken","left shift"},
-			{"slowen","left ctrl"},
-			{"switch character","space"},
-			{"interact","z"},
+		public Dictionary<string, string> inputPairings = new Dictionary<string, string>() {
+			{"w","up"},
+			{"a","left"},
+			{"d","right"},
+			{"s","down"},
+			{"e","inventory"},
+			{"escape", "mainmenu"},
+			{"mouse 0","attack"},
+			{"mouse 1","defend"},
+			{"left shift","quicken"},
+			{"left ctrl","slowen"},
+			{"space","switch character"},
+			{"z","interact"},
 			{"return","return"}
 		};
 
 		public Dictionary<string, string> axisPairings = new Dictionary<string, string>();
 
-		public override void InternalSetup () {
+		public override void InternalSetup ()
+		{
+		    for (var i = 1; i <= InventoryController.ItemsPerRow; i++)
+		        inputPairings.Add(i.ToString(), "equip");
 			iEvent = new InputEventWrapper ();
 			inputingAllowed = false;
 			SceneController.mergedNewScene += ActivateInputs;
@@ -47,21 +50,20 @@ namespace AneroeInputs {
 			if (!inputingAllowed)
 				return;
 			InputEventArgs e = new InputEventArgs ();
-			foreach (KeyValuePair<string,string> pair in inputPairings) {
-				if (Input.GetKeyDown (pair.Value)) {
-					//print ("Down " + pair.Value);
-					e.actions.Add (pair.Key, new ActionOnInput (0));
-				} else if (Input.GetKey (pair.Value)) {
-					//print ("Held " + pair.Value);
-					e.actions.Add (pair.Key, new ActionOnInput (1));
-				} else if (Input.GetKeyUp (pair.Value)) {
-					//print ("Up " + pair.Value);
-					e.actions.Add (pair.Key, new ActionOnInput (2));
+			foreach (KeyValuePair<string,string> pair in inputPairings)
+			{
+			    if (e.actions.ContainsKey(pair.Value)) continue;
+				if (Input.GetKeyDown (pair.Key)) {
+					e.actions.Add (pair.Value, new ActionOnInput (0, pair.Key));
+				} else if (Input.GetKey (pair.Key)) {
+					e.actions.Add (pair.Value, new ActionOnInput (1, pair.Key));
+				} else if (Input.GetKeyUp (pair.Key)) {
+					e.actions.Add (pair.Value, new ActionOnInput (2, pair.Key));
 				}
 			}
 			foreach (KeyValuePair<string, string> pair in axisPairings) {
-				if (Input.GetAxis (pair.Key) != 0) {
-					e.actions.Add (pair.Key, new ActionOnInput (Input.GetAxis (pair.Key)));
+				if (Math.Abs(Input.GetAxis (pair.Value)) > 0.01f) {
+					e.actions.Add (pair.Value, new ActionOnInput (Input.GetAxis (pair.Value), pair.Key));
 				}
 			}
 			if (iEvent != null && e.actions.Count > 0) {
@@ -94,7 +96,6 @@ namespace AneroeInputs {
 			actions = new Dictionary<string, ActionOnInput> ();
 		}
 
-
 		public bool WasPressed(string name) {
 			return actions.ContainsKey (name) && actions [name].typeHeld == 0;
 		}
@@ -107,13 +108,16 @@ namespace AneroeInputs {
 			return actions.ContainsKey (name) && actions [name].typeHeld == 2;
 		}
 
-		public float GetAxis(string name) {
-			if (actions.ContainsKey (name)) {
-				return actions [name].axis;
-			}
-			// Default axis value meaning not inputed at all
-			return 0;
+		public float GetAxis(string name)
+		{
+		    return actions.ContainsKey (name) ? actions [name].axis : 0;
+		    // Default axis value meaning not inputed at all
 		}
+
+	    public string GetTrigger(string name)
+	    {
+	        return actions.ContainsKey(name) ? actions[name].trigger : "";
+	    }
 	}
 
 	public struct ActionOnInput {
@@ -123,14 +127,18 @@ namespace AneroeInputs {
 		// 0 for pressed, 1 for held, 2 for released
 		public int typeHeld;
 
-		public ActionOnInput(int type) {
+	    public string trigger;
+
+		public ActionOnInput(int type, string trig) {
 			typeHeld = type;
 			axis = 0;
+		    trigger = trig;
 		}
 
-		public ActionOnInput(float ax) {
+		public ActionOnInput(float ax, string trig) {
 			typeHeld = -1;
 			axis = ax;
+		    trigger = trig;
 		}
 	}
 

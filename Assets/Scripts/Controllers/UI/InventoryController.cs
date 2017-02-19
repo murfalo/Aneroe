@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AneroeInputs;
 using UIEvents;
 using UnityEngine;
 
@@ -19,12 +20,15 @@ public class InventoryController : BaseController
     [SerializeField] private GameObject Item;
 
     /// <summary>Number of items in a row of the inventory.</summary>
-    public const int ItemsPerRow = 7;
+    public static int ItemsPerRow = 7;
 
     private List<GameObject> _slots;
 
     /// <summary>Event for an item moving in the inventory.</summary>
     public static event EventHandler<ItemMovedEventArgs> ItemMoved;
+
+    /// <summary>Event for an item being equipped by the player.</summary>
+    public static event EventHandler<EventArgs> ItemEquipped;
 
     /// <summary>Parent index of the newly selected item.</summary>
     private int _newParentIndex;
@@ -35,7 +39,8 @@ public class InventoryController : BaseController
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
     {
-		SceneController.timeSwapped += RefreshInventory;
+        InputController.iEvent.inputed += ReceiveInput;
+        SceneController.timeSwapped += RefreshInventory;
         SceneController.timeSwapped += RebindListener;
         SaveController.playerLoaded += RefreshInventory;
         UIController.ItemSelected += SelectItem;
@@ -143,5 +148,15 @@ public class InventoryController : BaseController
         if (e.oldPlayer)
             e.oldPlayer.itemInteracted -= PickupOrRemoveItem;
         e.newPlayer.itemInteracted += PickupOrRemoveItem;
+    }
+
+    public void ReceiveInput(object source, InputEventArgs eventArgs)
+    {
+        if (!eventArgs.WasPressed("equip")) return;
+        var newEquipped = eventArgs.GetTrigger("equip");
+        if (newEquipped != "")
+            PlayerController.activeCharacter.inv.itemSlotEquipped = int.Parse(newEquipped) - 1;
+        if (ItemEquipped != null)
+            ItemEquipped(this, new EventArgs());
     }
 }

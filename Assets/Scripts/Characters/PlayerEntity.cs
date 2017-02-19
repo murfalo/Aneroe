@@ -31,6 +31,20 @@ public class PlayerEntity : Entity
     private float interactRadius;
     private int interactLayerMask;
 
+    public new Item activeItem
+    {
+        get
+        {
+            var activeInv = PlayerController.activeCharacter.inv;
+            return activeInv.GetItem(activeInv.itemSlotEquipped);
+        }
+    }
+
+    protected new bool ActiveItemOfType<T>(T typeOfObj)
+    {
+        return activeItem != null && activeItem.GetType().Equals(typeOfObj);
+    }
+
     public override void Setup()
     {
         base.Setup();
@@ -232,7 +246,6 @@ public class PlayerEntity : Entity
         // Unequip old item
         if (activeItem != null)
             activeItem.EquipItem(false);
-        activeItem = inv.GetItem(inv.itemSlotEquipped);
         if (activeItem != null)
 			activeItem.EquipItem(true);
     }
