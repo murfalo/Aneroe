@@ -6,13 +6,21 @@ using UnityEngine.SceneManagement;
 public class SceneController : BaseController
 {
 
+	// Add event information to saving/loading:
+	// Scene name being loaded
+	// Whether this is loading/reloading controllers
+	//  GameObjects can check if they are loading themselves by comparing root's name to scene name
+	// Scene name being saved (and unloaded)
+	// Whether this is saving everything
+
     public bool cutToStartScene;
     public string startScene;
 
 	public static event EventHandler<PlayerSwitchEventArgs> timeSwapped;
-	public static event EventHandler mergedNewScene;
+	public static event EventHandler<SceneSwitchEventArgs> mergedNewScene;
 
     Scene oldScene;
+	bool loadControl;
 
     void Awake()
     {
@@ -30,7 +38,9 @@ public class SceneController : BaseController
 		{
 			obj.ExternalSetup();
 		}
-        
+		// Activate controller load from file as this is the first time loading them
+		loadControl = true;
+
 		SaveController.playerLoaded += RemoveTempGameObjects;
 
 		// Activate initial time swap for start of game
@@ -81,7 +91,9 @@ public class SceneController : BaseController
         oldScene = newScene;
 
 		if (mergedNewScene != null)
-			mergedNewScene (this, new EventArgs ());
+			mergedNewScene (this, new SceneSwitchEventArgs(rootOfNewScene.name, loadControl));
+		// Whether this is the first scene loading or not, deactivate loading of controllers from now on
+		loadControl = false;
     }
 
     public void ReloadBaseScene()
@@ -118,4 +130,17 @@ public class PlayerSwitchEventArgs : EventArgs {
 
 	public PlayerEntity oldPlayer;
 	public PlayerEntity newPlayer;
+}
+
+public class SceneSwitchEventArgs : EventArgs {
+
+	// Scene name being loaded (used to locate root gameobject for that scene)
+	public string newSceneName;
+	// Whether controllers need to be loaded in (true if booting up game, false if loading additive scene)
+	public bool loadControl;
+
+	public SceneSwitchEventArgs(string sceneName, bool loadC) {
+		newSceneName = sceneName;
+		loadControl = loadC;
+	}
 }

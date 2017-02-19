@@ -10,7 +10,7 @@ public class Entity : MonoBehaviour
     protected Item activeItem;
     protected EntityController controller;
     protected SpriteRenderer sRend;
-    private Collider2D hurtbox;
+    protected Collider2D hurtbox;
 
     // Combat stats
     public StatInfo stats;
@@ -34,6 +34,7 @@ public class Entity : MonoBehaviour
         Digging
     }
 
+	// Internal properties
     protected float ATTACK_SPEED_FACTOR = .5f;
     protected float BLOCK_SPEED_FACTOR = 0f;
     protected float RUN_SPEED_FACTOR = 2f;
@@ -66,6 +67,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Setup()
     {
+		
         anim = GetComponent<Animator>();
         hurtbox = GetComponent<BoxCollider2D>();
         sRend = GetComponent<SpriteRenderer>();

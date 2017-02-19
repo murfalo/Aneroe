@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using AneroeInputs;
 using PlayerEvents;
 using SaveData;
@@ -42,7 +43,6 @@ public class PlayerController : EntityController
         InputController.iEvent.inputed += ReceiveInput;
         SaveController.fileLoaded += Load;
         SaveController.fileSaving += Save;
-        SaveController.newGameStarted += LoadFirstTime;
         // Subscribe to the inventory controller events to handle UI events appropriately.
         InventoryController.ItemMoved += OnItemMoved;
     }
@@ -52,7 +52,6 @@ public class PlayerController : EntityController
         InputController.iEvent.inputed -= ReceiveInput;
         SaveController.fileLoaded -= Load;
         SaveController.fileSaving -= Save;
-        SaveController.newGameStarted -= LoadFirstTime;
         InventoryController.ItemMoved -= OnItemMoved;
     }
 
@@ -91,10 +90,11 @@ public class PlayerController : EntityController
         {
             activeCharacter.TryBlocking();
         }
-        else if (e.WasPressed("interact"))
+		// Most likely going to filter out a seperate interact button altogether
+        /*else if (e.WasPressed("interact"))
         {
             activeCharacter.TryInteracting();
-        }
+        }*/
         else if (e.WasPressed("switch character") && activeCharacter.CanSwitchFrom())
         {
             var oldC = activeCharacter;
@@ -137,21 +137,20 @@ public class PlayerController : EntityController
     public void Save(object sender, EventArgs e)
     {
         for (var i = 0; i < characters.Length; i++)
-            SaveController.SetValue(SaveKeys.players[i], characters[i].Save(default(EntitySaveData)));
+			SaveController.SetValue(SaveKeys.players[i], characters[i].Save());
     }
 
-    public void Load(object sender, EventArgs e)
+    public void Load(object sender, SceneSwitchEventArgs e)
     {
-        for (var i = 0; i < characters.Length; i++)
+        for (int i = 0; i < characters.Length; i++)
         {
-            EntitySaveData esd;
+			Hashtable esd;
             SaveController.GetValue(SaveKeys.players[i], out esd);
-            characters[i].Load(esd);
+			if (esd == default(Hashtable))
+				characters [i].LoadFirstTime ();
+			else if (e.loadControl)
+				// If we're booting up the game, loading controllers involves loading the player
+        		characters[i].Load(esd);
         }
-    }
-
-    public void LoadFirstTime(object sender, EventArgs e)
-    {
-        for (var i = 0; i < characters.Length; i++) characters[i].LoadFirstTime();
     }
 }

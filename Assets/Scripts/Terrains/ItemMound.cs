@@ -21,7 +21,7 @@ public class ItemMound : Tile {
 		sRend = GetComponent<SpriteRenderer> ();
 		buriedItem = null;
 		usableItemTypes = new System.Type[1];
-		usableItemTypes [0] = System.Type.GetType("Herb");
+		usableItemTypes [0] = System.Type.GetType("Item");
 	}
 	
 	// Update is called once per frame
@@ -34,9 +34,11 @@ public class ItemMound : Tile {
 	}
 
 	// Bury item in mound
-	public override void UseItem(Item item) {
+	public override bool UseItem(Item item) {
 		buriedItem = item;
 		sRend.sprite = fullTileSprite;
+		// Returns true since the item no longer belongs to the entity
+		return true;
 	}
 
 	// Other tile calls this to affect it with item buried in other tile

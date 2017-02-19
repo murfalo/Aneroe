@@ -1,96 +1,94 @@
 ﻿using System.Collections;
 using SaveData;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
-public class Item : MonoBehaviour, ISavable<ItemSaveData>
-{
-    // Components
-    protected SpriteRenderer SRend;
-    protected Collider2D PickupCollider;
+public class Item : MonoBehaviour {
 
-    // Properties
-    public string PrefabName;
+	// Components
+	protected SpriteRenderer sRend;
+	protected Collider2D pickupCollider;
 
-    protected Entity Owner;
+	public string prefabName;
+	public Type saveType;
 
-    // If true, item can be put into deep pocket
-    public bool SmallItem;
+	protected Entity owner;
 
-    // Number of units of the item
-    public int Count;
+	// If true, item can be put into deep pocket
+	public bool smallItem;
 
-    /// <summary>The name that appears in this item's tooltip.</summary>
-    public string Name;
+	// Number of units of the item
+	public int count;
 
-    /// <summary>The description that appears in this item's tooltip.</summary>
-    public string Description;
+	/// <summary>The name that appears in this item's tooltip.</summary>
+	public string Name;
 
-    public virtual void Setup()
-    {
-        SRend = GetComponent<SpriteRenderer>();
-        PickupCollider = GetComponent<Collider2D>();
-    }
+	/// <summary>The description that appears in this item's tooltip.</summary>
+	public string Description;
+	
+	public virtual void Setup () {
+		sRend = GetComponent<SpriteRenderer> ();
+		pickupCollider = GetComponent<Collider2D> ();
+		saveType = typeof(ItemSaveData);
+	}
 
-    public virtual void PickupItem(Entity e)
-    {
-        Owner = e;
-        transform.parent = e.transform;
-        transform.localPosition = new Vector3(0, 0, 0);
-        SRend.enabled = false;
-        PickupCollider.enabled = false;
-    }
+	public virtual void PickupItem(Entity e) {
+		owner = e;
+		transform.parent = e.transform;
+		transform.localPosition = new Vector3 (0, 0, 0);
+		sRend.enabled = false;
+		pickupCollider.enabled = false;
+	}
 
-    public virtual void DropItem(Vector3 pos)
-    {
-        Owner = null;
-        transform.parent = GameObject.Find("Items").transform;
-        transform.position = pos;
-        SRend.enabled = true;
-        PickupCollider.enabled = true;
-        StartCoroutine(WaitToDespawn());
-    }
+	public virtual void DropItem(Vector3 pos) {
+		owner = null;
+		transform.parent = GameObject.Find ("Items").transform;
+		transform.position = pos;
+		sRend.enabled = true;
+		pickupCollider.enabled = true;
+		StartCoroutine (WaitToDespawn ());
+	}
 
-    private IEnumerator WaitToDespawn()
-    {
-        yield return new WaitForSeconds(30);
-        if (Owner == null) Destroy(gameObject);
-    }
+	IEnumerator WaitToDespawn() {
+		yield return new WaitForSeconds (30);
+		if (owner == null) {
+			Destroy (gameObject);
+		}
+	}
 
-    public virtual void EquipItem(bool equip)
-    {
-        SRend.enabled = false;
-    }
+	public virtual void EquipItem(bool equip) {
+		sRend.enabled = false;
+	}
 
-    // Returns entity that holds item
-    public Entity GetEntity()
-    {
-        return Owner;
-    }
+	// Returns entity that holds item
+	public Entity GetEntity() {
+		return owner;
+	}
 
-    public void SetEntity(Entity e)
-    {
-        Owner = e;
-    }
+	public void SetEntity(Entity e) {
+		owner = e;
+	}
 
-    public Sprite GetSprite()
-    {
-        return SRend.sprite;
-    }
+	public Sprite GetSprite() {
+		return sRend.sprite;
+	}
 
-    public virtual ItemSaveData Save(ItemSaveData baseObj)
-    {
-        var isd = baseObj != default(ItemSaveData) ? baseObj : new ItemSaveData();
-        isd.count = Count;
-        isd.smallItem = SmallItem;
-        isd.prefabName = PrefabName;
-        return isd;
-    }
+	void OnDestroy() {
+		gameObject.name = "DESTROYING";
+	}
 
-    public virtual void Load(ItemSaveData isd)
-    {
-        Setup();
-        Count = isd.count;
-        SmallItem = isd.smallItem;
-        // No need to laod prefabName as this prefab already has it 
-    }
+	public virtual Hashtable Save() {
+		Hashtable isd = new Hashtable();
+		isd.Add("count", count);
+		isd.Add("smallItem", smallItem);
+		isd.Add("prefabName", prefabName);
+		return isd;
+	}
+
+	public virtual void Load(Hashtable isd) {
+		Setup ();
+		count = (int)isd["count"];
+		smallItem = (bool)isd["smallItem"];
+		// No need to laod prefabName as this prefab already has it 
+	}
 }

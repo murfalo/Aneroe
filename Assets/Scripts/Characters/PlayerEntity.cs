@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using SaveData;
 using UIEvents;
 using UnityEngine;
 
-public class PlayerEntity : Entity, ISavable<EntitySaveData>
+public class PlayerEntity : Entity
 {
     private readonly float DIRECTION_TAP_BUFFER = .2f;
     private readonly float LINK_ATTACKS_BUFFER = .1f;
@@ -13,12 +14,11 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
     protected float combatDirTimer;
     protected float combatLinkTimer;
 
-    public event EventHandler<ItemPickupEventArgs> itemPickup;
+    public event EventHandler<ItemInteractEventArgs> itemInteracted;
 
     public Inventory inv;
     private List<Item> defaultItems;
-    // Stores top item on ground player is able to pickup
-    private Item topItemOnGround;
+	private Tile interactTile;
 
     // For use in queue comparisons
     private CharacterStateAction[] defaultActions;
@@ -109,19 +109,34 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
                     ((Weapon) activeItem).StartBlock(SwitchToCombatDirection());
                     speedFactor = BLOCK_SPEED_FACTOR;
                     break;
-                default:
+				case CharacterState.Digging:
+					if (!CanActOutOfMovement ())
+						break;
+					TriggerItemUse ();
+					break;
+				default:
                     //print (gameObject.name + "  " + new Vector2 (0, 0));
                     break;
             }
         queuedStateActions = newQueue;
     }
 
+	// Animator signals when an attack is over
     public override void EndWeaponUseAnim()
     {
         anim.SetInteger("state", (int) CharacterState.Still);
         speedFactor = NORMAL_SPEED_FACTOR;
         combatLinkTimer = LINK_ATTACKS_BUFFER;
     }
+
+	// Animator signals when to use item in interaction animation
+	public void TriggerItemUse()
+	{
+		if (interactTile.UseItem (activeItem)) {
+			// If item was used up, get rid of it in inventory
+			HandleItemRemove(activeItem);
+		}
+	}
 
     // Sets animation state for walking
     public override void TryWalk()
@@ -131,15 +146,28 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
         queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Walking));
     }
 
-    // Sets animation state for attacking
     public override void TryAttacking()
     {
-        if (!queuedStateActions.ContainsByCompare(defaultActions[(int) CharacterState.Attacking]))
-            queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Attacking));
+		if (activeItem == null)
+			return;
+		CharacterState newState = default(CharacterState);
+		Tile interactable;
+		if (activeItem.GetType ().Equals (typeof(Weapon))) {
+			newState = CharacterState.Attacking;
+		} else if ((interactable = GetInteractableTile ()) != null) {
+			if (interactable.CanUseItem (activeItem)) {
+				newState = interactable.GetInteractState ();
+				interactTile = interactable;
+			}
+		}
+		if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare (defaultActions [(int)newState]))
+			queuedStateActions.Enqueue (new CharacterStateAction (newState));
     }
 
     public override void TryBlocking()
-    {
+	{
+		if (activeItem == null)
+			return;
         if (!queuedStateActions.ContainsByCompare(defaultActions[(int) CharacterState.Blocking]))
             queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Blocking));
     }
@@ -209,7 +237,7 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
             activeItem.EquipItem(false);
         activeItem = inv.GetItem(inv.itemSlotEquipped);
         if (activeItem != null)
-            activeItem.EquipItem(true);
+			activeItem.EquipItem(true);
     }
 
     public Vector2 GetInteractPosition()
@@ -217,6 +245,16 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
         return (Vector2) transform.position + interactOffsets[GetDirection() - 1];
     }
 
+	Tile GetInteractableTile() {
+		Vector2 dir = directionVectors [GetDirection () - 1];
+		float dist = Vector2.Distance(GetInteractPosition (),(Vector2)transform.position);
+		RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, 1 << LayerMask.NameToLayer("InteractiveTile"));
+		if (hits.Length > 0)
+			return hits [0].collider.GetComponentInChildren<Tile> ();
+		return null;
+	}
+
+	/*
     public void TryInteracting()
     {
         if (!CanActOutOfMovement())
@@ -230,9 +268,8 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
             if (cols[0].gameObject.layer == LayerMask.NameToLayer("Item"))
                 if (!inv.IsFull())
                 {
-                    var i = cols[0].GetComponent<Item>();
-                    i.PickupItem(this);
-                    itemPickup(this, new ItemPickupEventArgs(i, inv));
+					var i = cols[0].GetComponent<Item>();
+					HandleItemPickup (i);
                 }
         }
         else
@@ -242,20 +279,33 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
                 if (!inv.IsFull())
                 {
                     var i = cols[0].GetComponent<Item>();
-                    i.PickupItem(this);
-                    itemPickup(this, new ItemPickupEventArgs(i, inv));
+					HandleItemPickup (i);
                 }
         }
     }
+    */
+
+	void HandleItemPickup(Item i) {
+		i.PickupItem (this);
+		inv.AddItem (i);
+		if (itemInteracted != null)
+			itemInteracted(this, new ItemInteractEventArgs(i, inv, true));
+	}
+
+	void HandleItemRemove(Item i) {
+		int oldIndex = inv.SlotOf (i);
+		inv.RemoveItem (oldIndex);
+		if (itemInteracted != null)
+			itemInteracted(this, new ItemInteractEventArgs(i, inv, false, oldIndex));
+	}
 
     public void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.layer.Equals(LayerMask.NameToLayer("Item")))
         {
             // THIS HURTS ME SO MUCH. IT PICKS ITEMS UP AUTOMATICALLY. But leave it in.
-            var i = coll.GetComponent<Item>();
-            i.PickupItem(this);
-            itemPickup(this, new ItemPickupEventArgs(i, inv));
+			var i = coll.GetComponent<Item>();
+			HandleItemPickup (i);
 
             // Attempting to pick up items off the ground
             /*if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
@@ -264,44 +314,59 @@ public class PlayerEntity : Entity, ISavable<EntitySaveData>
         }
     }
 
-    public EntitySaveData Save(EntitySaveData baseObj)
+    public Hashtable Save()
     {
-        var esd = new EntitySaveData();
-        esd.posX = transform.position.x;
-        esd.posY = transform.position.y;
-        esd.statLevels = stats.GetStats();
-        esd.inv = inv.Save(default(InvSaveData));
+        var esd = new Hashtable();
+		esd.Add("posX", transform.position.x);
+		esd.Add("posY", transform.position.y);
+		esd.Add("statLevels", stats.GetStats());
+		esd.Add ("itemcount", inv.maxItems);
+		for (int i = 0; i < inv.maxItems; i++) {
+			Item item = inv.GetItem (i);
+			if (item != null)
+				esd.Add ("item" + i, item.Save ());
+		}
         return esd;
     }
 
-    public void Load(EntitySaveData esd)
+    public void Load(Hashtable esd)
     {
-        transform.position = new Vector3(esd.posX, esd.posY, 0);
-        stats = new StatInfo(esd.statLevels);
-        if (inv == default(Inventory)) inv = new Inventory();
-        controller.RespondToEntityAction(this, "health");
-        inv.Load(esd.inv);
-        // Destroy old entity items
-        foreach (var item in GetComponentsInChildren<Item>()) Destroy(item.gameObject);
-        // "Pickup" newly created entity items
-        for (var i = 0; i < inv.maxItems; i++)
-        {
-            var item = inv.GetItem(i);
-            if (item != null)
-                item.PickupItem(this);
-        }
+		transform.position = new Vector3((float)esd["posX"], (float)esd["posY"], 0);
+		stats = new StatInfo((Dictionary<string, float>)esd["statLevels"]);
+		controller.RespondToEntityAction(this, "health");
+
+		for (int i = 0; i < defaultItems.Count; i++) {
+			Destroy (defaultItems [i].gameObject);
+		}
+		defaultItems.Clear ();
+
+		inv = new Inventory();
+		for (int i = 0; i < (int)esd["itemcount"]; i++) {
+			if (!esd.ContainsKey ("item" + i))
+				continue;
+			Hashtable itemSave = (Hashtable)esd["item" + i];
+			GameObject itemObj = GameObject.Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + (string)itemSave["prefabName"]));
+			itemObj.transform.SetParent (transform);
+			Item item = itemObj.GetComponentInChildren<Item> ();
+			item.Load (itemSave);		
+			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication
+			item.PickupItem (this);
+			inv.AddItem (item);
+		}
+
         // Set active item
         ResetActiveItem();
     }
 
     public void LoadFirstTime()
     {
-        foreach (var i in defaultItems)
-        {
-            i.PickupItem(this);
-            if (itemPickup != null)
-                itemPickup(this, new ItemPickupEventArgs(i, inv));
-        }
+		foreach (var i in defaultItems) {
+			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication
+			i.PickupItem (this);
+			inv.AddItem (i);
+		}
+		// Destroy old entity items
+		//foreach (var item in GetComponentsInChildren<Item>()) Destroy(item.gameObject);
         // Set active item
         ResetActiveItem();
     }

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using SaveData;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>Wrapper class for a list used to manage the player's inventory.</summary>
-public class Inventory : ISavable<InvSaveData>
+public class Inventory
 {
     private const int MAX_HOTKEY_ITEMS = 10;
 
@@ -26,13 +27,11 @@ public class Inventory : ISavable<InvSaveData>
     public List<Item[]> items;
 
 	public int itemSlotEquipped;
-    private int itemSlotsUsed;
 
     /// <summary>Initializes a new inventory object with a single row of items!</summary>
     public Inventory()
 	{
 		level = 4;
-		itemSlotsUsed = 0;
 		itemSlotEquipped = 0;
 		items = new List<Item[]>();
 		for (var i = 0; i < level; i++)
@@ -53,28 +52,29 @@ public class Inventory : ISavable<InvSaveData>
     {
         get { return level * LEVEL_ITEMS; }
     }
-
+	/*
     public InvSaveData Save(InvSaveData baseObj)
     {
         var isd = new InvSaveData();
         Item item;
-        isd.items = new ItemSaveData[maxItems];
+		isd.items = new Hashtable();
 
         for (var i = 0; i < maxItems; i++)
         {
-            item = GetItem(i);
-            if (item != null)
-                isd.items[i] = item.Save(default(ItemSaveData));
+			item = GetItem(i);
+			if (item != null) {
+				//Debug.Log ("saving: "+isd.items [i].ToString());
+				isd.items.Add (i, item.Save (default(ItemSaveData)));
+			}
         }
-        isd.hotkeyItems = new ItemSaveData[hotkeyItems.Length];
+		isd.hotkeyItems = new Hashtable();
         for (var i = 0; i < hotkeyItems.Length; i++)
         {
             item = hotkeyItems[i];
             if (item != null)
-                isd.hotkeyItems[i] = item.Save(default(ItemSaveData));
+				isd.hotkeyItems.Add(i,item.Save(default(ItemSaveData)));
         }
         isd.level = level;
-        isd.itemSlotsUsed = itemSlotsUsed;
         return isd;
     }
 
@@ -83,14 +83,16 @@ public class Inventory : ISavable<InvSaveData>
         int i;
         Item item;
         ItemSaveData itemSave;
-
-        for (i = 0; i < maxItems; i++)
+        
+		for (i = 0; i < maxItems; i++)
         {
-            itemSave = isd.items[i];
+			//Debug.Log ("Prev get: " + GetItem(i));
+			itemSave = (ItemSaveData)isd.items[i];
+			Debug.Log(itemSave != null);
             if (itemSave != null)
-            {
-                item = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + isd.items[i].prefabName)).GetComponent<Item>();
-                item.Setup();
+			{
+				//Debug.Log ("loading: "+isd.items [i].ToString());
+                item = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + itemSave.prefabName)).GetComponent<Item>();
                 item.Load(itemSave);
                 SetItem(i, item);
             }
@@ -101,11 +103,10 @@ public class Inventory : ISavable<InvSaveData>
         }
         for (i = 0; i < hotkeyItems.Length; i++)
         {
-            itemSave = isd.hotkeyItems[i];
-            if (itemSave != null)
+			itemSave = (ItemSaveData)isd.hotkeyItems[i];
+			if (itemSave != null)
             {
-                item = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + isd.hotkeyItems[i].prefabName).GetComponent<Item>());
-                item.Setup();
+				item = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + itemSave.prefabName).GetComponent<Item>());
                 item.Load(itemSave);
                 hotkeyItems[i] = item;
             }
@@ -115,9 +116,8 @@ public class Inventory : ISavable<InvSaveData>
             }
         }
         level = isd.level;
-        itemSlotsUsed = isd.itemSlotsUsed;
     }
-
+	*/
 
     /// <summary>Calculates the row and column that an item is stored in given an item's index.</summary>
     /// <param name="itemIndex">Index of item in inventory to replace.</param>
@@ -134,7 +134,7 @@ public class Inventory : ISavable<InvSaveData>
     public Item GetItem(int itemIndex)
     {
         int row, col;
-        GetIndices(itemIndex, out row, out col);
+		GetIndices(itemIndex, out row, out col);
         return row < items.Count ? items[row][col] : null;
     }
 
@@ -153,27 +153,26 @@ public class Inventory : ISavable<InvSaveData>
     /// <param name="newItem">Item to add to the end of the inventory's inventory.</summary>
     public void AddItem(Item newItem)
     {
-        for (var j = items.Count - 1; j >= 0; j--)
-        for (var i = 0; i < LEVEL_ITEMS; i++)
-        {
-            if (items[j][i] != null)
-                continue;
-            items[j][i] = newItem;
-            itemSlotsUsed++;
-        }
+		for (var j = 0; j < items.Count; j++) {
+			for (var i = 0; i < LEVEL_ITEMS; i++) {
+				if (items [j] [i] != null)
+					continue;
+				items [j] [i] = newItem;
+				return;
+			}
+		}
     }
 
-    public int NextAvailableSlot()
-    {
-        for (var i = 0; i < maxItems; i++)
-            if (GetItem(i) == null)
-                return i;
-        return -1;
-    }
+	public int SlotOf(Item item) {
+		for (var i = 0; i < maxItems; i++)
+			if (GetItem (i) == item)
+				return i;
+		return -1;
+	}
 
     public bool IsFull()
     {
-        return NextAvailableSlot() == -1;
+		return SlotOf(null) == -1;
     }
 
     /// <summary>Removes an item form the inventory's inventory.</summary>
@@ -183,7 +182,6 @@ public class Inventory : ISavable<InvSaveData>
         int row, col;
         GetIndices(itemIndex, out row, out col);
         if (row >= items.Count) return;
-        itemSlotsUsed--;
         items[row][col] = null;
     }
 

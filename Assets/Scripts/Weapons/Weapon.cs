@@ -26,12 +26,13 @@ public class Weapon : Item {
 
 	public override void Setup () {
 		base.Setup ();
+		saveType = typeof(WeaponSaveData);
 		anim = GetComponent<Animator> ();
 		//durability = MAX_DURABILITY;
 
 		targetsHit = new List<Entity> ();
 		damageQueue = new List<Entity> ();
-		Owner = GetComponentInParent<Entity> ();
+		owner = GetComponentInParent<Entity> ();
 
 		stats = new StatInfo ();
 		for (int i = 0; i < statNames.Length; i++) {
@@ -54,13 +55,13 @@ public class Weapon : Item {
 	// Layer the sprite renderer so that the weapon is either in front the user or behind the user
 	void LayerSprite(int dir) {
 		if (dir == (int)Entity.Dir.Down)
-			SRend.sortingOrder = Owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
+			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder + 1;
 		else 
-			SRend.sortingOrder = Owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
+			sRend.sortingOrder = owner.GetComponent<SpriteRenderer> ().sortingOrder - 1;
 	}
 
 	public override void EquipItem(bool equip) {
-		SRend.enabled = equip;
+		sRend.enabled = equip;
 	}
 
 	// Called by animator
@@ -143,19 +144,18 @@ public class Weapon : Item {
 		}
 	}
 
-	public override ItemSaveData Save (ItemSaveData baseItem)
+	public override Hashtable Save ()
 	{
-		WeaponSaveData wsd = new WeaponSaveData ();
-		wsd = (WeaponSaveData)base.Save (wsd);
+		Hashtable wsd = base.Save();
 		// Save statInfo now
-		wsd.statLevels = stats.GetStats();
+		wsd.Add("statLevels", stats.GetStats());
 		return wsd;
 	}
 
-	public override void Load (ItemSaveData isd)
+	public override void Load (Hashtable wsd)
 	{
-		base.Load (isd);
-		WeaponSaveData wsd = (WeaponSaveData)isd;
-		stats = new StatInfo(wsd.statLevels);
+		Setup ();
+		base.Load (wsd);
+		stats = new StatInfo((Dictionary<string, float>)wsd["statLevels"]);
 	}
 }

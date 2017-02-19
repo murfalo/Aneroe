@@ -5,6 +5,8 @@ using TerrainEvents;
 public class Tile : MonoBehaviour {
 
 	public Tile otherTile;
+	public PlayerEntity.CharacterState interactState;
+
 	public System.Type[] usableItemTypes;
 
 	public virtual bool CanUseItem(Item item) {
@@ -17,8 +19,15 @@ public class Tile : MonoBehaviour {
 		return false;
 	}
 
+	public PlayerEntity.CharacterState GetInteractState() {
+		return interactState;
+	}
+
 	// Use item on tile
-	public virtual void UseItem(Item item) {}
+	// Returns false if the item still belongs to the entity
+	public virtual bool UseItem(Item item) {
+		return false;
+	}
 
 	// Other tile calls this to affect it with item used on other tile
 	public virtual void IndirectUseItem(Item item) {}

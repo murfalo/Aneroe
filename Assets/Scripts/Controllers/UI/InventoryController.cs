@@ -35,7 +35,7 @@ public class InventoryController : BaseController
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
     {
-        SceneController.timeSwapped += RefreshInventory<EventArgs>;
+		SceneController.timeSwapped += RefreshInventory;
         SceneController.timeSwapped += RebindListener;
         SaveController.playerLoaded += RefreshInventory;
         UIController.ItemSelected += SelectItem;
@@ -54,21 +54,26 @@ public class InventoryController : BaseController
 
     public override void RemoveEventListeners()
     {
-        SceneController.timeSwapped -= RefreshInventory<EventArgs>;
+        SceneController.timeSwapped -= RefreshInventory;
         SceneController.timeSwapped -= RebindListener;
         SaveController.playerLoaded -= RefreshInventory;
         UIController.ItemSelected -= SelectItem;
         UIController.ItemSelected -= MoveItem;
     }
 
-    public void PickupItem(object source, ItemPickupEventArgs e)
-    {
-        var nextSlot = e.inventory.NextAvailableSlot();
-        var uiItem = _slots[nextSlot];
-        var invItem = Instantiate(InvSlot);
-        invItem.transform.SetParent(uiItem.transform);
-        invItem.GetComponent<InventorySlot>().SetUnsetItem(e.item, nextSlot);
-        OnItemMoved(invItem, -1, nextSlot);
+    public void PickupOrRemoveItem(object source, ItemInteractEventArgs e)
+	{
+		if (e.addedToInv) {
+			var nextSlot = e.inventory.SlotOf (e.item);
+			var uiItem = _slots [nextSlot];
+
+			var invItem = Instantiate (InvSlot);
+			invItem.transform.SetParent (uiItem.transform);
+			invItem.GetComponent<InventorySlot> ().SetUnsetItem (e.item, nextSlot);
+			OnItemMoved (invItem, -1, nextSlot);
+		} else {
+			Destroy(_slots[e.oldIndex].GetComponentInChildren<InventorySlot>().gameObject);	
+		}
     }
 
     /// <summary>Stores state when an item is selected from a UI slot.</summary>
@@ -113,15 +118,15 @@ public class InventoryController : BaseController
     /// <summary>Refreshes the inventory using the active player's inventory data.</summary>
     private void RefreshInventory<T>(object source, T eventArgs)
     {
-        if (!typeof(T).IsAssignableFrom(typeof(EventArgs)))
-            return;
+        //if (!typeof(T).IsAssignableFrom(typeof(EventArgs)))
+        //    return;
 
         var activeInv = PlayerController.activeCharacter.inv;
         var numSlots = activeInv.maxItems;
 
         for (var i = 0; i < numSlots; i++)
         {
-            var item = activeInv.GetItem(i);
+			var item = activeInv.GetItem(i);
             var oldSlot = _slots[i].GetComponentInChildren<InventorySlot>();
             if (oldSlot != null)
                 Destroy(oldSlot.gameObject);
@@ -136,7 +141,7 @@ public class InventoryController : BaseController
     private void RebindListener(object source, PlayerSwitchEventArgs e)
     {
         if (e.oldPlayer)
-            e.oldPlayer.itemPickup -= PickupItem;
-        e.newPlayer.itemPickup += PickupItem;
+            e.oldPlayer.itemInteracted -= PickupOrRemoveItem;
+        e.newPlayer.itemInteracted += PickupOrRemoveItem;
     }
 }

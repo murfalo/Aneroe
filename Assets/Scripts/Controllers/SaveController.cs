@@ -16,13 +16,10 @@ public class SaveController : BaseController
     public static event EventHandler<EventArgs> fileSaving;
 
 	/// <summary>Event published when file loading has completed.</summary>
-	public static event EventHandler<EventArgs> fileLoaded;
-
-	public static event EventHandler<EventArgs> newGameStarted;
-	bool firstLoad;
+	public static event EventHandler<SceneSwitchEventArgs> fileLoaded;
 
     /// <summary>Event published when player loading has completed.</summary>
-    public static event EventHandler<EventArgs> playerLoaded;
+    public static event EventHandler<SceneSwitchEventArgs> playerLoaded;
 
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
 	public override void InternalSetup()
@@ -30,7 +27,6 @@ public class SaveController : BaseController
 		if (saveData == null)
 			saveData = new Hashtable();
 		SceneController.mergedNewScene += LoadByEvent;
-		firstLoad = true;
     }
 
 	public override void RemoveEventListeners() {
@@ -58,23 +54,30 @@ public class SaveController : BaseController
             value = (T)saveData[key];
     }
 
-	public void LoadByEvent(object sender, EventArgs e) {
-		Load ();
+	public void LoadByEvent(object sender, SceneSwitchEventArgs e) {
+		Load (e);
+	}
+
+	public void LoadByButton() {
+		Load (null);
 	}
 
     /// <summary>Loads the save data from file into the hashtable in memory.</summary>
-    public void Load()
-    {
-        string path = Application.persistentDataPath + saveLocation;
-		if (!File.Exists (path)) {
-			if (firstLoad) {
-				firstLoad = false;
-				if (newGameStarted != null)
-					newGameStarted (this, new EventArgs ());
-			}
-			return;
+	public void Load(SceneSwitchEventArgs e)
+	{
+		if (e == null) {
+			// If not loading from scene controller, don't specify sceneName, but reload controllers
+			e = new SceneSwitchEventArgs ("", true);
 		}
-        BinaryFormatter bf = new BinaryFormatter();
+		string path = Application.persistentDataPath + saveLocation;
+		BinaryFormatter bf = new BinaryFormatter();
+		if (!File.Exists (path)) {
+			// Create a temp file with empty save data
+			FileStream sf = File.Create(Application.persistentDataPath + saveLocation);
+			bf.Serialize(sf, new Hashtable());
+			sf.Close();
+		}
+
         FileStream lf = File.Open(path, FileMode.Open);
 		try {
         	saveData = (Hashtable)bf.Deserialize(lf);
@@ -85,9 +88,9 @@ public class SaveController : BaseController
 		}
         lf.Close();
         if (fileLoaded != null)
-			fileLoaded(this, new EventArgs());
+			fileLoaded(this, e);
 		if (playerLoaded != null)
-			playerLoaded(this, new EventArgs());
+			playerLoaded(this, e);
     }
 
     /// <summary>Saves the hash table from memory to a file.</summary>

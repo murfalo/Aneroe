@@ -37,14 +37,18 @@ namespace UIEvents
 		public int? newSlot;
     }
 
-	public class ItemPickupEventArgs : EventArgs
+	public class ItemInteractEventArgs : EventArgs
 	{
-		public ItemPickupEventArgs(Item i, Inventory inv) {
+		public ItemInteractEventArgs(Item i, Inventory inv, bool added, int oldIndex = -1) {
 			this.item = i;
 			this.inventory = inv;
+			this.addedToInv = added;
+			this.oldIndex = oldIndex;
 		}
 
 		public Item item;
 		public Inventory inventory;
+		public bool addedToInv;
+		public int oldIndex;
 	}
 }
