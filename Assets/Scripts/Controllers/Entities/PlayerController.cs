@@ -52,7 +52,7 @@ public class PlayerController : EntityController
         InputController.iEvent.inputed -= ReceiveInput;
         SaveController.fileLoaded -= Load;
         SaveController.fileSaving -= Save;
-        InventoryController.ItemMoved -= OnItemMoved;
+		InventoryController.ItemMoved -= OnItemMoved;
     }
 
     private void FixedUpdate()
@@ -65,6 +65,15 @@ public class PlayerController : EntityController
     {
         if (InputController.mode != InputInfo.InputMode.Free)
             return;
+		
+		// Hotkey functionality
+		if (e.WasPressed("equip")) {
+			var newEquipped = e.GetTrigger("equip");
+			if (newEquipped != "") {
+				activeCharacter.TryItemEquip (int.Parse (newEquipped) - 1);
+			}
+		}
+
         // Inputs prioritized as such (by order of check):
         // Attacking, Walking, Switching character
         activeCharacter.Quicken(e.IsHeld("quicken"));
@@ -82,7 +91,11 @@ public class PlayerController : EntityController
         }
         activeCharacter.SetDirections(dirActive, dirTapped);
 
-        if (e.IsHeld("attack"))
+		if (e.WasPressed ("attack")) 
+		{
+			activeCharacter.TryInteracting ();
+		} 
+		if (e.IsHeld("attack"))
         {
             activeCharacter.TryAttacking();
         }

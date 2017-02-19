@@ -26,7 +26,6 @@ public class Weapon : Item {
 
 	public override void Setup () {
 		base.Setup ();
-		saveType = typeof(WeaponSaveData);
 		anim = GetComponent<Animator> ();
 		//durability = MAX_DURABILITY;
 
@@ -87,6 +86,18 @@ public class Weapon : Item {
 		targetsHit.Add (e);
 	}
 
+	public override void PickupItem (Entity e)
+	{
+		base.PickupItem (e);
+		anim.SetBool ("inInv", true);
+	}
+
+	public override void DropItem (Vector3 pos)
+	{
+		base.DropItem (pos);
+		anim.SetBool ("inInv", false);
+	}
+
 	// Called by opponent when colliding with them
 	// Return damage done to opponent
 	public void DealDamage(Entity damageE) {
@@ -138,8 +149,9 @@ public class Weapon : Item {
 			}
 		} else if (other.gameObject.tag.Equals ("Wall")) {
 			TileBreakable tb = other.gameObject.GetComponent<TileBreakable> ();
-			if (tb != null) { 
-				tb.UseItem (this); 
+			if (tb != null && tb.CanUseItem(this)) { 
+				Item tempItem;
+				tb.UseItem (this, out tempItem);
 			} 
 		}
 	}

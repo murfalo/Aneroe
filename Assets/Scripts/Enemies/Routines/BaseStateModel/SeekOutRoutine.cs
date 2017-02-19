@@ -41,10 +41,10 @@ public class SeekOutRoutine : AIRoutine {
 	Vector3 ContinueOnPath(Vector3 playerPos, Vector3 defaultVec) {
 		if (path.Count == 0) {
 			path = Waypoint.FindPath (waypointNetwork, entity.transform.position, playerPos);
-			pathedEndPos = path [path.Count - 1].transform.position;
-			currentPathAcc = (playerPos - pathedEndPos).magnitude;
 			if (path.Count == 0)
 				return defaultVec;
+			pathedEndPos = path [path.Count - 1].transform.position;
+			currentPathAcc = (playerPos - pathedEndPos).magnitude;
 		}
 		Vector3 target = path [0].transform.position - entity.transform.position;
 		if (target.magnitude < entity.GetEntityStat ("speed") * Time.fixedDeltaTime) {

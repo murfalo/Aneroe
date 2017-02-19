@@ -14,7 +14,8 @@ public class Entity : MonoBehaviour
 
     // Combat stats
     public StatInfo stats;
-    // Inspector editable stats
+	// Inspector editable stats
+	public string[] defaultItemPrefabNames;
     public float MAX_HEALTH = 10;
     public float speed = 1f;
     public float attack = 1f;
@@ -67,7 +68,6 @@ public class Entity : MonoBehaviour
 
     public virtual void Setup()
     {
-		
         anim = GetComponent<Animator>();
         hurtbox = GetComponent<BoxCollider2D>();
         sRend = GetComponent<SpriteRenderer>();

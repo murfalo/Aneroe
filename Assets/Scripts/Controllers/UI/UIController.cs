@@ -89,7 +89,6 @@ public class UIController : BaseController
         if (item == null) return;
         var activeCharacter = PlayerController.activeCharacter;
         var newItem = item.GetComponent<InventorySlot>().GetItem();
-        //newItem.transform.SetParent(GameObject.Find("Items").transform);
         newItem.DropItem(activeCharacter.GetInteractPosition());
         Selected = null;
         Destroy(item);

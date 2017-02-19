@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 using TerrainEvents;
 
 public class Tile : MonoBehaviour {
 
 	public Tile otherTile;
+
+	[HideInInspector]
+	public bool primaryTile = true;
+
+	[HideInInspector]
 	public PlayerEntity.CharacterState interactState;
 
 	public System.Type[] usableItemTypes;
 
 	public virtual bool CanUseItem(Item item) {
+		// If you're not wielding something, interaction is always allowed
+		if (item == null)
+			return true;
 		System.Type itemType = item.GetType ();
-		for (int i = 0; i < usableItemTypes.Length; i++) {
-			if (usableItemTypes[i].Equals(itemType)) {
-				return true;
-			}
-		}
-		return false;
+		return usableItemTypes.Any(i => i.Equals(itemType));
 	}
 
 	public PlayerEntity.CharacterState GetInteractState() {
@@ -25,17 +29,18 @@ public class Tile : MonoBehaviour {
 
 	// Use item on tile
 	// Returns false if the item still belongs to the entity
-	public virtual bool UseItem(Item item) {
-		return false;
+	public virtual void UseItem(Item itemUsed, out Item newItem) {
+		newItem = null;
 	}
-
-	// Other tile calls this to affect it with item used on other tile
-	public virtual void IndirectUseItem(Item item) {}
 
 	protected void SendDisableTileEvent() {
 		TerrainEventArgs e = new TerrainEventArgs ();
 		e.tile = this;
 		AIController.TriggerModifiedTerrain (e);
 	}
+
+	public virtual Hashtable Save() { return new Hashtable (); }
+
+	public virtual void Load(Hashtable tsd) {}
 
 }

@@ -27,9 +27,6 @@ public class InventoryController : BaseController
     /// <summary>Event for an item moving in the inventory.</summary>
     public static event EventHandler<ItemMovedEventArgs> ItemMoved;
 
-    /// <summary>Event for an item being equipped by the player.</summary>
-    public static event EventHandler<EventArgs> ItemEquipped;
-
     /// <summary>Parent index of the newly selected item.</summary>
     private int _newParentIndex;
 
@@ -154,9 +151,10 @@ public class InventoryController : BaseController
     {
         if (!eventArgs.WasPressed("equip")) return;
         var newEquipped = eventArgs.GetTrigger("equip");
-        if (newEquipped != "")
-            PlayerController.activeCharacter.inv.itemSlotEquipped = int.Parse(newEquipped) - 1;
-        if (ItemEquipped != null)
-            ItemEquipped(this, new EventArgs());
+		if (newEquipped != "") {
+			// Do whatever the **** you want, but don't touch the inventory data structure.
+			// That is taken care of in ReceiveInput by the Playercontroller,
+			// which is WAY simpler than sending ANOTHER event
+		}
     }
 }

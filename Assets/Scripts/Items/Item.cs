@@ -10,7 +10,6 @@ public class Item : MonoBehaviour {
 	protected Collider2D pickupCollider;
 
 	public string prefabName;
-	public Type saveType;
 
 	protected Entity owner;
 
@@ -29,7 +28,6 @@ public class Item : MonoBehaviour {
 	public virtual void Setup () {
 		sRend = GetComponent<SpriteRenderer> ();
 		pickupCollider = GetComponent<Collider2D> ();
-		saveType = typeof(ItemSaveData);
 	}
 
 	public virtual void PickupItem(Entity e) {
@@ -47,6 +45,14 @@ public class Item : MonoBehaviour {
 		sRend.enabled = true;
 		pickupCollider.enabled = true;
 		StartCoroutine (WaitToDespawn ());
+	}
+
+	public virtual void GiveItemTo(Transform obj) {
+		owner = null;
+		transform.parent = obj;
+		transform.localPosition = new Vector3 (0, 0, 0);
+		sRend.enabled = false;
+		pickupCollider.enabled = false;
 	}
 
 	IEnumerator WaitToDespawn() {

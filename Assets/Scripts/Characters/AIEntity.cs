@@ -23,8 +23,15 @@ public class AIEntity : Entity
 
 	public override void Setup() {
 		base.Setup ();
+		foreach (string itemName in defaultItemPrefabNames) {
+			var itemObj = Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + itemName));
+			itemObj.transform.SetParent (transform);
+			Item i = itemObj.GetComponentInChildren<Item> ();
+			i.Setup();	
+			i.PickupItem (this);
+		}
 		activeItem = GetComponentInChildren<Weapon> ();
-		activeItem.Setup ();
+		activeItem.EquipItem (true);
 
 		controller = GetComponentInParent<EntityController> ();
 		routines = new Dictionary<BaseState, AIRoutine> ();

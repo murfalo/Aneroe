@@ -17,7 +17,6 @@ public class PlayerEntity : Entity
     public event EventHandler<ItemInteractEventArgs> itemInteracted;
 
     public Inventory inv;
-	public string[] defaultItemPrefabNames;
 	private Tile interactTile;
 
     // For use in queue comparisons
@@ -35,11 +34,11 @@ public class PlayerEntity : Entity
     {
         get
         {
-            var activeInv = PlayerController.activeCharacter.inv;
-            return activeInv.GetItem(activeInv.itemSlotEquipped);
+            return inv.GetItem(inv.itemSlotEquipped);
         }
     }
 
+	// Since activeItem variable gets overwritten, use this to figure out how to compare the variable to a type
     protected new bool ActiveItemOfType<T>(T typeOfObj)
     {
         return activeItem != null && activeItem.GetType().Equals(typeOfObj);
@@ -143,9 +142,13 @@ public class PlayerEntity : Entity
 	// Animator signals when to use item in interaction animation
 	public void TriggerItemUse()
 	{
-		if (interactTile.UseItem (activeItem)) {
+		Item newItem;
+		interactTile.UseItem (activeItem, out newItem);
+		if (newItem == null && activeItem != null) {
 			// If item was used up, get rid of it in inventory
 			HandleItemRemove(activeItem);
+		} else if (newItem != activeItem && newItem != null) {
+			HandleItemPickup (newItem);
 		}
 	}
 
@@ -157,20 +160,25 @@ public class PlayerEntity : Entity
         queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Walking));
     }
 
-    public override void TryAttacking()
-    {
-		if (activeItem == null)
-			return;
+	public void TryInteracting() 
+	{
 		CharacterState newState = default(CharacterState);
 		Tile interactable;
-		if (activeItem.GetType ().Equals (typeof(Weapon))) {
-			newState = CharacterState.Attacking;
-		} else if ((interactable = GetInteractableTile ()) != null) {
+		if ((interactable = GetInteractableTile ()) != null) {
 			if (interactable.CanUseItem (activeItem)) {
 				newState = interactable.GetInteractState ();
 				interactTile = interactable;
 			}
 		}
+		if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare (defaultActions [(int)newState]))
+			queuedStateActions.Enqueue (new CharacterStateAction (newState));
+	}
+
+    public override void TryAttacking()
+    {
+		if (activeItem == null || !activeItem.GetType ().Equals (typeof(Weapon)))
+			return;
+		CharacterState newState = CharacterState.Attacking;
 		if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare (defaultActions [(int)newState]))
 			queuedStateActions.Enqueue (new CharacterStateAction (newState));
     }
@@ -182,6 +190,17 @@ public class PlayerEntity : Entity
         if (!queuedStateActions.ContainsByCompare(defaultActions[(int) CharacterState.Blocking]))
             queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Blocking));
     }
+
+	public void TryItemEquip(int newSlot) {
+		if (!CanActOutOfMovement ())
+			return;
+		// Unequip, choose new item, reequip
+		if (activeItem)
+			activeItem.EquipItem (false);
+		inv.itemSlotEquipped = newSlot;
+		if (activeItem)
+			activeItem.EquipItem (true);
+	}
 
     // Processes direction input of two kinds:
     // dirsDown: Was the direction pressed or held down?
@@ -240,16 +259,7 @@ public class PlayerEntity : Entity
         if (eventArgs.newSlot >= 0)
             inv.SetItem((int) eventArgs.newSlot, eventArgs.item);
     }
-
-    public void ResetActiveItem()
-    {
-        // Unequip old item
-        if (activeItem != null)
-            activeItem.EquipItem(false);
-        if (activeItem != null)
-			activeItem.EquipItem(true);
-    }
-
+    
     public Vector2 GetInteractPosition()
     {
         return (Vector2) transform.position + interactOffsets[GetDirection() - 1];
@@ -264,42 +274,13 @@ public class PlayerEntity : Entity
 		return null;
 	}
 
-	/*
-    public void TryInteracting()
-    {
-        if (!CanActOutOfMovement())
-            return;
-        var cols = Physics2D.OverlapCircleAll(GetInteractPosition(), interactRadius, interactLayerMask);
-        if (cols.Length == 0)
-        {
-        }
-        else if (cols.Length == 1)
-        {
-            if (cols[0].gameObject.layer == LayerMask.NameToLayer("Item"))
-                if (!inv.IsFull())
-                {
-					var i = cols[0].GetComponent<Item>();
-					HandleItemPickup (i);
-                }
-        }
-        else
-        {
-            //Change later to not just pick an item but display ui for options of choice
-            if (cols[0].gameObject.layer == LayerMask.NameToLayer("Item"))
-                if (!inv.IsFull())
-                {
-                    var i = cols[0].GetComponent<Item>();
-					HandleItemPickup (i);
-                }
-        }
-    }
-    */
-
 	void HandleItemPickup(Item i) {
-		i.PickupItem (this);
-		inv.AddItem (i);
-		if (itemInteracted != null)
-			itemInteracted(this, new ItemInteractEventArgs(i, inv, true));
+		if (i.GetEntity () == null) {
+			i.PickupItem (this);
+			inv.AddItem (i);
+			if (itemInteracted != null)
+				itemInteracted (this, new ItemInteractEventArgs (i, inv, true));
+		}
 	}
 
 	void HandleItemRemove(Item i) {
@@ -311,16 +292,11 @@ public class PlayerEntity : Entity
 
     public void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.layer.Equals(LayerMask.NameToLayer("Item")))
+		if ((LayerMask.GetMask(new string[] {"Weapon","Item"}) & (1 << coll.gameObject.layer)) != 0)
         {
             // THIS HURTS ME SO MUCH. IT PICKS ITEMS UP AUTOMATICALLY. But leave it in.
 			var i = coll.GetComponent<Item>();
 			HandleItemPickup (i);
-
-            // Attempting to pick up items off the ground
-            /*if (topItemOnGround == null || topItemOnGround.GetComponent<SpriteRenderer>().sortingOrder < coll.GetComponent<SpriteRenderer>().sortingOrder) {
-                topItemOnGround = coll.gameObject.GetComponent<Item> ();
-            }*/
         }
     }
 
@@ -331,6 +307,7 @@ public class PlayerEntity : Entity
 		esd.Add("posY", transform.position.y);
 		esd.Add("statLevels", stats.GetStats());
 		esd.Add ("itemcount", inv.maxItems);
+		esd.Add ("indexequipped", inv.itemSlotEquipped);
 		for (int i = 0; i < inv.maxItems; i++) {
 			Item item = inv.GetItem (i);
 			if (item != null)
@@ -340,12 +317,17 @@ public class PlayerEntity : Entity
     }
 
     public void Load(Hashtable esd)
-    {
+	{
+		// Destroy old entity items
+		foreach (var item in GetComponentsInChildren<Item>()) 
+			Destroy(item.gameObject);
+
 		transform.position = new Vector3((float)esd["posX"], (float)esd["posY"], 0);
 		stats = new StatInfo((Dictionary<string, float>)esd["statLevels"]);
 		controller.RespondToEntityAction(this, "health");
 
 		inv = new Inventory();
+		inv.itemSlotEquipped = (int)esd ["indexequipped"];
 		for (int i = 0; i < (int)esd["itemcount"]; i++) {
 			if (!esd.ContainsKey ("item" + i))
 				continue;
@@ -359,8 +341,9 @@ public class PlayerEntity : Entity
 			inv.SetItem (i,item);
 		}
 
-        // Set active item
-        ResetActiveItem();
+		// Set active item
+		if (activeItem != null)
+			activeItem.EquipItem(true);
     }
 
     public void LoadFirstTime()
@@ -375,9 +358,8 @@ public class PlayerEntity : Entity
 			inv.AddItem (i);
 		}
 
-		// Destroy old entity items
-		//foreach (var item in GetComponentsInChildren<Item>()) Destroy(item.gameObject);
         // Set active item
-        ResetActiveItem();
+		if (activeItem != null)
+			activeItem.EquipItem(true);
     }
 }
