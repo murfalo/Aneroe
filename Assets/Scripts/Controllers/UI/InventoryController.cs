@@ -111,7 +111,7 @@ public class InventoryController : BaseController
     private void OnItemMoved(GameObject go, int prevSlot, int newSlot)
     {
         var item = go.GetComponent<InventorySlot>().GetItem();
-        if (ItemMoved != null && newSlot != prevSlot)
+        if (ItemMoved != null)
           ItemMoved(this, new ItemMovedEventArgs(item, prevSlot, newSlot));
     }
 

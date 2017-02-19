@@ -21,9 +21,12 @@ public class SaveController : BaseController
     /// <summary>Event published when player loading has completed.</summary>
     public static event EventHandler<SceneSwitchEventArgs> playerLoaded;
 
+	bool firstTime;
+
     /// <summary>Initializes a new hashtable in memory to store save data.</summary>
 	public override void InternalSetup()
 	{
+		firstTime = true;
 		if (saveData == null)
 			saveData = new Hashtable();
 		SceneController.mergedNewScene += LoadByEvent;
@@ -71,22 +74,30 @@ public class SaveController : BaseController
 		}
 		string path = Application.persistentDataPath + saveLocation;
 		BinaryFormatter bf = new BinaryFormatter();
-		if (!File.Exists (path)) {
-			// Create a temp file with empty save data
-			FileStream sf = File.Create(Application.persistentDataPath + saveLocation);
-			bf.Serialize(sf, new Hashtable());
-			sf.Close();
-		}
 
-        FileStream lf = File.Open(path, FileMode.Open);
-		try {
-        	saveData = (Hashtable)bf.Deserialize(lf);
-		} catch {
-			lf.Close ();
-			File.Delete (path);
-			return;
+		// If no file found, check to see if load first time
+		if (!File.Exists (path)) {
+			if (firstTime) {
+				e.loadFirstTime = true;
+			}
+		} else {
+			// File did exist, so we aren't loading for the first time
+			e.loadFirstTime = false;
+
+			// Load file
+			FileStream lf = File.Open(path, FileMode.Open);
+			try {
+				saveData = (Hashtable)bf.Deserialize(lf);
+			} catch {
+				lf.Close ();
+				File.Delete (path);
+				return;
+			}
+			lf.Close();
 		}
-        lf.Close();
+		// Either way, don't ever load first time again
+		firstTime = false;
+
         if (fileLoaded != null)
 			fileLoaded(this, e);
 		if (playerLoaded != null)

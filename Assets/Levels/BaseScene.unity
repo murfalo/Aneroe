@@ -2013,12 +2013,12 @@ Prefab:
     - target: {fileID: 114094693869440392, guid: 55aea8ad517ea554aaca16b1d8e114cc,
         type: 2}
       propertyPath: m_Color.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114094693869440392, guid: 55aea8ad517ea554aaca16b1d8e114cc,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114516612733708926, guid: 55aea8ad517ea554aaca16b1d8e114cc, type: 2}

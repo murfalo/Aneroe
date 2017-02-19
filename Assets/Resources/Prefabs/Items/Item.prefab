@@ -67,9 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9ec2de4db210e4e80fe8bf689b0b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: 
-  SmallItem: 0
-  Count: 0
+  prefabName: Item
+  smallItem: 0
+  count: 0
   Name: Potion Flask
   Description: Empty potion flask that can be used to craft a potion.
 --- !u!212 &212377542363965644

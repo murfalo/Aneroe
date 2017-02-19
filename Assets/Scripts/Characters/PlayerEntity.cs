@@ -351,7 +351,7 @@ public class PlayerEntity : Entity
 			item.Load (itemSave);		
 			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication
 			item.PickupItem (this);
-			inv.AddItem (item);
+			inv.SetItem (i,item);
 		}
 
         // Set active item
@@ -365,6 +365,7 @@ public class PlayerEntity : Entity
 			i.PickupItem (this);
 			inv.AddItem (i);
 		}
+
 		// Destroy old entity items
 		//foreach (var item in GetComponentsInChildren<Item>()) Destroy(item.gameObject);
         // Set active item

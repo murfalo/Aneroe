@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5087bbc4d4466b4a9903b18f1be4c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: 
-  SmallItem: 0
-  Count: 0
+  prefabName: Dagger
+  smallItem: 0
+  count: 0
   Name: Dagger
   Description: Sharp item that can be used for stabby stabby.
   statNames:

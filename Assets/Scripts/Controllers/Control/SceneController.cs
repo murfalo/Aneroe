@@ -139,6 +139,8 @@ public class SceneSwitchEventArgs : EventArgs {
 	// Whether controllers need to be loaded in (true if booting up game, false if loading additive scene)
 	public bool loadControl;
 
+	public bool loadFirstTime;
+
 	public SceneSwitchEventArgs(string sceneName, bool loadC) {
 		newSceneName = sceneName;
 		loadControl = loadC;

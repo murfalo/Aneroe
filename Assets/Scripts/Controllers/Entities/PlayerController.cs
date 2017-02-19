@@ -142,12 +142,17 @@ public class PlayerController : EntityController
 
     public void Load(object sender, SceneSwitchEventArgs e)
     {
+		if (e.loadFirstTime) {
+			for (int i = 0; i < characters.Length; i++) 
+				characters [i].LoadFirstTime ();
+			return;
+		}
         for (int i = 0; i < characters.Length; i++)
         {
 			Hashtable esd;
             SaveController.GetValue(SaveKeys.players[i], out esd);
 			if (esd == default(Hashtable))
-				characters [i].LoadFirstTime ();
+				return;
 			else if (e.loadControl)
 				// If we're booting up the game, loading controllers involves loading the player
         		characters[i].Load(esd);
