@@ -156,8 +156,7 @@ public class Entity : MonoBehaviour
         move = new Vector3(0, 0, 0);
         // BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
         // Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-        var hits = Physics2D.BoxCastAll(transform.position, .5f*hurtbox.bounds.size, 0.0f, moveX, moveX.magnitude,
-            collisionLayerMask);
+		var hits = Physics2D.BoxCastAll(transform.position + moveX, .5f*hurtbox.bounds.size, 0.0f, moveX, 0, collisionLayerMask);
         var xHit = false;
         for (var i = 0; i < hits.Length; i++)
         {
@@ -171,8 +170,8 @@ public class Entity : MonoBehaviour
         }
         if (!xHit) transform.Translate(moveX);
         // Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-        hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, moveY, moveY.magnitude,
-            collisionLayerMask);
+		hits = Physics2D.BoxCastAll(transform.position + moveY, .5f*hurtbox.bounds.size, 0.0f, moveY, 0, collisionLayerMask);
+        //hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, moveY, moveY.magnitude, collisionLayerMask);
         var yHit = false;
         for (var i = 0; i < hits.Length; i++)
         {
