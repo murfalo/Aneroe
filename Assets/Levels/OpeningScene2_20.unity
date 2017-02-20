@@ -4625,6 +4625,7 @@ MonoBehaviour:
   otherTile: {fileID: 1021941267}
   primaryTile: 1
   interactState: 0
+  usableItemPrefabNames: []
   fullTileSprite: {fileID: 21300000, guid: faa0c839abab82249a78c3364e205182, type: 3}
   brokenTileSprite: {fileID: 0}
   isPast: 0
@@ -27730,6 +27731,7 @@ MonoBehaviour:
   otherTile: {fileID: 1693003735}
   primaryTile: 1
   interactState: 0
+  usableItemPrefabNames: []
   fullTileSprite: {fileID: 21300000, guid: faa0c839abab82249a78c3364e205182, type: 3}
   brokenTileSprite: {fileID: 0}
   isPast: 0
@@ -52121,6 +52123,7 @@ MonoBehaviour:
   otherTile: {fileID: 184363341}
   primaryTile: 1
   interactState: 0
+  usableItemPrefabNames: []
   fullTileSprite: {fileID: 21300000, guid: faa0c839abab82249a78c3364e205182, type: 3}
   brokenTileSprite: {fileID: 0}
   isPast: 0
