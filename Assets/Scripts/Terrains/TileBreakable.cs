@@ -3,7 +3,6 @@ using System.Collections;
 
 public class TileBreakable : Tile
 {
-
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
@@ -24,7 +23,9 @@ public class TileBreakable : Tile
 	
 	}
 
-	public override bool CanUseItem(Item item) {
+	public override bool CanUseItem(Item item)
+	{
+	    interactState = base.CanUseItem(item) ? Entity.CharacterState.Interacting : default(Entity.CharacterState);
 		return base.CanUseItem (item);
 	}
 
@@ -35,7 +36,7 @@ public class TileBreakable : Tile
 		coll.enabled = false;
 		SendDisableTileEvent ();
 		if (otherTile && isPast) {
-			otherTile.UseItem (item,out newItem);
+            otherTile.IndirectUseItem(item, out newItem);
 		}
 	}
 }

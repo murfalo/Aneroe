@@ -123,7 +123,7 @@ public class PlayerEntity : Entity
                     ((Weapon) activeItem).StartBlock(SwitchToCombatDirection());
                     speedFactor = BLOCK_SPEED_FACTOR;
                     break;
-				case CharacterState.Digging:
+				case CharacterState.Interacting:
 					if (!CanActOutOfMovement ())
 						break;
 					TriggerItemUse ();
@@ -174,8 +174,8 @@ public class PlayerEntity : Entity
 				interactTile = interactable;
 			}
 		}
-		if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare (defaultActions [(int)newState]))
-			queuedStateActions.Enqueue (new CharacterStateAction (newState));
+	    if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare(defaultActions[(int) newState]))
+	        queuedStateActions.Enqueue(new CharacterStateAction(newState));
 	}
 
     public override void TryAttacking()
@@ -269,13 +269,11 @@ public class PlayerEntity : Entity
         return (Vector2) transform.position + interactOffsets[GetDirection() - 1];
     }
 
-	Tile GetInteractableTile() {
-		Vector2 dir = directionVectors [GetDirection () - 1];
-		float dist = Vector2.Distance(GetInteractPosition (),(Vector2)transform.position);
-		RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, 1 << LayerMask.NameToLayer("InteractiveTile"));
-		if (hits.Length > 0)
-			return hits [0].collider.GetComponentInChildren<Tile> ();
-		return null;
+	private Tile GetInteractableTile() {
+		var dir = directionVectors [GetDirection () - 1];
+		var dist = Vector2.Distance(GetInteractPosition (),(Vector2)transform.position);
+		var hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, 1 << LayerMask.NameToLayer("InteractiveTile"));
+        return hits.Length > 0 ? hits [0].collider.GetComponentInChildren<Tile> () : null;
 	}
 
 	void HandleItemPickup(Item i) {

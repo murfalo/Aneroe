@@ -32,7 +32,7 @@ public class Entity : MonoBehaviour
         Walking,
         Attacking,
         Blocking,
-        Digging
+        Interacting
     }
 
 	// Internal properties
@@ -90,7 +90,7 @@ public class Entity : MonoBehaviour
             {"speed", speed}
         });
 
-        collisionLayerMask = LayerMask.GetMask("Wall", "Character", "Bedrock");
+        collisionLayerMask = LayerMask.GetMask("Wall", "Character", "Bedrock", "InteractiveTile");
     }
 
     public virtual void DoFixedUpdate()

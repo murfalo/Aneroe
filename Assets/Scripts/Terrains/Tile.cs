@@ -11,19 +11,21 @@ public class Tile : MonoBehaviour {
 	public bool primaryTile = true;
 
 	[HideInInspector]
-	public PlayerEntity.CharacterState interactState;
+	public Entity.CharacterState interactState;
 
 	public System.Type[] usableItemTypes;
+
+    public string[] usableItemNames;
 
 	public virtual bool CanUseItem(Item item) {
 		// If you're not wielding something, interaction is always allowed
 		if (item == null)
 			return true;
-		System.Type itemType = item.GetType ();
-		return usableItemTypes.Any(i => i.Equals(itemType));
+		var itemType = item.GetType ();
+	    return itemType == System.Type.GetType("Item") ? usableItemNames.Any(n => n == item.prefabName) : usableItemTypes.Any(i => i == itemType);
 	}
 
-	public PlayerEntity.CharacterState GetInteractState() {
+	public Entity.CharacterState GetInteractState() {
 		return interactState;
 	}
 
@@ -33,10 +35,14 @@ public class Tile : MonoBehaviour {
 		newItem = null;
 	}
 
-	protected void SendDisableTileEvent() {
-		TerrainEventArgs e = new TerrainEventArgs ();
-		e.tile = this;
-		AIController.TriggerModifiedTerrain (e);
+    public void IndirectUseItem(Item item, out Item newItem)
+    {
+        newItem = typeof(Weapon) == item.GetType() ? item : null;
+    }
+
+    protected void SendDisableTileEvent() {
+	    var e = new TerrainEventArgs {tile = this};
+	    AIController.TriggerModifiedTerrain (e);
 	}
 
 	public virtual Hashtable Save() { return new Hashtable (); }

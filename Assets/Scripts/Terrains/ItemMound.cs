@@ -33,7 +33,7 @@ public class ItemMound : Tile {
 		buriedItem = null;
 		buriableItemTypes = new Type[] { typeof(Item) };
 		usableItemTypes = new Type[] {typeof(Item), typeof(Weapon)};
-		interactState = Entity.CharacterState.Digging;
+		interactState = Entity.CharacterState.Interacting;
 	}
 	
 	// Update is called once per frame
