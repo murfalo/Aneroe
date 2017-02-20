@@ -7,6 +7,7 @@ public class TileBreakable : Tile
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
+	public bool isPast;
 
 	// Use this for initialization
 	void Start ()
@@ -33,6 +34,9 @@ public class TileBreakable : Tile
 		sRend.sprite = brokenTileSprite;
 		coll.enabled = false;
 		SendDisableTileEvent ();
+		if (otherTile && isPast) {
+			otherTile.UseItem (item,out newItem);
+		}
 	}
 }
 

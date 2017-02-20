@@ -10810,11 +10810,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352956935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -197.6, y: 3.8, z: 0.0390625}
+  m_LocalPosition: {x: -98.600006, y: -1.8473814, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 1}
   m_Children: []
-  m_Father: {fileID: 801631036}
-  m_RootOrder: 3
+  m_Father: {fileID: 1419502646}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &352956937
 BoxCollider2D:
@@ -10846,6 +10846,7 @@ MonoBehaviour:
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 1
 --- !u!212 &352956939
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24679,11 +24680,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1996944983}
-  - {fileID: 1027778469}
-  - {fileID: 1037280771}
-  - {fileID: 352956936}
+  m_Children: []
   m_Father: {fileID: 1439272906}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30838,11 +30835,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1027778468}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -203.1, y: 5.7, z: 0.0390625}
+  m_LocalPosition: {x: -104.100006, y: 0.052618504, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
-  m_Father: {fileID: 801631036}
-  m_RootOrder: 1
+  m_Father: {fileID: 1419502646}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1027778470
 BoxCollider2D:
@@ -30869,11 +30866,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1811533670}
   primaryTile: 1
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 1
 --- !u!212 &1027778472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31126,11 +31124,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037280770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -197.6, y: 4.5, z: 0.0390625}
+  m_LocalPosition: {x: -98.600006, y: -1.1473813, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 1}
   m_Children: []
-  m_Father: {fileID: 801631036}
-  m_RootOrder: 2
+  m_Father: {fileID: 1419502646}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1037280772
 BoxCollider2D:
@@ -31162,6 +31160,7 @@ MonoBehaviour:
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 1
 --- !u!212 &1037280774
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -40589,11 +40588,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1311354420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.48, y: 5.73, z: 0.0390625}
+  m_LocalPosition: {x: -4.134498, y: 0.08261871, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
-  m_Father: {fileID: 1678000778}
-  m_RootOrder: 0
+  m_Father: {fileID: 1880724032}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1311354423
 BoxCollider2D:
@@ -40620,11 +40619,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1996944985}
   primaryTile: 1
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 0
 --- !u!1 &1311444729
 GameObject:
   m_ObjectHideFlags: 0
@@ -43584,6 +43584,10 @@ Transform:
   - {fileID: 1535595638}
   - {fileID: 141712628}
   - {fileID: 90082456}
+  - {fileID: 1996944983}
+  - {fileID: 1027778469}
+  - {fileID: 1037280771}
+  - {fileID: 352956936}
   m_Father: {fileID: 1575172993}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51770,11 +51774,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1311354422}
-  - {fileID: 1811533668}
-  - {fileID: 2067300465}
-  - {fileID: 1928596539}
+  m_Children: []
   m_Father: {fileID: 1800526907}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55033,11 +55033,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811533666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.14, y: 5.4, z: 0.0390625}
+  m_LocalPosition: {x: -4.794499, y: -0.24738121, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
-  m_Father: {fileID: 1678000778}
-  m_RootOrder: 1
+  m_Father: {fileID: 1880724032}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1811533669
 BoxCollider2D:
@@ -55064,11 +55064,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1027778471}
   primaryTile: 1
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 0
 --- !u!1 &1815769293
 GameObject:
   m_ObjectHideFlags: 0
@@ -57774,6 +57775,10 @@ Transform:
   - {fileID: 1184410955}
   - {fileID: 1872116606}
   - {fileID: 498939526}
+  - {fileID: 1311354422}
+  - {fileID: 1811533668}
+  - {fileID: 2067300465}
+  - {fileID: 1928596539}
   m_Father: {fileID: 1575172993}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59212,11 +59217,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1928596538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.69, y: 3.54, z: 0.0390625}
+  m_LocalPosition: {x: 0.65550137, y: -2.1073813, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 1}
   m_Children: []
-  m_Father: {fileID: 1678000778}
-  m_RootOrder: 3
+  m_Father: {fileID: 1880724032}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1928596540
 BoxCollider2D:
@@ -59248,6 +59253,7 @@ MonoBehaviour:
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 0
 --- !u!212 &1928596542
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -61491,11 +61497,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1996944982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -202.4, y: 6, z: 0.0390625}
+  m_LocalPosition: {x: -103.399994, y: 0.3526187, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
-  m_Father: {fileID: 801631036}
-  m_RootOrder: 0
+  m_Father: {fileID: 1419502646}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1996944984
 BoxCollider2D:
@@ -61522,11 +61528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
+  otherTile: {fileID: 1311354424}
   primaryTile: 1
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 1
 --- !u!212 &1996944986
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -63700,11 +63707,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2067300464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.69, y: 4.18, z: 0.0390625}
+  m_LocalPosition: {x: 0.65550137, y: -1.4673815, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 1}
   m_Children: []
-  m_Father: {fileID: 1678000778}
-  m_RootOrder: 2
+  m_Father: {fileID: 1880724032}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2067300466
 BoxCollider2D:
@@ -63736,6 +63743,7 @@ MonoBehaviour:
   interactState: 0
   fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
   brokenTileSprite: {fileID: 0}
+  isPast: 0
 --- !u!212 &2067300468
 SpriteRenderer:
   m_ObjectHideFlags: 0
