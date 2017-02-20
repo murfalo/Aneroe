@@ -49,21 +49,20 @@ namespace AneroeInputs {
 		void Update () {
 			if (!inputingAllowed)
 				return;
-			InputEventArgs e = new InputEventArgs ();
-			foreach (KeyValuePair<string,string> pair in inputPairings)
+			var e = new InputEventArgs ();
+			foreach (var pair in inputPairings)
 			{
-			    if (e.actions.ContainsKey(pair.Value)) continue;
 				if (Input.GetKeyDown (pair.Key)) {
-					e.actions.Add (pair.Value, new ActionOnInput (0, pair.Key));
+					e.actions[pair.Value] = new ActionOnInput (0, pair.Key);
 				} else if (Input.GetKey (pair.Key)) {
-					e.actions.Add (pair.Value, new ActionOnInput (1, pair.Key));
+					e.actions[pair.Value] = new ActionOnInput (1, pair.Key);
 				} else if (Input.GetKeyUp (pair.Key)) {
-					e.actions.Add (pair.Value, new ActionOnInput (2, pair.Key));
+					e.actions[pair.Value] = new ActionOnInput (2, pair.Key);
 				}
 			}
-			foreach (KeyValuePair<string, string> pair in axisPairings) {
+			foreach (var pair in axisPairings) {
 				if (Math.Abs(Input.GetAxis (pair.Value)) > 0.01f) {
-					e.actions.Add (pair.Value, new ActionOnInput (Input.GetAxis (pair.Value), pair.Key));
+					e.actions[pair.Value] = new ActionOnInput (Input.GetAxis (pair.Value), pair.Key);
 				}
 			}
 			if (iEvent != null && e.actions.Count > 0) {

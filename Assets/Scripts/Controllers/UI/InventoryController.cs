@@ -19,6 +19,9 @@ public class InventoryController : BaseController
     /// <summary>Prefab for a physical (non-UI) item.</summary>
     [SerializeField] private GameObject Item;
 
+    /// <summary>Overlay for selected item.</summary>
+    [SerializeField] private GameObject selectedOverlay;
+
     /// <summary>Number of items in a row of the inventory.</summary>
     public static int ItemsPerRow = 7;
 
@@ -33,10 +36,14 @@ public class InventoryController : BaseController
     /// <summary>Parent index of the previously selected item.</summary>
     private int _oldParentIndex;
 
+    public override void InternalSetup()
+    {
+        InputController.iEvent.inputed += ReceiveInput;
+    }
+
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
     {
-        InputController.iEvent.inputed += ReceiveInput;
         SceneController.timeSwapped += RefreshInventory;
         SceneController.timeSwapped += RebindListener;
         SaveController.playerLoaded += RefreshInventory;
@@ -125,6 +132,7 @@ public class InventoryController : BaseController
 
         var activeInv = PlayerController.activeCharacter.inv;
         var numSlots = activeInv.maxItems;
+        selectedOverlay.transform.position = _slots[PlayerController.activeCharacter.inv.itemSlotEquipped].transform.position;
 
         for (var i = 0; i < numSlots; i++)
         {
@@ -151,10 +159,7 @@ public class InventoryController : BaseController
     {
         if (!eventArgs.WasPressed("equip")) return;
         var newEquipped = eventArgs.GetTrigger("equip");
-		if (newEquipped != "") {
-			// Do whatever the **** you want, but don't touch the inventory data structure.
-			// That is taken care of in ReceiveInput by the Playercontroller,
-			// which is WAY simpler than sending ANOTHER event
-		}
+        if (newEquipped == "") return;
+        selectedOverlay.transform.position = _slots[int.Parse(newEquipped) - 1].transform.position;
     }
 }
