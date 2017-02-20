@@ -49,9 +49,17 @@ public class CraftingController : MonoBehaviour {
     /// <summary>Crafts a single item using the input items and places it in the output slot.</summary>
     public void CraftItem()
     {
-        if (_inputItems.Any(item => item == null)) return;
+        if (_inputItems.Any(item => item == null) || _outputItem != null) return;
+        var newItem = CraftingRecipes.CraftItem(GetItemName(_inputItems[0]), GetItemName(_inputItems[1]), GetItemName(_inputItems[2]));
+        if (newItem == null) return;
         for (var i = 1; i < _inputItems.Length; i++)
             Destroy(_inputItems[i]);
-        _outputItem = _inputItems[0];
+        _outputItem = newItem;
+    }
+
+    private string GetItemName(GameObject inputItem)
+    {
+        var itemComponent = inputItem.GetComponent<Item>();
+        return (itemComponent != null) ? itemComponent.prefabName : null;
     }
 }
