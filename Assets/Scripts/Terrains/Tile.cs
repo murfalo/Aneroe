@@ -22,6 +22,8 @@ public class Tile : MonoBehaviour {
 		if (item == null)
 			return true;
 		var itemType = item.GetType ();
+        Debug.Log(item.prefabName);
+        Debug.Log(usableItemPrefabNames.Any(n => n == item.prefabName));
 	    return itemType == System.Type.GetType("Item") ? usableItemPrefabNames.Any(n => n == item.prefabName) : usableItemTypes.Any(i => i == itemType);
 	}
 

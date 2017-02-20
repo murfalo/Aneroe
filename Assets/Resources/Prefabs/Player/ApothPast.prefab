@@ -152,9 +152,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultItemPrefabNames:
   - Dagger
-  MAX_HEALTH: 5
+  MAX_HEALTH: 10
   speed: 2
-  attack: 1
+  attack: 3
   defense: 1
 --- !u!212 &212345187590391996
 SpriteRenderer:

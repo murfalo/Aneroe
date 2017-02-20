@@ -67,8 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff087367980c44af29db3b2dfba7919d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: 
   smallItem: 1
-  weight: 0.2
+  count: 0
+  Name: 
+  Description: 
 --- !u!212 &212349490164155120
 SpriteRenderer:
   m_ObjectHideFlags: 1

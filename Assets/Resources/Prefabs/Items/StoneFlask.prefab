@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9ec2de4db210e4e80fe8bf689b0b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Item
+  prefabName: StoneFlask
   smallItem: 0
   count: 0
   Name: Potion Flask

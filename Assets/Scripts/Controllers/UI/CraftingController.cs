@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingController : MonoBehaviour {
 
@@ -54,12 +55,15 @@ public class CraftingController : MonoBehaviour {
         if (newItem == null) return;
         for (var i = 1; i < _inputItems.Length; i++)
             Destroy(_inputItems[i]);
-        _outputItem = newItem;
+        newItem = Instantiate(newItem);
+        _inputItems[0].GetComponent<InventorySlot>().SetItem(newItem.GetComponent<Item>());
+        _inputItems[0].GetComponent<Image>().sprite = newItem.GetComponent<SpriteRenderer>().sprite;
+        _outputItem = _inputItems[0];
     }
 
     private string GetItemName(GameObject inputItem)
     {
-        var itemComponent = inputItem.GetComponent<Item>();
-        return (itemComponent != null) ? itemComponent.prefabName : null;
+        var itemComponent = inputItem.GetComponent<InventorySlot>();
+        return (itemComponent != null) ? itemComponent.GetItem().prefabName : null;
     }
 }

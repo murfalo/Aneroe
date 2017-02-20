@@ -7,6 +7,7 @@ public class TileBreakable : Tile
 	SpriteRenderer sRend;
 	Collider2D coll;
 	public bool isPast;
+    public bool canUseWeapon;
 
 	// Use this for initialization
 	void Start ()
@@ -26,6 +27,7 @@ public class TileBreakable : Tile
 	public override bool CanUseItem(Item item)
 	{
 	    interactState = base.CanUseItem(item) ? Entity.CharacterState.Interacting : default(Entity.CharacterState);
+	    if (!canUseWeapon && item.GetType() == typeof(Weapon)) return false;
 		return base.CanUseItem (item);
 	}
 
@@ -35,9 +37,17 @@ public class TileBreakable : Tile
 		sRend.sprite = brokenTileSprite;
 		coll.enabled = false;
 		SendDisableTileEvent ();
-		if (otherTile && isPast) {
+		if (otherTile && isPast)
             otherTile.IndirectUseItem(item, out newItem);
-		}
 	}
+
+    public override void IndirectUseItem(Item item, out Item newItem)
+    {
+        newItem = typeof(Weapon) == item.GetType() ? item : null;
+        if (isPast) return;
+        coll.enabled = false;
+        sRend.sprite = brokenTileSprite;
+    }
+
 }
 

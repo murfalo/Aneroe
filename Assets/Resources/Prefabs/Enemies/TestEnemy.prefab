@@ -161,9 +161,11 @@ MonoBehaviour:
   defense: 1
   enemyState: 0
   itemDropNames:
-  - Item
+  - Bone
+  - StoneFlask
   itemDropWeights:
-  - 1
+  - 0.5
+  - 0.5
 --- !u!114 &114651906396462366
 MonoBehaviour:
   m_ObjectHideFlags: 1

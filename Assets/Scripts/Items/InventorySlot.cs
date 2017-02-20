@@ -58,6 +58,12 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return _item;
     }
 
+    public void SetItem(Item i)
+    {
+        _item = i;
+    }
+
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         ToggleTooltip();

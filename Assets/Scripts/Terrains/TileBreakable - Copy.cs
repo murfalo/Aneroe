@@ -14,7 +14,6 @@ public class WaterTile : Tile
 		sRend = GetComponent<SpriteRenderer> ();
 		coll = GetComponent<Collider2D> ();
 		usableItemTypes = new System.Type[1];
-		usableItemTypes [0] = System.Type.GetType("Weapon");
 	}
 	
 	// Update is called once per frame
@@ -25,7 +24,6 @@ public class WaterTile : Tile
 
     public override bool CanUseItem(Item item)
     {
-        Debug.Log("can use item");
         interactState = base.CanUseItem(item) ? Entity.CharacterState.Interacting : default(Entity.CharacterState);
         return base.CanUseItem(item);
     }

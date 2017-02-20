@@ -44,8 +44,8 @@ public class ItemMound : Tile {
 		// If you're not wielding something, interaction is always allowed
 		if (item == null)
 			return true;
-		System.Type itemType = item.GetType ();
-		return buriableItemTypes.Any(i => i.Equals(itemType));
+		var itemType = item.GetType ();
+		return buriableItemTypes.Any(i => i == itemType);
 	}
 
 	// Bury item in mound
