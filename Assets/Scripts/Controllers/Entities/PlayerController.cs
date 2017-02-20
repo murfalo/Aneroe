@@ -101,7 +101,7 @@ public class PlayerController : EntityController
         }
         else if (e.IsHeld("defend"))
         {
-            activeCharacter.TryBlocking();
+            //activeCharacter.TryBlocking();
         }
 		// Most likely going to filter out a seperate interact button altogether
         /*else if (e.WasPressed("interact"))

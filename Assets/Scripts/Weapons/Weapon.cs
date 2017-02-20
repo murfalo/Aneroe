@@ -21,7 +21,7 @@ public class Weapon : Item {
 
 	// targets hit by current attack
 	// a target can only get hit once per attack
-	List<Entity> damageQueue;
+	//List<Entity> damageQueue;
 	List<Entity> targetsHit;
 
 	public override void Setup () {
@@ -30,7 +30,7 @@ public class Weapon : Item {
 		//durability = MAX_DURABILITY;
 
 		targetsHit = new List<Entity> ();
-		damageQueue = new List<Entity> ();
+		//damageQueue = new List<Entity> ();
 		owner = GetComponentInParent<Entity> ();
 
 		stats = new StatInfo ();
@@ -82,9 +82,9 @@ public class Weapon : Item {
 		return !targetsHit.Contains (e);
 	}
 
-	public void AddToDamageQueue(Entity e) {
-		damageQueue.Add (e);
-	}
+	//public void AddToDamageQueue(Entity e) {
+	//	damageQueue.Add (e);
+	//}
 
 	public void AddToDamaged(Entity e) {
 		targetsHit.Add (e);
@@ -123,18 +123,20 @@ public class Weapon : Item {
 			Weapon otherW = other.GetComponent<Weapon> ();
 			if (IsAttacking () && !otherW.IsAttacking ()) {
 				Entity entity = GetEntity ();
-				if (otherW.CanDamage(entity)) {
-					otherW.DealDamage(entity);//entity.Damage (otherW.DamageToInflict ());
-					otherW.AddToDamaged(entity);
+				if (otherW.CanDamage (entity)) {
+					otherW.DealDamage (entity);//entity.Damage (otherW.DamageToInflict ());
+					otherW.AddToDamaged (entity);
 					//print ("Damaging: " + entity.name);
 				}
 			} else if (!IsAttacking () && otherW.IsAttacking ()) {
 				Entity enemy = otherW.GetEntity ();
 				if (!targetsHit.Contains (enemy)) {
-					DealDamage(enemy);//enemy.Damage (DamageToInflict ());
+					DealDamage (enemy);//enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name);
 				}
+			} else {
+				TradeBlows (otherW);
 			}
 		} else if (other.gameObject.tag.Equals ("Character")) {
 			// If collided with opponent
@@ -143,20 +145,32 @@ public class Weapon : Item {
 				// Don't hurt ourselves
 				if (enemy.Equals (GetEntity ()))
 					return;
-				if (enemy.InAttack ())
-					return;
-				if (!targetsHit.Contains (enemy)) {
+				if (enemy.InAttack ()) {
+					// Enemy but they are in lingering attack state, so still hit them
+					if (CanDamage (enemy)) {
+						DealDamage (enemy);
+						AddToDamaged (enemy);
+					}
+				} else if (!targetsHit.Contains (enemy)) {
 					DealDamage(enemy);//enemy.Damage (DamageToInflict ());
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name + "  " + other.name);
 				}
 			}
-		} else if (other.gameObject.tag.Equals ("Wall")) {
-			TileBreakable tb = other.gameObject.GetComponent<TileBreakable> ();
-			if (tb != null && tb.CanUseItem(this)) { 
-				Item tempItem;
-				tb.UseItem (this, out tempItem);
-			} 
+		}
+	}
+
+	void TradeBlows(Weapon otherW) {
+		// Both are attacking, so trade blows
+		Entity entity = GetEntity ();
+		Entity enemy = otherW.GetEntity ();
+		if (otherW.CanDamage (entity)) {
+			otherW.DealDamage (entity);
+			otherW.AddToDamaged (entity);
+		}
+		if (CanDamage (enemy)) {
+			DealDamage (enemy);
+			AddToDamaged (enemy);
 		}
 	}
 
