@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1833849022142678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.438, y: 0.161, z: 0}
+  m_LocalPosition: {x: -144, y: -12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4124406805131404}
@@ -191,11 +191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5087bbc4d4466b4a9903b18f1be4c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: 
   smallItem: 0
-  weight: 0
-  speed: 1
-  attack: 1
-  defense: 1
+  count: 0
+  Name: 
+  Description: 
+  statNames: []
+  statValues: []
 --- !u!114 &114426843650571710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,15 +209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6412e617d8ccc7b449e61fe8b1327120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultItemPrefabNames: []
   MAX_HEALTH: 10
   speed: 1
   attack: 1
   defense: 1
-  characterRadius: 0.2
-  ATTACK_SPEED_FACTOR: 0.5
-  BLOCK_SPEED_FACTOR: 0
-  RUN_SPEED_FACTOR: 1.5
-  NORMAL_SPEED_FACTOR: 1
 --- !u!212 &212098058579888612
 SpriteRenderer:
   m_ObjectHideFlags: 1

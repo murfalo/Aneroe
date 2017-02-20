@@ -3,7 +3,8 @@ using System.Collections;
 
 public class TileBreakable : Tile
 {
-
+	
+	public GameObject otherObject;
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
@@ -34,8 +35,9 @@ public class TileBreakable : Tile
 		sRend.sprite = brokenTileSprite;
 		coll.enabled = false;
 		SendDisableTileEvent ();
-		if (otherTile && isPast) {
-			otherTile.UseItem (item,out newItem);
+		if (otherObject && isPast) {
+			otherObject.GetComponent<SpriteRenderer> ().enabled = false;
+			otherObject.GetComponent<BoxCollider2D> ().enabled = false;
 		}
 	}
 }

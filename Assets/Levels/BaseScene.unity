@@ -955,13 +955,13 @@ Prefab:
         type: 2}
       propertyPath: characterPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 1503387391778352, guid: ffa5acfd82d3a5442b30c68f717fee7f,
+      objectReference: {fileID: 1173786970305232, guid: d3a1d50f81d8a354ab4cca7624046de2,
         type: 2}
     - target: {fileID: 114000010051979128, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
       propertyPath: characterPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 1173786970305232, guid: d3a1d50f81d8a354ab4cca7624046de2,
+      objectReference: {fileID: 1503387391778352, guid: ffa5acfd82d3a5442b30c68f717fee7f,
         type: 2}
     - target: {fileID: 114626635419940120, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
@@ -991,7 +991,7 @@ Prefab:
     - target: {fileID: 114626635419940120, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
       propertyPath: startScene
-      value: TutorialScene
+      value: OpeningScene2_20
       objectReference: {fileID: 0}
     - target: {fileID: 114168319270462106, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
