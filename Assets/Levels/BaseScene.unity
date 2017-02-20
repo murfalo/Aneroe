@@ -955,13 +955,13 @@ Prefab:
         type: 2}
       propertyPath: characterPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 1173786970305232, guid: d3a1d50f81d8a354ab4cca7624046de2,
+      objectReference: {fileID: 1717838193765690, guid: 87266ebf5fb52ef4c82aa46f01801b36,
         type: 2}
     - target: {fileID: 114000010051979128, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
       propertyPath: characterPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 1503387391778352, guid: ffa5acfd82d3a5442b30c68f717fee7f,
+      objectReference: {fileID: 1748307469355846, guid: 21bb957c1177cf5428c894d640e97de8,
         type: 2}
     - target: {fileID: 114626635419940120, guid: 4d4260720fa6dda458da023540ecf177,
         type: 2}
