@@ -69,8 +69,13 @@ public class Entity : MonoBehaviour
     public virtual void Setup()
     {
         anim = GetComponent<Animator>();
-        hurtbox = GetComponent<BoxCollider2D>();
         sRend = GetComponent<SpriteRenderer>();
+		foreach (Collider2D cols in GetComponentsInChildren<Collider2D>()) {
+			if (cols.name == "Collidable") {
+				hurtbox = cols;
+				break;
+			}
+		}
 
         stunTimer = 0;
         anim.SetInteger("state", (int) CharacterState.Still);
@@ -151,7 +156,7 @@ public class Entity : MonoBehaviour
         move = new Vector3(0, 0, 0);
         // BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
         // Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-        var hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, moveX, moveX.magnitude,
+        var hits = Physics2D.BoxCastAll(transform.position, .5f*hurtbox.bounds.size, 0.0f, moveX, moveX.magnitude,
             collisionLayerMask);
         var xHit = false;
         for (var i = 0; i < hits.Length; i++)

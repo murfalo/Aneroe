@@ -95,27 +95,31 @@ public class PlayerEntity : Entity
                         anim.SetInteger("dir", primaryDir);
                     else newQueue.Enqueue(action);
                     break;
-                case CharacterState.Walking:
+			case CharacterState.Walking:
+					// Not able to trigger a walk
+				if (GetState () != CharacterState.Still)
+					break;
                     // Alternate the step this walk cycle executes with
                     oddStep = !oddStep;
-                    anim.SetTime(0);
-                    anim.SetInteger("state", (int) CharacterState.Walking);
+					anim.SetInteger("state", (int) CharacterState.Walking);
                     anim.SetBool("oddStep", oddStep);
                     speedFactor = NORMAL_SPEED_FACTOR;
                     break;
                 case CharacterState.Attacking:
                     if (!CanActOutOfMovement() || !ActiveItemOfType(typeof(Weapon)))
                         break;
-                    anim.SetTime(0);
-                    anim.SetInteger("state", (int) CharacterState.Attacking);
+					anim.SetInteger("state", (int) CharacterState.Attacking);
+					// REPLACE WITH LOCAL STORAGE OF STATE TO PREVENT FUNKY ANIM STUFF
+					anim.SetTime(0);
                     ((Weapon) activeItem).StartAttack(SwitchToCombatDirection());
                     speedFactor = ATTACK_SPEED_FACTOR;
                     break;
                 case CharacterState.Blocking:
                     if (!CanActOutOfMovement() || !ActiveItemOfType(typeof(Weapon)))
                         break;
-                    anim.SetTime(0);
-                    anim.SetInteger("state", (int) CharacterState.Blocking);
+					anim.SetInteger("state", (int) CharacterState.Blocking);
+					// REPLACE WITH LOCAL STORAGE OF STATE TO PREVENT FUNKY ANIM STUFF
+					anim.SetTime(0);
                     ((Weapon) activeItem).StartBlock(SwitchToCombatDirection());
                     speedFactor = BLOCK_SPEED_FACTOR;
                     break;
@@ -154,7 +158,7 @@ public class PlayerEntity : Entity
 
     // Sets animation state for walking
     public override void TryWalk()
-    {
+	{
         if (GetState() != CharacterState.Still)
             return;
         queuedStateActions.Enqueue(new CharacterStateAction(CharacterState.Walking));
@@ -334,6 +338,7 @@ public class PlayerEntity : Entity
 			Hashtable itemSave = (Hashtable)esd["item" + i];
 			GameObject itemObj = GameObject.Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + (string)itemSave["prefabName"]));
 			itemObj.transform.SetParent (transform);
+			itemObj.transform.localScale = new Vector3 (1, 1, 1);
 			Item item = itemObj.GetComponentInChildren<Item> ();
 			item.Load (itemSave);		
 			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication
@@ -351,6 +356,7 @@ public class PlayerEntity : Entity
 		foreach (string itemName in defaultItemPrefabNames) {
 			var itemObj = Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + itemName));
 			itemObj.transform.SetParent (transform);
+			itemObj.transform.localScale = new Vector3 (1, 1, 1);
 			Item i = itemObj.GetComponentInChildren<Item> ();
 			i.Setup();	
 			// Configure item and inventory, but do NOT send event to inventory that this is being added. That would cause duplication

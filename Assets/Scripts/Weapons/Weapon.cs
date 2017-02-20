@@ -42,12 +42,16 @@ public class Weapon : Item {
 	public void StartAttack(int dir) {
 		anim.SetBool ("attack", true);
 		anim.SetInteger ("dir", dir);
+		// SIMILAR ISSUE WITH PLAYER ENTITY ANIMATIONS. NEED TO COMPARE LOCAL STATE TO CURRENT STATE OF ANIM
+		anim.SetTime (0);
 		LayerSprite (dir);
 	}
 
 	public void StartBlock(int dir) {
 		anim.SetBool ("block", true);
 		anim.SetInteger ("dir", dir);
+		// SIMILAR ISSUE WITH PLAYER ENTITY ANIMATIONS. NEED TO COMPARE LOCAL STATE TO CURRENT STATE OF ANIM
+		anim.SetTime (0);
 		LayerSprite (dir);
 	}
 

@@ -41,9 +41,11 @@ public class TerrainController : BaseController {
 				string saveName = t.name + t.transform.parent.name;
 				if (tiles.ContainsKey (saveName))
 					t.Load ((Hashtable)tiles [saveName]);
-				saveName = t.otherTile.name + t.otherTile.transform.parent.name;
-				if (tiles.ContainsKey(saveName))
-					t.otherTile.Load ((Hashtable)tiles [saveName]);
+				if (t.otherTile != null) {
+					saveName = t.otherTile.name + t.otherTile.transform.parent.name;
+					if (tiles.ContainsKey (saveName))
+						t.otherTile.Load ((Hashtable)tiles [saveName]);
+				}
 			}
 		}
 	}
