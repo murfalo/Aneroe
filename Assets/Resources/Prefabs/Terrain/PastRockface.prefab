@@ -64,16 +64,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1639977060718200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c8f9e1b4c7d43d796ec077150223f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 90b8952de39ae48e58d6ec2c32adcdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherTile: {fileID: 0}
-  primaryTile: 1
-  interactState: 0
-  usableItemNames: []
-  fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
-  brokenTileSprite: {fileID: 0}
-  isPast: 1
 --- !u!212 &212645069754405996
 SpriteRenderer:
   m_ObjectHideFlags: 1

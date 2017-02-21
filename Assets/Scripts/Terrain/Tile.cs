@@ -15,14 +15,8 @@ public class Tile : MonoBehaviour {
 
 	public System.Type[] usableItemTypes;
 
-    public string[] usableItemPrefabNames;
-
 	public virtual bool CanUseItem(Item item) {
-		// If you're not wielding something, interaction is always allowed
-		if (item == null)
-			return true;
-		var itemType = item.GetType ();
-	    return itemType == System.Type.GetType("Item") ? usableItemPrefabNames.Any(n => n == item.prefabName) : usableItemTypes.Any(i => i == itemType);
+	    return (item == null) ? true : usableItemTypes.Any(i => i == item.GetType ());
 	}
 
 	public Entity.CharacterState GetInteractState() {

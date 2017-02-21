@@ -1,34 +1,35 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
 
-public class TileBreakable : Tile
+public class TileInteractive : Tile
 {
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
 	public bool isPast;
-    public bool canUseWeapon;
+	public string[] usableItemPrefabNames;
+
+	public override bool CanUseItem(Item item) {
+		// If you're not wielding something, interaction is always allowed
+		if (item == null) return true;
+		var itemType = item.GetType();
+		var canUse = itemType == System.Type.GetType("Item") ? usableItemPrefabNames.Any(n => n == item.prefabName) : usableItemTypes.Any(i => i == itemType);
+	    interactState = canUse ? Entity.CharacterState.Interacting : default(Entity.CharacterState);
+		return canUse;
+	}
 
 	// Use this for initialization
-	void Start ()
+	public void Start ()
 	{
+		usableItemPrefabNames = new string[0];
+		usableItemTypes = new System.Type[0];
 		sRend = GetComponent<SpriteRenderer> ();
 		coll = GetComponent<Collider2D> ();
-		usableItemTypes = new System.Type[1];
-		usableItemTypes [0] = System.Type.GetType("Weapon");
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
-	}
-
-	public override bool CanUseItem(Item item)
-	{
-	    interactState = base.CanUseItem(item) ? Entity.CharacterState.Interacting : default(Entity.CharacterState);
-	    if (!canUseWeapon && item.GetType() == typeof(Weapon)) return false;
-		return base.CanUseItem (item);
 	}
 
 	public override void UseItem (Item item, out Item newItem)

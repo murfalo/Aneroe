@@ -2,13 +2,11 @@
 using System;
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 
 public class ItemMound : Tile {
 
 	// Item held in tile
 	Item buriedItem;
-
 	public bool isPast;
 	bool boundForever;
 	Type[] buriableItemTypes;
