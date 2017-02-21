@@ -335,7 +335,7 @@ public class PlayerEntity : Entity
 				continue;
 			Hashtable itemSave = (Hashtable)esd["item" + i];
 			GameObject itemObj = GameObject.Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + (string)itemSave["prefabName"]));
-			itemObj.transform.SetParent (transform);
+			itemObj.transform.SetParent (transform, false);
 			itemObj.transform.localScale = new Vector3 (1, 1, 1);
 			Item item = itemObj.GetComponentInChildren<Item> ();
 			item.Load (itemSave);		
@@ -353,7 +353,7 @@ public class PlayerEntity : Entity
     {
 		foreach (string itemName in defaultItemPrefabNames) {
 			var itemObj = Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + itemName));
-			itemObj.transform.SetParent (transform);
+			itemObj.transform.SetParent (transform, false);
 			itemObj.transform.localScale = new Vector3 (1, 1, 1);
 			Item i = itemObj.GetComponentInChildren<Item> ();
 			i.Setup();	

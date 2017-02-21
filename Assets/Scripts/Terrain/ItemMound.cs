@@ -126,7 +126,7 @@ public class ItemMound : Tile {
 		Item item = ((ItemMound)otherTile).GetBuriedItem();
 		if (primaryTile || item == null) {
 			GameObject itemObj = GameObject.Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + (string)itemSave ["prefabName"]));
-			itemObj.transform.SetParent (transform);
+			itemObj.transform.SetParent (transform, false);
 			item = itemObj.GetComponentInChildren<Item> ();
 			item.Load (itemSave);
 		}

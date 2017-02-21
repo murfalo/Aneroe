@@ -35,7 +35,7 @@ public class CraftingController : MonoBehaviour {
             var outputSlot = UIController.Crafting.transform.GetChild(2).GetChild(0);
             if (outputSlot.childCount > 0)
                 Destroy(outputSlot.GetChild(0).gameObject);
-            value.transform.SetParent(outputSlot);
+            value.transform.SetParent(outputSlot, false);
         }
     }
 

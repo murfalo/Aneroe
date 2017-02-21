@@ -27,8 +27,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Update()
     {
         if (!_tooltipEnabled) return;
-        var xPos = Input.mousePosition.x + UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.x / 2;
-        var yPos = Input.mousePosition.y - UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.y / 2;
+        var scaleFactor = GameObject.Find("Canvas").GetComponent<Canvas>().scaleFactor;
+        Debug.Log(UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.x);
+        var xPos = Input.mousePosition.x + UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.x / 2 * scaleFactor;
+        var yPos = Input.mousePosition.y - UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.y / 2 * scaleFactor;
         UIController.Tooltip.transform.position = new Vector2(xPos, yPos);
     }
 
@@ -48,7 +50,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         var enable = _item != null;
         _itemImage.enabled = enable;
         if (!enable) return;
-        if (index < InventoryController.ItemsPerRow && index > 0)
+        if (index >= 0 && index < InventoryController.ItemsPerRow)
             _itemImage.raycastTarget = false;
         _itemImage.sprite = _item.GetSprite();
     }

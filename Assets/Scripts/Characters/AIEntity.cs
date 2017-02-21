@@ -25,7 +25,7 @@ public class AIEntity : Entity
 		base.Setup ();
 		foreach (string itemName in defaultItemPrefabNames) {
 			var itemObj = Instantiate (Resources.Load<GameObject> ("Prefabs/Items/" + itemName));
-			itemObj.transform.SetParent (transform);
+			itemObj.transform.SetParent (transform, false);
 			Item i = itemObj.GetComponentInChildren<Item> ();
 			i.Setup();	
 			i.PickupItem (this);

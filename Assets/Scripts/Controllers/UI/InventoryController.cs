@@ -52,7 +52,7 @@ public class InventoryController : BaseController
         {
             var newSlot = Instantiate(UISlot);
             newSlot.name = "Slot." + i;
-            newSlot.transform.SetParent(UIController.Inventory.transform.GetChild(((i / ItemsPerRow) == 0) ? 0 : 1).transform);
+            newSlot.transform.SetParent(UIController.Inventory.transform.GetChild(((i / ItemsPerRow) == 0) ? 0 : 1).transform, false);
             _slots.Add(newSlot);
         }
     }
@@ -73,7 +73,7 @@ public class InventoryController : BaseController
 			var uiItem = _slots [nextSlot];
 
 			var invItem = Instantiate (InvSlot);
-			invItem.transform.SetParent (uiItem.transform);
+			invItem.transform.SetParent (uiItem.transform, false);
 			invItem.GetComponent<InventorySlot> ().SetUnsetItem (e.item, nextSlot);
 			OnItemMoved (invItem, -1, nextSlot);
 		} else {
@@ -139,7 +139,7 @@ public class InventoryController : BaseController
             if (item == null)
                 continue;
             var invSlot = Instantiate(InvSlot);
-            invSlot.transform.SetParent(_slots[i].transform);
+            invSlot.transform.SetParent(_slots[i].transform, false);
             invSlot.GetComponent<InventorySlot>().SetUnsetItem(item, i);
         }
     }

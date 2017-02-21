@@ -78,7 +78,7 @@ public class UIController : BaseController
         Selected = target;
         if (ItemSelected != null && signal)
             ItemSelected(this, new ItemSelectedEventArgs(null, Selected));
-        Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform);
+        Selected.transform.SetParent(Selected.GetComponentInParent<Canvas>().transform, false);
         target.GetComponent<Image>().raycastTarget = false;
     }
 
@@ -107,7 +107,7 @@ public class UIController : BaseController
             if (target.CompareTag("UISlot") && target.transform.childCount > 0) return;
             Selected.GetComponent<Image>().raycastTarget = true;
             var newParent = target.CompareTag("UIItem") ? target.transform.parent : target.transform;
-            Selected.transform.SetParent(newParent);
+            Selected.transform.SetParent(newParent, false);
             if (ItemSelected != null && signal)
                 ItemSelected(this, new ItemSelectedEventArgs(Selected, target));
             SelectItem(target, false);
@@ -145,7 +145,7 @@ public class UIController : BaseController
             }
         }
 		Tooltip = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tooltip"));
-        Tooltip.transform.SetParent(UI.transform);
+        Tooltip.transform.SetParent(UI.transform, false);
         Tooltip.SetActive(false);
     }
 
