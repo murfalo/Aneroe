@@ -42,13 +42,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         TooltipDescription = _item.Description;
     }
 
-    public void SetUnsetItem(Item i, int index)
+    public void SetUnsetItem(Item i, int index = -1)
     {
         _item = i;
         var enable = _item != null;
         _itemImage.enabled = enable;
         if (!enable) return;
-        if (index < InventoryController.ItemsPerRow)
+        if (index < InventoryController.ItemsPerRow && index > 0)
             _itemImage.raycastTarget = false;
         _itemImage.sprite = _item.GetSprite();
     }

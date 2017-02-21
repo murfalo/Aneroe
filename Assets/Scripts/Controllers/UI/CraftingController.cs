@@ -55,9 +55,7 @@ public class CraftingController : MonoBehaviour {
         if (newItem == null) return;
         for (var i = 1; i < _inputItems.Length; i++)
             Destroy(_inputItems[i]);
-        newItem = Instantiate(newItem);
-        _inputItems[0].GetComponent<InventorySlot>().SetItem(newItem.GetComponent<Item>());
-        _inputItems[0].GetComponent<Image>().sprite = newItem.GetComponent<SpriteRenderer>().sprite;
+        _inputItems[0].GetComponent<InventorySlot>().SetUnsetItem(newItem.GetComponent<Item>());
         _outputItem = _inputItems[0];
     }
 

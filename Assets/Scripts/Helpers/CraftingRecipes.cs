@@ -13,11 +13,11 @@ public static class CraftingRecipes {
 
     public static GameObject CraftItem(string item1, string item2, string item3)
     {
-        Debug.Log(item1);
-        Debug.Log(item2);
-        Debug.Log(item3);
         var key = new[] {item1, item2, item3};
-        return recipes.ContainsKey(key) ? Resources.Load<GameObject>("Prefabs/Items/" + recipes[key]) : null;
+        if (!recipes.ContainsKey(key)) return null;
+        var newItem = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + recipes[key]));
+        newItem.GetComponent<Item>().Setup();
+        return newItem;
     }
 }
 
