@@ -36,14 +36,10 @@ public class InventoryController : BaseController
     /// <summary>Parent index of the previously selected item.</summary>
     private int _oldParentIndex;
 
-    public override void InternalSetup()
-    {
-        InputController.iEvent.inputed += ReceiveInput;
-    }
-
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
     {
+        InputController.iEvent.inputed += ReceiveInput;
         SceneController.timeSwapped += RefreshInventory;
         SceneController.timeSwapped += RebindListener;
         SaveController.playerLoaded += RefreshInventory;
@@ -158,8 +154,6 @@ public class InventoryController : BaseController
     public void ReceiveInput(object source, InputEventArgs eventArgs)
     {
         if (!eventArgs.WasPressed("equip")) return;
-        var newEquipped = eventArgs.GetTrigger("equip");
-        if (newEquipped == "") return;
-        selectedOverlay.transform.position = _slots[int.Parse(newEquipped) - 1].transform.position;
+        selectedOverlay.transform.position = _slots[PlayerController.activeCharacter.inv.itemSlotEquipped].transform.position;
     }
 }
