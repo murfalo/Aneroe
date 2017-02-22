@@ -154,35 +154,10 @@ public class Entity : MonoBehaviour
         var moveX = new Vector3(move.x, 0, 0);
         var moveY = new Vector3(0, move.y, 0);
         move = new Vector3(0, 0, 0);
-        // BAD COLLISION CODE. WE NEED TO RESTRUCTURE COLLISIONS ENTIRELY. MORE TO COME
-        // Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-		var hits = Physics2D.BoxCastAll(transform.position + moveX, .5f*hurtbox.bounds.size, 0.0f, moveX, 0, collisionLayerMask);
-        var xHit = false;
-        for (var i = 0; i < hits.Length; i++)
-        {
-            // If didn't hit self
-            var possibleHit = hits[i].collider.GetComponentInParent<Entity>();
-            if (possibleHit != this)
-            {
-                xHit = true;
-                break;
-            }
-        }
-        if (!xHit) transform.Translate(moveX);
-        // Collision(transform.position, (Vector2)move, move.magnitude + characterRadius, 1 << LayerMask.NameToLayer ("Wall"));
-		hits = Physics2D.BoxCastAll(transform.position + moveY, .5f*hurtbox.bounds.size, 0.0f, moveY, 0, collisionLayerMask);
-        //hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, moveY, moveY.magnitude, collisionLayerMask);
-        var yHit = false;
-        for (var i = 0; i < hits.Length; i++)
-        {
-            var possibleHit = hits[i].collider.GetComponentInParent<Entity>();
-            if (possibleHit != this)
-            {
-                yHit = true;
-                break;
-            }
-        }
-        if (!yHit) transform.Translate(moveY);
+		if (!WouldCollideAt(transform.position + moveX))
+			transform.Translate(moveX);
+		if (!WouldCollideAt (transform.position + moveY))
+			transform.Translate (moveY);
     }
 
     public void Quicken(bool active)
@@ -310,4 +285,17 @@ public class Entity : MonoBehaviour
         controller.RespondToEntityAction(this, "die");
         foreach (var col in GetComponents<Collider2D>()) col.enabled = false;
     }
+
+	public bool WouldCollideAt(Vector3 pos) {
+		var hits = Physics2D.BoxCastAll(pos, .5f*hurtbox.bounds.size, 0.0f, pos, 0, collisionLayerMask);
+		for (var i = 0; i < hits.Length; i++)
+		{
+			var possiblySelf = hits[i].collider.GetComponentInParent<Entity>();
+			// If didn't hit entity that isn't self
+			if (possiblySelf != this)
+				return true;
+		}
+		return false;
+	}
+
 }

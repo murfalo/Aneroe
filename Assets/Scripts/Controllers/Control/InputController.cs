@@ -28,7 +28,8 @@ namespace AneroeInputs {
 			{"left ctrl","slowen"},
 			{"space","switch character"},
 			{"z","interact"},
-			{"return","return"}
+			{"return","return"},
+			{"tab","realign"}
 		};
 
 		public Dictionary<string, string> axisPairings = new Dictionary<string, string>();

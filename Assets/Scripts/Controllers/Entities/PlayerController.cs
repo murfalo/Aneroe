@@ -13,6 +13,11 @@ public class PlayerController : EntityController
     public static PlayerEntity activeCharacter;
 
     private PlayerEntity[] characters;
+	private Vector3[] questLinePositions;
+
+	// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
+	private Vector3 pastToPresent;
+
     private int characterIndex;
     private string[] directions;
 
@@ -28,18 +33,24 @@ public class PlayerController : EntityController
         var obj = new GameObject();
         obj.name = "PlayerHolder";
         characters = new PlayerEntity[characterPrefabs.Count];
-        for (var i = 0; i < characterPrefabs.Count; i++)
+		questLinePositions = new Vector3[characterPrefabs.Count];
+		for (var i = 0; i < characterPrefabs.Count; i++)
         {
             characters[i] = Instantiate(characterPrefabs[i], obj.transform).GetComponent<PlayerEntity>();
             characters[i].Setup();
+			questLinePositions [i] = characters [i].transform.position;
         }
         characterIndex = 0;
-        activeCharacter = characters[0];
-        directions = new string[4] {"up", "right", "down", "left"};
+		activeCharacter = characters[0];
+		directions = new string[4] {"up", "right", "down", "left"};
+
+		// Necessary instantiation
+		pastToPresent = characters [1].transform.position - characters [0].transform.position;
     }
 
     public override void ExternalSetup()
     {
+		SceneController.mergedNewScene += UpdateRelativePositions;
         InputController.iEvent.inputed += ReceiveInput;
         SaveController.fileLoaded += Load;
         SaveController.fileSaving += Save;
@@ -48,7 +59,8 @@ public class PlayerController : EntityController
     }
 
     public override void RemoveEventListeners()
-    {
+	{
+		SceneController.mergedNewScene -= UpdateRelativePositions;
         InputController.iEvent.inputed -= ReceiveInput;
         SaveController.fileLoaded -= Load;
         SaveController.fileSaving -= Save;
@@ -110,16 +122,52 @@ public class PlayerController : EntityController
         }*/
         else if (e.WasPressed("switch character") && activeCharacter.CanSwitchFrom())
         {
-            var oldC = activeCharacter;
-            characterIndex = (characterIndex + 1) % characters.Length;
-            activeCharacter = characters[characterIndex];
-            GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter(oldC, activeCharacter);
+			SwitchActiveCharacters (e);
         }
         else if (dirChosen)
         {
             activeCharacter.TryWalk();
         }
     }
+
+	void SwitchActiveCharacters(InputEventArgs e) {
+		var oldC = activeCharacter;
+		int oldIndex = characterIndex;
+		characterIndex = (characterIndex + 1) % characters.Length;
+		activeCharacter = characters[characterIndex];
+
+		// Check if the player is aligning the new active character to old active character
+		if (e.WasPressed ("realign") || e.IsHeld ("realign")) {
+			// Pick correct position conversion
+			Vector3 nextPos = pastToPresent + oldC.transform.position;
+			if (oldC.name.ToLower ().Contains ("present"))
+				nextPos = -pastToPresent + oldC.transform.position;
+
+			print (nextPos + "  " + pastToPresent);
+			// If the player can transport to the other player's position
+			if (!activeCharacter.WouldCollideAt (nextPos))
+				activeCharacter.transform.position = nextPos;
+		} else {
+			// If the player can transport to their original quest line position
+
+			if (!activeCharacter.WouldCollideAt (questLinePositions [characterIndex]))
+				activeCharacter.transform.position = questLinePositions [characterIndex];
+		}
+		// Save the old character's position as their new quest line position
+		questLinePositions [oldIndex] = oldC.transform.position;
+		GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter(oldC, activeCharacter);
+	}
+
+	void UpdateRelativePositions(object sender, SceneSwitchEventArgs e) {
+		// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
+		Transform spaceConversionObj = GameObject.Find ("PastPresentDistance").transform;
+		Transform child1 = spaceConversionObj.GetChild (0);
+		print (child1.name + "  " + child1.name.ToLower ().Contains ("past"));
+		if (child1.name.ToLower ().Contains ("past"))
+			pastToPresent = -child1.position + spaceConversionObj.GetChild (1).position;
+		else
+			pastToPresent = -spaceConversionObj.GetChild (1).position + child1.position;
+	}
 
     /// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
     /// <param name="source">Originator of itemMoved event.</param>
@@ -166,9 +214,11 @@ public class PlayerController : EntityController
             SaveController.GetValue(SaveKeys.players[i], out esd);
 			if (esd == default(Hashtable))
 				return;
-			else if (e.loadControl)
+			else if (e.loadControl) {
 				// If we're booting up the game, loading controllers involves loading the player
         		characters[i].Load(esd);
+				questLinePositions [i] = characters [i].transform.position;
+			}
         }
     }
 }
