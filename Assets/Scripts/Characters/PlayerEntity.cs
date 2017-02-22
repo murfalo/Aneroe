@@ -53,14 +53,16 @@ public class PlayerEntity : Entity
         for (var i = 0; i < defaultActions.Length; i++)
             defaultActions[i] = new CharacterStateAction((CharacterState) i);
         var col = GetComponent<BoxCollider2D>();
-        interactLayerMask = LayerMask.GetMask("InteractiveBlock", "Interactive Pass", "Item");
-        interactRadius = .5f * ((col.size.x + col.size.y) / 2);
+        //interactLayerMask = LayerMask.GetMask("InteractiveBlock", "Interactive Pass", "Item");
+        //interactRadius = .5f * ((col.size.x + col.size.y) / 2);
+
+		// REPLACE WITH CODE THAT CALCULATES FROM EITHER PLAYER OR ACTIVE HITBOX ON ITEM
         interactOffsets = new Vector2[4]
         {
-            new Vector2(0, 1.25f * (.5f * col.size.y)),
-            new Vector2(1.5f * (.5f * col.size.x), 0),
-            new Vector2(0, -1.75f * (.5f * col.size.y)),
-            new Vector2(-1.5f * (.5f * col.size.x), 0)
+            2*new Vector2(0, 1.25f * (.5f * col.size.y)),
+            2*new Vector2(1.5f * (.5f * col.size.x), 0),
+            2*new Vector2(0, -1.75f * (.5f * col.size.y)),
+            2*new Vector2(-1.5f * (.5f * col.size.x), 0)
         };
         combatDirTimer = 0;
         combatLinkTimer = 0;
@@ -154,6 +156,11 @@ public class PlayerEntity : Entity
 		} else if (newItem != activeItem && newItem != null) {
 			HandleItemPickup (newItem);
 		}
+	}
+
+	public override bool IsIdleAttack() 
+	{
+		return InAttack() && activeItem != null && activeItem.GetType ().Equals (typeof(Weapon)) && !activeItem.GetComponent<Weapon> ().HasHitbox ();
 	}
 
     // Sets animation state for walking

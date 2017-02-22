@@ -202,6 +202,11 @@ public class Entity : MonoBehaviour
         return GetState() == CharacterState.Attacking || GetState() == CharacterState.Blocking;
     }
 
+	public virtual bool IsIdleAttack() 
+	{
+		return InAttack() && activeItem != null && activeItem.GetType ().Equals (typeof(Weapon)) && !activeItem.GetComponent<Weapon> ().HasHitbox ();
+	}
+
     public bool CanSwitchFrom()
     {
         return GetState() <= CharacterState.Still;

@@ -113,7 +113,7 @@ public class PlayerController : EntityController
         }
         else if (e.IsHeld("defend"))
         {
-            //activeCharacter.TryBlocking();
+            activeCharacter.TryBlocking();
         }
 		// Most likely going to filter out a seperate interact button altogether
         /*else if (e.WasPressed("interact"))
@@ -137,13 +137,12 @@ public class PlayerController : EntityController
 		activeCharacter = characters[characterIndex];
 
 		// Check if the player is aligning the new active character to old active character
-		if (e.WasPressed ("realign") || e.IsHeld ("realign")) {
+		if (false && (e.WasPressed ("realign") || e.IsHeld ("realign"))) {
 			// Pick correct position conversion
 			Vector3 nextPos = pastToPresent + oldC.transform.position;
 			if (oldC.name.ToLower ().Contains ("present"))
 				nextPos = -pastToPresent + oldC.transform.position;
 
-			print (nextPos + "  " + pastToPresent);
 			// If the player can transport to the other player's position
 			if (!activeCharacter.WouldCollideAt (nextPos))
 				activeCharacter.transform.position = nextPos;
@@ -162,7 +161,6 @@ public class PlayerController : EntityController
 		// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
 		Transform spaceConversionObj = GameObject.Find ("PastPresentDistance").transform;
 		Transform child1 = spaceConversionObj.GetChild (0);
-		print (child1.name + "  " + child1.name.ToLower ().Contains ("past"));
 		if (child1.name.ToLower ().Contains ("past"))
 			pastToPresent = -child1.position + spaceConversionObj.GetChild (1).position;
 		else

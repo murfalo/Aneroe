@@ -78,6 +78,14 @@ public class Weapon : Item {
 		return anim.GetBool ("attack");
 	}
 
+	public bool IsBlocking() {
+		return anim.GetBool ("block");
+	}
+
+	public bool HasHitbox() {
+		return GetComponent<Collider2D> ().enabled;
+	}
+
 	public bool CanDamage(Entity e) {
 		return !targetsHit.Contains (e);
 	}
@@ -135,7 +143,7 @@ public class Weapon : Item {
 					targetsHit.Add (enemy);
 					//print ("Damaging: " + enemy.name);
 				}
-			} else {
+			} else if (!otherW.IsBlocking()) {
 				TradeBlows (otherW);
 			}
 		} else if (other.gameObject.tag.Equals ("Character")) {
@@ -145,16 +153,12 @@ public class Weapon : Item {
 				// Don't hurt ourselves
 				if (enemy.Equals (GetEntity ()))
 					return;
-				if (enemy.InAttack ()) {
+				if (!CanDamage (enemy))
+					return;
+				if (!enemy.InAttack() || enemy.IsIdleAttack()) {
 					// Enemy but they are in lingering attack state, so still hit them
-					if (CanDamage (enemy)) {
-						DealDamage (enemy);
-						AddToDamaged (enemy);
-					}
-				} else if (!targetsHit.Contains (enemy)) {
-					DealDamage(enemy);//enemy.Damage (DamageToInflict ());
-					targetsHit.Add (enemy);
-					//print ("Damaging: " + enemy.name + "  " + other.name);
+					DealDamage (enemy);
+					AddToDamaged (enemy);
 				}
 			}
 		}
