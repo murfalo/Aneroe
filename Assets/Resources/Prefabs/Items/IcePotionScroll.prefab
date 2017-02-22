@@ -71,7 +71,7 @@ MonoBehaviour:
   smallItem: 0
   count: 0
   Name: Ice Potion Recipe
-  Description: '- 1 Ice Berry  - 1 Bone  - 1 Stone Flask'
+  Description: '- 1 Ice Berry\n- 1 Bone\n- 1 Stone Flask'
 --- !u!212 &212545702072278130
 SpriteRenderer:
   m_ObjectHideFlags: 1

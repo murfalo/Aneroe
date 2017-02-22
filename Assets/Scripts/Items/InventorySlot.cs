@@ -40,7 +40,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         UIController.Tooltip.SetActive(_tooltipEnabled);
         if (!_tooltipEnabled) return;
         TooltipName = _item.Name;
-        TooltipDescription = _item.Description;
+        TooltipDescription = _item.Description.Replace("\\n","\n");
     }
 
     public void SetUnsetItem(Item i, int index = -1)
