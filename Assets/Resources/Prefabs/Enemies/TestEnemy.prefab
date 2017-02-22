@@ -156,7 +156,7 @@ MonoBehaviour:
   defaultItemPrefabNames:
   - Weapon
   MAX_HEALTH: 5
-  speed: 2
+  speed: 1
   attack: 1
   defense: 1
   enemyState: 0
@@ -164,8 +164,8 @@ MonoBehaviour:
   - Bone
   - StoneFlask
   itemDropWeights:
-  - 0.5
-  - 0.5
+  - 0.75
+  - 0.25
 --- !u!114 &114651906396462366
 MonoBehaviour:
   m_ObjectHideFlags: 1

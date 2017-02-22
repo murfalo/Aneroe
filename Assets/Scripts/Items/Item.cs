@@ -34,6 +34,7 @@ public class Item : MonoBehaviour {
 		owner = e;
 		transform.parent = e.transform;
 		transform.localPosition = new Vector3 (0, 0, 0);
+		if (sRend == null) Setup();
 		sRend.enabled = false;
 		pickupCollider.enabled = false;
 	}

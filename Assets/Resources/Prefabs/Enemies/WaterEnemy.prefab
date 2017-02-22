@@ -156,16 +156,16 @@ MonoBehaviour:
   defaultItemPrefabNames:
   - Weapon
   MAX_HEALTH: 5
-  speed: 2
+  speed: 1
   attack: 1
   defense: 1
   enemyState: 0
   itemDropNames:
-  - IcePotionScroll
+  - StoneFlask
   - IceBerry
   itemDropWeights:
-  - 0.5
-  - 0.5
+  - 0.25
+  - 0.75
 --- !u!114 &114130972918652096
 MonoBehaviour:
   m_ObjectHideFlags: 1

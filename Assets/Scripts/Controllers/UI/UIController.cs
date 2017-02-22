@@ -172,20 +172,13 @@ public class UIController : BaseController
         }
         else if (eventArgs.WasPressed("mainmenu"))
         {
-            if (PromptController.activePrompt != null)
-            {
-                PromptController.activePrompt.ContinuePrompt();
-            }
+            // If possible, deactivate other menu instead of activate main menu
+            if (_activeMenu != null && _activeMenu != MainMenu)
+                ToggleInventory();
             else
-            {
-                // If possible, deactivate other menu instead of activate main menu
-                if (_activeMenu != null && _activeMenu != MainMenu)
-                    ToggleInventory();
-                else
-                    MainMenu.SetActive(!MainMenu.activeSelf);
-                // Update active menu
-                _activeMenu = MainMenu.activeSelf ? MainMenu : null;
-            }
+                MainMenu.SetActive(!MainMenu.activeSelf);
+            // Update active menu
+            _activeMenu = MainMenu.activeSelf ? MainMenu : null;
         }
 
         InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;
