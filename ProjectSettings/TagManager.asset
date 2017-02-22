@@ -24,9 +24,9 @@ TagManager:
   - Weapon
   - Item
   - Wall
-  - InteractiveTile
+  - InteractiveBlock
   - Bedrock
-  - 
+  - InteractivePass
   - 
   - 
   - 

@@ -53,7 +53,7 @@ public class PlayerEntity : Entity
         for (var i = 0; i < defaultActions.Length; i++)
             defaultActions[i] = new CharacterStateAction((CharacterState) i);
         var col = GetComponent<BoxCollider2D>();
-        interactLayerMask = LayerMask.GetMask("InteractiveTile", "Item");
+        interactLayerMask = LayerMask.GetMask("InteractiveBlock", "Interactive Pass", "Item");
         interactRadius = .5f * ((col.size.x + col.size.y) / 2);
         interactOffsets = new Vector2[4]
         {
@@ -272,7 +272,7 @@ public class PlayerEntity : Entity
 	private Tile GetInteractableTile() {
 		var dir = directionVectors [GetDirection () - 1];
 		var dist = Vector2.Distance(GetInteractPosition (),(Vector2)transform.position);
-		var hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, 1 << LayerMask.NameToLayer("InteractiveTile"));
+		var hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, LayerMask.GetMask("InteractiveBlock", "InteractivePass"));
         return hits.Length > 0 ? hits [0].collider.GetComponentInChildren<Tile> () : null;
 	}
 
