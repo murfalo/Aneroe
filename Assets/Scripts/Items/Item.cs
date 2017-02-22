@@ -57,7 +57,7 @@ public class Item : MonoBehaviour {
 
 	IEnumerator WaitToDespawn() {
 		yield return new WaitForSeconds (30);
-		if (owner == null) {
+		if (owner == null && transform.parent.GetComponent<ItemMound>() == null) {
 			Destroy (gameObject);
 		}
 	}

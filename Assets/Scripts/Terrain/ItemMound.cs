@@ -59,7 +59,7 @@ public class ItemMound : Tile {
 				unburiedItem = null;
 				if (isPast) {
 					// That item must also appear in the future
-					((ItemMound)otherTile).IndirectUseItem (item);
+					otherMound.IndirectUseItem (item);
 				}
 				UpdateBuriedItem (item);
 			}

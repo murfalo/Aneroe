@@ -28,7 +28,6 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (!_tooltipEnabled) return;
         var scaleFactor = GameObject.Find("Canvas").GetComponent<Canvas>().scaleFactor;
-        Debug.Log(UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.x);
         var xPos = Input.mousePosition.x + UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.x / 2 * scaleFactor;
         var yPos = Input.mousePosition.y - UIController.Tooltip.GetComponent<RectTransform>().sizeDelta.y / 2 * scaleFactor;
         UIController.Tooltip.transform.position = new Vector2(xPos, yPos);
