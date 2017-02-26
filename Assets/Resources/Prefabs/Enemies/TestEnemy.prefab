@@ -43,9 +43,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4088643937815754}
   - component: {fileID: 61623946810554610}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Collidable
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112819121045336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.505, y: -0.165, z: 0}
+  m_LocalPosition: {x: -44.96236, y: -14.499614, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4088643937815754}
@@ -122,9 +122,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.003267616, y: 0.006535068}
+  m_Offset: {x: 0.0032691956, y: -0.06028843}
   serializedVersion: 2
-  m_Size: {x: 0.36608508, y: 0.37262058}
+  m_Size: {x: 0.36608508, y: 0.23897329}
 --- !u!95 &95095994784425282
 Animator:
   serializedVersion: 3

@@ -10,7 +10,8 @@ public class Entity : MonoBehaviour
     protected Item activeItem;
     protected EntityController controller;
     protected SpriteRenderer sRend;
-    protected Collider2D hurtbox;
+	private Color oldRendColor;
+    protected Collider2D wallBox;
 
     // Combat stats
     public StatInfo stats;
@@ -71,8 +72,8 @@ public class Entity : MonoBehaviour
         anim = GetComponent<Animator>();
         sRend = GetComponent<SpriteRenderer>();
 		foreach (Collider2D cols in GetComponentsInChildren<Collider2D>()) {
-			if (cols.name == "Collidable") {
-				hurtbox = cols;
+			if (cols.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+				wallBox = cols;
 				break;
 			}
 		}
@@ -101,7 +102,7 @@ public class Entity : MonoBehaviour
         // Timer updates
         if (stunTimer > 0 && DecrementTimer(stunTimer, out stunTimer))
         {
-            sRend.color = new Color(1, 1, 1, 1);
+			sRend.color = oldRendColor;
             stunTimer = 0;
             anim.SetInteger("state", (int) CharacterState.Still);
         }
@@ -212,6 +213,8 @@ public class Entity : MonoBehaviour
         return GetState() <= CharacterState.Still;
     }
 
+	public virtual void TriggerItemUse(Tile tile = null) {}
+
     // Sets animation state for walking
     public virtual void TryWalk()
     {
@@ -280,6 +283,7 @@ public class Entity : MonoBehaviour
             anim.SetInteger("state", (int) CharacterState.Immobile);
             stunTimer = stunTime;
             stunVelocity = stunVel * directionVectors[dirFrom - 1];
+			oldRendColor = sRend.color;
             sRend.color = new Color(1, 0, 0, 1);
         }
     }
@@ -292,7 +296,7 @@ public class Entity : MonoBehaviour
     }
 
 	public bool WouldCollideAt(Vector3 pos) {
-		var hits = Physics2D.BoxCastAll(pos, .5f*hurtbox.bounds.size, 0.0f, pos, 0, collisionLayerMask);
+		var hits = Physics2D.BoxCastAll(pos + (Vector3)wallBox.offset, wallBox.bounds.extents, 0.0f, pos, 0, collisionLayerMask);
 		for (var i = 0; i < hits.Length; i++)
 		{
 			var possiblySelf = hits[i].collider.GetComponentInParent<Entity>();
@@ -302,5 +306,4 @@ public class Entity : MonoBehaviour
 		}
 		return false;
 	}
-
 }

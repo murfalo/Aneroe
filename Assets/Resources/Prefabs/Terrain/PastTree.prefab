@@ -28,6 +28,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1987254696996712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4683930833954226}
+  - component: {fileID: 61977502871588030}
+  m_Layer: 13
+  m_Name: TallObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4683930833954226
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987254696996712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4723459942863096}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4723459942863096
 Transform:
   m_ObjectHideFlags: 1
@@ -35,9 +64,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1596868585500724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -200.6, y: 7.8, z: 0.0390625}
+  m_LocalPosition: {x: 10.981976, y: -17.914682, z: 0.0390625}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4683930833954226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,9 +82,23 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.4020157}
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.7}
+  m_Size: {x: 1.3, y: 0.9876145}
+--- !u!61 &61977502871588030
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987254696996712}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.02544276, y: 0.025446575}
+  serializedVersion: 2
+  m_Size: {x: 1.2417042, y: 1.6742241}
 --- !u!212 &212748627901722640
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -84,7 +128,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 99418953
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 26808c0ba02b3574f94427cf9909500c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

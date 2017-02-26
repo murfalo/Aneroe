@@ -40,13 +40,43 @@ GameObject:
   m_Component:
   - component: {fileID: 4231460276708844}
   - component: {fileID: 61484265646667004}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Collidable
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1893006158447030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4167447318351552}
+  - component: {fileID: 61496124143786998}
+  - component: {fileID: 114476721938067890}
+  m_Layer: 13
+  m_Name: TallObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4167447318351552
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893006158447030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4388234856266494}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4231460276708844
 Transform:
   m_ObjectHideFlags: 1
@@ -67,10 +97,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748307469355846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45, y: -20, z: 0}
+  m_LocalPosition: {x: -45.026, y: -20.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231460276708844}
+  - {fileID: 4167447318351552}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,9 +136,23 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.005841106, y: -0.26312566}
+  m_Offset: {x: -0.005841255, y: -0.2328186}
   serializedVersion: 2
-  m_Size: {x: 0.57121134, y: 0.20400572}
+  m_Size: {x: 0.57121134, y: 0.2646211}
+--- !u!61 &61496124143786998
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893006158447030}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.00054883957, y: 0.016290665}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.3}
 --- !u!61 &61679679065418970
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -156,6 +201,17 @@ MonoBehaviour:
   speed: 2
   attack: 3
   defense: 1
+--- !u!114 &114476721938067890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893006158447030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea32eba78c57a543be916e3ab9c66c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212345187590391996
 SpriteRenderer:
   m_ObjectHideFlags: 1

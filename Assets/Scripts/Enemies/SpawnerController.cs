@@ -82,7 +82,7 @@ public class SpawnerController : EntityController {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.tag.Equals ("Character")) {
+		if (other.gameObject.tag.Equals("Character")) {
 			targetToKill = other.GetComponent<Entity> ();
 			Spawn();
 		}
