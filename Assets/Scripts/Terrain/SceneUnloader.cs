@@ -14,8 +14,10 @@ public class SceneUnloader : MonoBehaviour
 	
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Removing Level");
-		sc.removeScene (sceneName);
+		if (other.GetComponent<PlayerEntity> () != null) {
+			Debug.Log ("Removing Level");
+			sc.removeScene (sceneName);
+		}
 	}
 }
 
