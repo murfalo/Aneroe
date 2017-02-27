@@ -37,6 +37,8 @@ GameObject:
   - component: {fileID: 4903243137711942}
   - component: {fileID: 212516960718124546}
   - component: {fileID: 61202368050698078}
+  - component: {fileID: 60326896958895286}
+  - component: {fileID: 58235516737522522}
   - component: {fileID: 60324653968594540}
   m_Layer: 11
   m_Name: PresentTree
@@ -72,6 +74,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58235516737522522
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781135919525040}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -0.3}
+  serializedVersion: 2
+  m_Radius: 0.6
+--- !u!60 &60326896958895286
 --- !u!60 &60324653968594540
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -86,6 +103,14 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
+    - - {x: 0.3006347, y: -0.8519249}
+      - {x: 0.53484696, y: -0.67868423}
+      - {x: 0.53517246, y: -0.20896785}
+      - {x: 0.3685058, y: 0.10176849}
+      - {x: -0.41038418, y: 0.11259334}
+      - {x: -0.5437664, y: -0.22535834}
+      - {x: -0.5208985, y: -0.6090164}
+      - {x: -0.31468105, y: -0.8552208}
     - - {x: 0.03125, y: -0.875}
       - {x: 0.078125, y: -0.859375}
       - {x: 0.171875, y: -0.796875}
