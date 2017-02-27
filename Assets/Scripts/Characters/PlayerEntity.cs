@@ -271,7 +271,7 @@ public class PlayerEntity : Entity
 	// Overrides to use overwritten activeItem field
 	public override void SetDir(int dir) {
 		anim.SetInteger("dir", dir);
-		if (activeItem != null && activeItem.GetType ().IsAssignableFrom (typeof(Weapon))) {
+		if (activeItem != null && activeItem.GetType () == typeof(Weapon)) {
 			((Weapon)activeItem).SetWeaponDir (dir);
 		}
 	}
