@@ -19,3 +19,5 @@ EditorBuildSettings:
     path: Assets/Levels/TutorialScene.unity
   - enabled: 1
     path: Assets/Levels/OpeningScene2_20.unity
+  - enabled: 1
+    path: Assets/Levels/SecondScene2_21.unity

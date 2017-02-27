@@ -59,6 +59,8 @@ public class Entity : MonoBehaviour
 
     public static float secondaryDirFactor = .5f;
 
+	// Do not switch the order of this enum.
+	// All hell would break loose, and not just with the animators.
     public enum Dir
     {
         Up = 1,
@@ -305,5 +307,23 @@ public class Entity : MonoBehaviour
 				return true;
 		}
 		return false;
+	}
+
+	public Vector2 DirFacingTo(Entity other) {
+		Vector3 toVec = other.transform.position - transform.position;
+		float absX = Mathf.Abs (toVec.x);
+		float absY = Mathf.Abs (toVec.y);
+
+		if (absX < absY) {
+			if (toVec.y > 0)
+				return directionVectors[0];
+			else
+				return directionVectors[2];
+		} else {
+			if (toVec.x > 0)
+				return directionVectors[1];
+			else
+				return directionVectors[3];
+		}
 	}
 }

@@ -58,9 +58,24 @@ public class SceneController : BaseController
         }
     }
 
+	public void addScene(string newScene) {
+		if (!SceneManager.GetActiveScene ().name.Equals (newScene)) {
+			oldScene = SceneManager.GetActiveScene ();
+			SceneManager.LoadSceneAsync (newScene, LoadSceneMode.Additive);
+		}
+	}
+
+	public void removeScene(string newScene) {
+		Debug.Log (newScene);
+		print (SceneManager.GetSceneByName (newScene).buildIndex);
+		if (SceneManager.GetSceneByName (newScene).buildIndex != -1) {
+			SceneManager.UnloadSceneAsync (newScene);
+		}
+	}
+
     public void LoadedScene(Scene newScene, LoadSceneMode sceneMode)
     {
-        //Scene oldScene = SceneManager.GetActiveScene ();
+        //oldScene = SceneManager.GetActiveScene ();
         //Scene newScene = SceneManager.GetSceneByName (newSceneName);
         //print ("Old scene: " + oldScene.name);
         //print ("New scene: " + newScene.name);

@@ -32,6 +32,9 @@ public class AIController : BaseController {
 
 	public static event EventHandler<TerrainEventArgs> modifiedTerrain;
 
+	public static Dictionary<Entity, List<TargettingInfo>> targetting;
+	public static Entity updateTargettingsOf;
+
 	public override void InternalSetup() {
 		spawners = new List<SpawnerController> ();
 		modifiedTerrain += HandleNewTerrain;
@@ -40,6 +43,13 @@ public class AIController : BaseController {
 	public override void ExternalSetup() {
 		SceneController.timeSwapped += PauseEnemies;
 		SceneController.mergedNewScene += GrabAllSpawners;
+	}
+
+	void Update() {
+		if (updateTargettingsOf != null) {
+			UpdateTargettings (updateTargettingsOf);
+			updateTargettingsOf = null;
+		}
 	}
 
 	public override void RemoveEventListeners() {
@@ -94,6 +104,37 @@ public class AIController : BaseController {
 				wp.RecalculateNeighbors ();
 			}
 		}
+	}
+
+	public static void AddToTargetting(Entity target, TargettingInfo tI) {
+		if (!targetting.ContainsKey (target))
+			targetting.Add (target, new List<TargettingInfo> ());
+		targetting[target].Add (tI);
+
+		// Have AI Controller process new targetter next update cycle
+		updateTargettingsOf = target;
+	}
+
+	public static void RemoveFromTargetting(Entity target, TargettingInfo tI) {
+		if (!targetting.ContainsKey (target))
+			targetting.Add (target, new List<TargettingInfo> ());
+		targetting[target].Remove (tI);
+	}
+
+	// To be used in spreading out enemies around target
+	void UpdateTargettings(Entity target) {
+		// For each direction and AIEntity, the dist to target from that direction
+		/*
+		float[,] dirDist = new float[4,targetting[target].Count];
+		for (int tI = 0; tI < targetting[target].Count; tI++) {
+			AIEntity aiE = targetting [target] [tI].entity;
+			Vector2 dirVec = aiE.DirFacingTo (target);
+			for (int i = 0; i < 4; i++) {
+				// for each direction
+				dirDist[i,tI] = Vector2.Distance((Vector2)aiE.transform.position,target + dirVec * aiE.GetWeaponRange());
+			}
+		}
+		*/
 	}
 }
 
