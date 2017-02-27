@@ -137,7 +137,7 @@ public class PlayerController : EntityController
 		activeCharacter = characters[characterIndex];
 
 		// Check if the player is aligning the new active character to old active character
-		if (false && (e.WasPressed ("realign") || e.IsHeld ("realign"))) {
+		if (e.WasPressed("") && (e.WasPressed ("realign") || e.IsHeld ("realign"))) {
 			// Pick correct position conversion
 			Vector3 nextPos = pastToPresent + oldC.transform.position;
 			if (oldC.name.ToLower ().Contains ("present"))

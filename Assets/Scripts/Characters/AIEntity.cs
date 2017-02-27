@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class AIEntity : Entity
 {
-	public BaseState enemyState;
-
 	// Idle: anything from standing still to pacing to searching actively for player
 	// Approaching: anything from straight charging at the opponent to guarding a position
 	// Attacking: either sending out an attack or dodging an attack (preemptive, not reactionary)
@@ -14,6 +12,8 @@ public class AIEntity : Entity
 		Approaching,
 		Attacking
 	};
+
+	public BaseState enemyState;
 
 	public string[] itemDropNames;
 	public float[] itemDropWeights;

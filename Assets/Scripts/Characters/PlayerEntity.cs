@@ -146,8 +146,10 @@ public class PlayerEntity : Entity
     }
 
 	// Animator signals when to use item in interaction animation
-	public void TriggerItemUse()
+	public override void TriggerItemUse(Tile tile = null)
 	{
+		if (tile != null)
+			interactTile = tile;
 		Item newItem;
 		interactTile.UseItem (activeItem, out newItem);
 		if (newItem == null && activeItem != null) {
@@ -173,6 +175,9 @@ public class PlayerEntity : Entity
 
 	public void TryInteracting() 
 	{
+		// Don't use interaction state for weapon. It will use attacking state
+		if (activeItem is Weapon)
+			return;
 		CharacterState newState = default(CharacterState);
 		Tile interactable;
 		if ((interactable = GetInteractableTile ()) != null) {
@@ -279,7 +284,7 @@ public class PlayerEntity : Entity
 	private Tile GetInteractableTile() {
 		var dir = directionVectors [GetDirection () - 1];
 		var dist = Vector2.Distance(GetInteractPosition (),(Vector2)transform.position);
-		var hits = Physics2D.BoxCastAll(transform.position, hurtbox.bounds.size, 0.0f, dir, dist, LayerMask.GetMask("InteractiveBlock", "InteractivePass"));
+		var hits = Physics2D.BoxCastAll(transform.position, wallBox.bounds.size, 0.0f, dir, dist, LayerMask.GetMask("InteractiveBlock", "InteractivePass"));
         return hits.Length > 0 ? hits [0].collider.GetComponentInChildren<Tile> () : null;
 	}
 
@@ -301,12 +306,11 @@ public class PlayerEntity : Entity
 
     public void OnTriggerEnter2D(Collider2D coll)
     {
-		if ((LayerMask.GetMask(new string[] {"Weapon","Item"}) & (1 << coll.gameObject.layer)) != 0)
-        {
-            // THIS HURTS ME SO MUCH. IT PICKS ITEMS UP AUTOMATICALLY. But leave it in.
-			var i = coll.GetComponent<Item>();
+		if ((LayerMask.GetMask (new string[] { "Weapon", "Item" }) & (1 << coll.gameObject.layer)) != 0) {
+			// THIS HURTS ME SO MUCH. IT PICKS ITEMS UP AUTOMATICALLY. But leave it in.
+			var i = coll.GetComponent<Item> ();
 			HandleItemPickup (i);
-        }
+		}
     }
 
     public Hashtable Save()

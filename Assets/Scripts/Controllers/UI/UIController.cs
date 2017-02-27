@@ -160,7 +160,7 @@ public class UIController : BaseController
     {
         InputController.iEvent.inputed -= ReceiveInput;
         PlayerController.PlayerHealthChanged -= OnHealthChanged;
-        SceneController.timeSwapped -= OnHealthChanged;
+		SceneController.timeSwapped -= OnHealthChanged;
     }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)

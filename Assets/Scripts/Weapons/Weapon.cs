@@ -125,7 +125,14 @@ public class Weapon : Item {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		
+
+		// If interactive tile
+		if (((1 << other.gameObject.layer) & LayerMask.GetMask (new string[] { "InteractiveBlock", "InteractivePass" })) > 0) {
+			Tile tile = other.GetComponentInParent<Tile> ();
+			if (tile.CanUseItem (this))
+				GetEntity ().TriggerItemUse (tile);
+		}
+			
 		// If collided with opponent's hitbox (weapon)
 		if (other.gameObject.tag.Equals ("Hitbox")) {
 			Weapon otherW = other.GetComponent<Weapon> ();
