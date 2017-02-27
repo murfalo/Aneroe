@@ -32,7 +32,7 @@ public class SeekOutRoutine : AIRoutine {
 
 	// How much further opponent needs to get from current path calculated accuracy to trigger new path calculation
 	const float pathTol = 2f;
-	const float rangeFactor = 1.5f;
+	const float rangeFactor = .9f;
 
 	public override void StartRoutine(AIEntity e) {
 		entity = e;

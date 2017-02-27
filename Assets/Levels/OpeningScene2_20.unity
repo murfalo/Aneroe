@@ -6771,21 +6771,6 @@ MonoBehaviour:
   brokenTileSprite: {fileID: 0}
   isPast: 0
   usableItemPrefabNames: []
---- !u!60 &113072591
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e,
-    type: 2}
-  m_PrefabInternal: {fileID: 658978285}
-  m_GameObject: {fileID: 113072588}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths: []
 --- !u!1001 &114000004
 Prefab:
   m_ObjectHideFlags: 0
@@ -22722,7 +22707,20 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.002785047
+      objectReference: {fileID: 0}
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.091019
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 58715447024485890, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60684639679948888, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &549821266
@@ -26920,7 +26918,20 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.002785047
+      objectReference: {fileID: 0}
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.091019
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 58715447024485890, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60684639679948888, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &659989077
@@ -27799,21 +27810,6 @@ MonoBehaviour:
   brokenTileSprite: {fileID: 0}
   isPast: 0
   usableItemPrefabNames: []
---- !u!60 &679275341
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e,
-    type: 2}
-  m_PrefabInternal: {fileID: 549501573}
-  m_GameObject: {fileID: 679275338}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths: []
 --- !u!1 &680350767
 GameObject:
   m_ObjectHideFlags: 0
@@ -36731,7 +36727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - {fileID: 1160160146321974, guid: 668f986ac0d99ad4ba37a98a523686fc, type: 2}
+  - {fileID: 1122712311752844, guid: 7d6e6122a5aae2c489f75725d89cabae, type: 2}
 --- !u!1001 &952539963
 Prefab:
   m_ObjectHideFlags: 0
@@ -48288,21 +48284,6 @@ MonoBehaviour:
   brokenTileSprite: {fileID: 0}
   isPast: 0
   usableItemPrefabNames: []
---- !u!60 &1261689960
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1451199747}
-  m_GameObject: {fileID: 1261689957}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths: []
 --- !u!1001 &1262848168
 Prefab:
   m_ObjectHideFlags: 0
@@ -57356,7 +57337,20 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.002785047
+      objectReference: {fileID: 0}
+    - target: {fileID: 61301490571624592, guid: 8c35f64be2d9548409b0f79f39b0be3e,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.091019
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 58715447024485890, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60684639679948888, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
+    - {fileID: 60326896958895286, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8c35f64be2d9548409b0f79f39b0be3e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1453118967
@@ -62388,7 +62382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - {fileID: 1112819121045336, guid: f82514eeb0606504e9c0a743f582f5d8, type: 2}
+  - {fileID: 1122712311752844, guid: 7d6e6122a5aae2c489f75725d89cabae, type: 2}
 --- !u!1001 &1625891169
 Prefab:
   m_ObjectHideFlags: 0

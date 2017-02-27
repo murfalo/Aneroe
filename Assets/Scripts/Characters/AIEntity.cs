@@ -61,10 +61,10 @@ public class AIEntity : Entity
 		return ((Weapon)activeItem).GetRange ();
 	}
 
-	public void SetDir(int dir, bool isPrimary) {
+	public void SetDirs(int dir, bool isPrimary) {
 		if (isPrimary) {
 			primaryDir = dir;
-			anim.SetInteger ("dir", primaryDir);
+			SetDir(primaryDir);
 		} else {
 			secondaryDir = dir;	
 		}

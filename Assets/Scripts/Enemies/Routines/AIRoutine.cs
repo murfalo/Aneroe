@@ -30,17 +30,17 @@ public class AIRoutine : MonoBehaviour {
 				maxIndex = i;
 			}
 		}
-		entity.SetDir (maxIndex + 1, true);
+		entity.SetDirs (maxIndex + 1, true);
 		int lowerIndex = ((maxIndex - 1 % 4) + 4) % 4;
 		diff = Vector3.Dot (path, (Vector3)Entity.directionVectors [maxIndex] + Entity.secondaryDirFactor * (Vector3)Entity.directionVectors [lowerIndex]);
 		if (maxDot < diff) {
-			entity.SetDir (lowerIndex + 1, false);
+			entity.SetDirs (lowerIndex + 1, false);
 			maxDot = diff;
 		} 
 		int higherIndex = (maxIndex + 1) % 4;
 		diff = Vector3.Dot (path, (Vector3)Entity.directionVectors [maxIndex] + Entity.secondaryDirFactor * (Vector3)Entity.directionVectors [higherIndex]);
 		if (maxDot < diff) {
-			entity.SetDir (higherIndex + 1, false);
+			entity.SetDirs (higherIndex + 1, false);
 		}
 	}
 

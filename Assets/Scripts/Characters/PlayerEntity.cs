@@ -93,8 +93,8 @@ public class PlayerEntity : Entity
             switch (action.state)
             {
                 case CharacterState.Still:
-                    if (CanActOutOfMovement() && primaryDir > 0 && CanSwitchCombatDirection())
-                        anim.SetInteger("dir", primaryDir);
+					if (CanActOutOfMovement() && primaryDir > 0 && CanSwitchCombatDirection())
+						SetDir(primaryDir);
                     else newQueue.Enqueue(action);
                     break;
 			case CharacterState.Walking:
@@ -266,7 +266,15 @@ public class PlayerEntity : Entity
             return combatDir;
         }
         return GetDirection();
-    }
+	}	
+
+	// Overrides to use overwritten activeItem field
+	public override void SetDir(int dir) {
+		anim.SetInteger("dir", dir);
+		if (activeItem != null && activeItem.GetType ().IsAssignableFrom (typeof(Weapon))) {
+			((Weapon)activeItem).SetWeaponDir (dir);
+		}
+	}
 
     public void OnItemMoved(ItemMovedEventArgs eventArgs)
     {

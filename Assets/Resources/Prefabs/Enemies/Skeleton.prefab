@@ -50,6 +50,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1524833611083468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4905964592175298}
+  - component: {fileID: 61518361062621170}
+  - component: {fileID: 114640657806614768}
+  m_Layer: 13
+  m_Name: TallObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4043341400601216
 Transform:
   m_ObjectHideFlags: 1
@@ -61,6 +78,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4174498058699490}
+  - {fileID: 4905964592175298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76,6 +94,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4043341400601216}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4905964592175298
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524833611083468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4043341400601216}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50570330393481276
 Rigidbody2D:
@@ -108,9 +139,23 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.0025951415, y: -0.0012976527}
+  m_Offset: {x: 0.0025939941, y: -0.1393013}
   serializedVersion: 2
-  m_Size: {x: 0.35640714, y: 0.34343135}
+  m_Size: {x: 0.35640714, y: 0.5512109}
+--- !u!61 &61518361062621170
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524833611083468}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.013828278, y: -0.011112213}
+  serializedVersion: 2
+  m_Size: {x: 0.4958769, y: 0.92645025}
 --- !u!61 &61890704783896870
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -122,9 +167,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.0032691956, y: -0.06028843}
+  m_Offset: {x: 0.0032691956, y: -0.28512478}
   serializedVersion: 2
-  m_Size: {x: 0.36608508, y: 0.23897329}
+  m_Size: {x: 0.36608508, y: 0.26068157}
 --- !u!95 &95444176616715590
 Animator:
   serializedVersion: 3
@@ -181,6 +226,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseState: 2
+--- !u!114 &114640657806614768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524833611083468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea32eba78c57a543be916e3ab9c66c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114892702446409226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,7 +251,7 @@ MonoBehaviour:
   defaultItemPrefabNames:
   - BoneDagger
   MAX_HEALTH: 5
-  speed: 1
+  speed: 2
   attack: 1
   defense: 1
   enemyState: 0
@@ -236,7 +292,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 99418953
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b67b51d78e3f6794d9f9eb352ae8b99e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

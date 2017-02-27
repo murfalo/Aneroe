@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Bone
+  m_Name: BoneDagger
   m_Controller: {fileID: 9100000, guid: c50c2784ff1d10a4fb297831f5e40e0b, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 7d7099b8e833fed4f8e35c3c66918dce, type: 2}
@@ -26,3 +26,11 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: fd4d377f031fc4f44b7726bdc406ef01, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 6390234af62f06d4891a962866f1cde3, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 6390234af62f06d4891a962866f1cde3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b472665a695362d4d953403c267f3c14, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5ca7b1c71c0d8cd44bd1f2ea63d902b5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ac1cf1ca849e3e446b0b9e02ccb65d77, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0974b25183884a44fbf1b600b451e377, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6c82888b3d84d454ba8792f805460b8b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4ec5f792dd2844545b1bfbcebc44c2a5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a2f79c7929669b8429e0a3abe6f4c6aa, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 60bcccb4edd65ea4c822f63d1204e58e, type: 2}

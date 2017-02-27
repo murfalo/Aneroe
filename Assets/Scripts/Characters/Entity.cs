@@ -271,6 +271,13 @@ public class Entity : MonoBehaviour
         return anim.GetInteger("dir");
     }
 
+	public virtual void SetDir(int dir) {
+		anim.SetInteger("dir", dir);
+		if (activeItem != null && activeItem.GetType ().IsAssignableFrom (typeof(Weapon))) {
+			((Weapon)activeItem).SetWeaponDir (dir);
+		}
+	}
+
     // Damages character, returns true if character is at 0 health
     public void Damage(float amount, int dirFrom, float stunTime, float stunVel)
     {
@@ -299,6 +306,7 @@ public class Entity : MonoBehaviour
 
 	public bool WouldCollideAt(Vector3 pos) {
 		var hits = Physics2D.BoxCastAll(pos + (Vector3)wallBox.offset, wallBox.bounds.extents, 0.0f, pos, 0, collisionLayerMask);
+		Debug.DrawRay (pos + (Vector3)wallBox.offset, wallBox.bounds.extents);
 		for (var i = 0; i < hits.Length; i++)
 		{
 			var possiblySelf = hits[i].collider.GetComponentInParent<Entity>();

@@ -7,6 +7,8 @@ public class AttackRoutine : AIRoutine {
 	float currentDelay;
 	bool resting;
 
+	const float rangeFactor = .9f;
+
 	public override void StartRoutine(AIEntity e) {
 		entity = e;
 		resting = false;
@@ -16,7 +18,7 @@ public class AttackRoutine : AIRoutine {
 
 	public override AIEntity.BaseState UpdateRoutine() {
 		Vector3 targetVector = PlayerController.activeCharacter.transform.position - entity.transform.position;
-		if (Vector3.Distance (entity.transform.position, PlayerController.activeCharacter.transform.position) > entity.GetWeaponRange ())
+		if (Vector3.Distance (entity.transform.position, PlayerController.activeCharacter.transform.position) > rangeFactor * entity.GetWeaponRange ())
 			return AIEntity.BaseState.Approaching;
 		if (!resting) {
 			if (currentDelay < 0) {
