@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4903243137711942}
   - component: {fileID: 212516960718124546}
   - component: {fileID: 61202368050698078}
+  - component: {fileID: 60324653968594540}
   m_Layer: 11
   m_Name: PresentTree
   m_TagString: Wall
@@ -71,13 +72,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &60324653968594540
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781135919525040}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.03125, y: -0.875}
+      - {x: 0.078125, y: -0.859375}
+      - {x: 0.171875, y: -0.796875}
+      - {x: 0.328125, y: -0.765625}
+      - {x: 0.421875, y: -0.640625}
+      - {x: 0.5, y: -0.578125}
+      - {x: 0.5, y: -0.375}
+      - {x: 0.484375, y: -0.328125}
+      - {x: 0.421875, y: -0.328125}
+      - {x: 0.390625, y: -0.171875}
+      - {x: 0.53125, y: -0.140625}
+      - {x: 0.515625, y: -0.015625}
+      - {x: 0.5625, y: 0.046875}
+      - {x: 0.5625, y: 0.09375}
+      - {x: 0.5, y: 0.328125}
+      - {x: -0.515625, y: 0.265625}
+      - {x: -0.578125, y: 0.203125}
+      - {x: -0.65625, y: 0.015625}
+      - {x: -0.65625, y: -0.078125}
+      - {x: -0.609375, y: -0.140625}
+      - {x: -0.265625, y: -0.203125}
+      - {x: -0.375, y: -0.234375}
+      - {x: -0.546875, y: -0.515625}
+      - {x: -0.53125, y: -0.640625}
+      - {x: -0.390625, y: -0.8125}
+      - {x: -0.3125, y: -0.875}
+      - {x: -0.25, y: -0.875}
+      - {x: -0.15625, y: -0.78125}
+      - {x: -0.140625, y: -0.859375}
+      - {x: -0.09375, y: -0.875}
 --- !u!61 &61202368050698078
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1781135919525040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -91,7 +136,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020950738668568}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

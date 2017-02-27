@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class SeekOutRoutine : AIRoutine {
 
-	public enum SeekState
-	{
-		OnHold,
-		ToTarget,
-		ToPos
-	};
+	// ----------------------
+	// BUILD OUT ENTITY GROUP OBJECTS THAT HANDLE PRIORITY ON MOVEMENT BETWEEN AI ENTITIES
+	// THEN REMOVE THESE FIELDS:
 
 	// Handling entity path collisions
 	public SeekState seekState;
@@ -18,6 +15,15 @@ public class SeekOutRoutine : AIRoutine {
 
 	// Handling cross-entity strategizing
 	TargettingInfo targettingInfo;
+
+	// ----------------------
+
+	public enum SeekState
+	{
+		OnHold,
+		ToTarget,
+		ToPos
+	};
 
 	Waypoint[] waypointNetwork;
 	List<Waypoint> path;
@@ -107,7 +113,7 @@ public class SeekOutRoutine : AIRoutine {
 			// Find path around
 		} else {
 			// Figure out who goes first based on directions
-
+			// otherE.
 		}
 	}
 
