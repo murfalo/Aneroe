@@ -33,12 +33,12 @@ public class PlayerController : EntityController
         var obj = new GameObject();
         obj.name = "PlayerHolder";
         characters = new PlayerEntity[characterPrefabs.Count];
-		questLinePositions = new Vector3[characterPrefabs.Count];
+		//questLinePositions = new Vector3[characterPrefabs.Count];
 		for (var i = 0; i < characterPrefabs.Count; i++)
         {
-            characters[i] = Instantiate(characterPrefabs[i], obj.transform).GetComponent<PlayerEntity>();
+			characters[i] = Instantiate(characterPrefabs[i], new Vector3(-9999,-9999,0), Quaternion.identity, obj.transform).GetComponent<PlayerEntity>();
             characters[i].Setup();
-			questLinePositions [i] = characters [i].transform.position;
+			//questLinePositions [i] = characters [i].transform.position;
         }
         characterIndex = 0;
 		activeCharacter = characters[0];
@@ -149,11 +149,11 @@ public class PlayerController : EntityController
 		} else {
 			// If the player can transport to their original quest line position
 
-			if (!activeCharacter.WouldCollideAt (questLinePositions [characterIndex]))
-				activeCharacter.transform.position = questLinePositions [characterIndex];
+			//if (!activeCharacter.WouldCollideAt (questLinePositions [characterIndex]))
+			//	activeCharacter.transform.position = questLinePositions [characterIndex];
 		}
 		// Save the old character's position as their new quest line position
-		questLinePositions [oldIndex] = oldC.transform.position;
+		//questLinePositions [oldIndex] = oldC.transform.position;
 		GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter(oldC, activeCharacter);
 	}
 
@@ -202,8 +202,10 @@ public class PlayerController : EntityController
     public void Load(object sender, SceneSwitchEventArgs e)
     {
 		if (e.loadFirstTime) {
-			for (int i = 0; i < characters.Length; i++) 
+			LoadFromSceneDefaults ();
+			for (int i = 0; i < characters.Length; i++) {
 				characters [i].LoadFirstTime ();
+			}
 			return;
 		}
         for (int i = 0; i < characters.Length; i++)
@@ -215,8 +217,17 @@ public class PlayerController : EntityController
 			else if (e.loadControl) {
 				// If we're booting up the game, loading controllers involves loading the player
         		characters[i].Load(esd);
-				questLinePositions [i] = characters [i].transform.position;
+				//questLinePositions [i] = characters [i].transform.position;
 			}
         }
     }
+
+	void LoadFromSceneDefaults () {
+		SceneLoadDefaults loadDefaults = GameObject.Find ("LocalControl").GetComponent<SceneLoadDefaults> ();
+		for (int i = 0; i < characterPrefabs.Count; i++) {
+			int defaultPosInd = Array.IndexOf (loadDefaults.objName, characterPrefabs [i].name);
+			characters [i].transform.position = loadDefaults.objStartPos [defaultPosInd];
+			//questLinePositions [i] = characters [i].transform.position;
+		}
+	}
 }

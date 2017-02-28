@@ -13,7 +13,7 @@ namespace AneroeInputs {
 		public static InputInfo.InputMode mode;
 		public static InputEventWrapper iEvent;
 
-		bool inputingAllowed;
+		public static bool inputingAllowed;
 
 		public Dictionary<string, string> inputPairings = new Dictionary<string, string>() {
 			{"w","up"},
