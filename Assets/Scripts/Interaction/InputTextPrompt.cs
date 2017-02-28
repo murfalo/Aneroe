@@ -58,17 +58,21 @@ public class InputTextPrompt : TextPrompt
 	}
 
 	bool AnyInputsRegistered(InputEventArgs e) {
+		int numOrs = 0;
 		if (orPressed)
 			return true;
 		for (int i = 0; i < orInputNames.Length; i++) {
 			if (orPromptKeys [i] != promptIndex)
 				continue;
+			numOrs++;
 			if (e.WasPressed (orInputNames [i])) {
 				orPressed = true;
 				return true;
 			}
 		}
-		return false;
+		// If no ors encountered, return true. 
+		// Otherwise, getting this far means you didn't meet or requirements, so return false
+		return numOrs == 0;
 	}
 }
 

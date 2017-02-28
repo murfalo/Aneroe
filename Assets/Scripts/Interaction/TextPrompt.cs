@@ -9,8 +9,8 @@ public class TextPrompt : MonoBehaviour {
 	public float overridePromptDuration = -1;
 	public bool noTimer;
 
-	Sprite[] images;
-	string[] stringPrompts;
+	protected Sprite[] images;
+	protected string[] stringPrompts;
 
 	protected int promptIndex;
 
@@ -33,14 +33,16 @@ public class TextPrompt : MonoBehaviour {
 		promptIndex = -1;
 	}
 
-	public void BeginPrompt() {
+	public virtual void BeginPrompt() {
 		if (promptIndex != -1)
 			return;
+		promptIndex++;
 		SendPromptEvent (false);
 	}
 
-	public void ContinuePrompt() {
+	public virtual void ContinuePrompt() {
 		if (promptIndex < stringPrompts.Length - 1) {
+			promptIndex++;
 			SendPromptEvent (true);
 		} else {
 			PromptController.textPrompted (this, null);
@@ -52,7 +54,6 @@ public class TextPrompt : MonoBehaviour {
 	public void SendPromptEvent(bool overrideEvent) {
 		if (overrideEvent)
 			PromptController.activePrompt = null;
-		promptIndex++;
 		TextPromptEventArgs textE = new TextPromptEventArgs ();
 		textE.text = stringPrompts [promptIndex];
 		textE.image = images [promptIndex];

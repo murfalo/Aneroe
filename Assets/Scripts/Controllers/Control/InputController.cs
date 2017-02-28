@@ -146,7 +146,8 @@ namespace AneroeInputs {
 		public enum InputMode {
 			Free,
 			UI,
-			Paused
+			Paused,
+			Cutscene
 		}
 		// Don't hate me
 		// To be used so player can switch inputs during a game
