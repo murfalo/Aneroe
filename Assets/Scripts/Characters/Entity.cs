@@ -93,7 +93,7 @@ public class Entity : MonoBehaviour
             {"speed", speed}
         });
 
-        collisionLayerMask = LayerMask.GetMask("Wall", "Character", "Bedrock", "InteractiveBlock");
+        collisionLayerMask = LayerMask.GetMask("Wall", "Bedrock", "InteractiveBlock");
     }
 
     public virtual void DoFixedUpdate()
