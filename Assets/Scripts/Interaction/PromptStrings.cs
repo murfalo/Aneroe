@@ -7,6 +7,7 @@ public static class PromptStrings {
 	public static Dictionary<string, string> prompts = new Dictionary<string, string> () {
 		{ "introWasd", "Press W, A, S, and D to move." },
         { "introMouse", "Press Left Click to use an item and Right Click for secondary use." },
+		{ "introSword", "You have a sword equpied. Using the sword attacks and the secondary use is Block."},
         { "introRunCrawl", "Hold Left Shift to sprint and Ctrl to sneak."},
         { "introInventoryUsage", "Press E to open the inventory."},
         { "introInventoryControls", "Mouse over an item to learn more information about it.  Press Left Click to pick up an item and Left Click once more to drop it."},
@@ -16,8 +17,8 @@ public static class PromptStrings {
         { "introSwap", "Aged oaks block the way. Press Space to swap timelines!"},
         { "introPast", "Sunlight illuminates a vivid display of springtime to eyes unclouded by age." },
         { "introSaplings", "Fragile young saplings obstruct the path." },
-		{ "introItemMounds", "Patches of dirt are safe places to store items, whether momentary or for the difficult years to come. Use an item on the dirt to bury it."},
-		{ "introBuryItem", "Bury the recipe for your future self." },
+		{ "introItemMounds", "Patches of dirt are safe places to bury items. Use an item on the dirt to bury it."},
+		{ "introBuryItem", "Bury the flask for your future self." },
         { "introItemPickup", "Perhaps there is valuable information contained within the scroll..." },
 	};
 }
