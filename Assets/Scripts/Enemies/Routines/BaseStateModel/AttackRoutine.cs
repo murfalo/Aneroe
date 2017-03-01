@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AttackRoutine : AIRoutine {
 
+	public float maxDelay = .5f;
+
 	float currentDelay;
 	bool resting;
 
@@ -12,7 +14,7 @@ public class AttackRoutine : AIRoutine {
 	public override void StartRoutine(AIEntity e) {
 		entity = e;
 		resting = false;
-		currentDelay = Random.Range(-.5f,0f);
+		currentDelay = Random.Range(-maxDelay,0f);
 	}
 
 
@@ -30,7 +32,7 @@ public class AttackRoutine : AIRoutine {
 				entity.ResetDirs ();
 				entity.TryAttacking ();
 				resting = true;
-				currentDelay = Random.Range(-.5f,0f);
+				currentDelay = Random.Range(-maxDelay,0f);
 			}
 		} else {
 			currentDelay += Time.deltaTime;

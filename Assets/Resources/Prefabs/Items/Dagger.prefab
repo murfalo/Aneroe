@@ -115,10 +115,12 @@ MonoBehaviour:
   - durability
   - attack
   - defense
+  - range
   statValues:
   - 10
   - 1
   - 1
+  - 0.5
 --- !u!212 &212387677899097298
 SpriteRenderer:
   m_ObjectHideFlags: 1

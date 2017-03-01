@@ -61,7 +61,7 @@ public class TextPrompt : MonoBehaviour {
 		PromptController.textPrompted (this, textE);
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
+	protected virtual void OnTriggerEnter2D(Collider2D other) {
 		if (other.GetComponent<Entity> () == PlayerController.activeCharacter) {
 			BeginPrompt ();
 		}

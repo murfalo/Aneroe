@@ -132,7 +132,7 @@ public class PlayerController : EntityController
 
 	void SwitchActiveCharacters(InputEventArgs e) {
 		var oldC = activeCharacter;
-		int oldIndex = characterIndex;
+		//int oldIndex = characterIndex;
 		characterIndex = (characterIndex + 1) % characters.Length;
 		activeCharacter = characters[characterIndex];
 

@@ -22,6 +22,10 @@ public class UIController : BaseController
     /// <summary>The game object representing the crafting menu.</summary>
     public static GameObject Crafting;
 
+	/// <summary>A pitch black image covering screen that acts as a camera fader</summary>
+	[HideInInspector]
+	public static Image CamFader;
+
     /// <summary>Item currently selected by the player.</summary>
     public static GameObject Selected;
 
@@ -142,6 +146,9 @@ public class UIController : BaseController
                 case "PlayerStatus":
                     PlayerStatus = t.gameObject;
                     break;
+				case "CamFader":
+					CamFader = t.GetComponent<Image> ();
+					break;
             }
         }
 		Tooltip = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tooltip"));

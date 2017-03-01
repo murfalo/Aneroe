@@ -124,7 +124,7 @@ public class Weapon : Item {
 	}
 
 	public float GetRange() {
-		return .75f;
+		return stats.GetStat("range");
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
@@ -132,7 +132,7 @@ public class Weapon : Item {
 		// If interactive tile
 		if (((1 << other.gameObject.layer) & LayerMask.GetMask (new string[] { "InteractiveBlock", "InteractivePass" })) > 0) {
 			Tile tile = other.GetComponentInParent<Tile> ();
-			if (tile.CanUseItem (this))
+			if (tile != null && tile.CanUseItem (this))
 				GetEntity ().TriggerItemUse (tile);
 		}
 			
