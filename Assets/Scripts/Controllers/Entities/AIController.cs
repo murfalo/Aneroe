@@ -84,10 +84,13 @@ public class AIController : BaseController {
 	}
 
 	public void GrabAllSpawners(object sender, EventArgs e) {
-		allSpawners = GameObject.Find("Spawners").GetComponentsInChildren<SpawnerController> ();
+		allSpawners = null;
+		//allSpawners = GameObject.Find("Spawners").GetComponentsInChildren<SpawnerController> ();
 	}
 
 	public void HandleNewTerrain(object sender, TerrainEventArgs e) {
+		if (allSpawners == null)
+			return;
 		Vector3 tilePos = e.tile.transform.position;
 		SpawnerController closestSpawner = null;
 		float closest = Mathf.Infinity;

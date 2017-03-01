@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SceneLoadPrompt : ChainPrompt
+public class SceneLoadChainPrompt : ChainPrompt
 {
 
 	public float fadeDuration;
 	public bool fadeOut;
+	public string sceneName;
 
 	Color oldColor;
 
@@ -17,14 +18,14 @@ public class SceneLoadPrompt : ChainPrompt
 		WaitOnFade (false);
 	}
 
-	public override void ContinuePrompt() {
+	/*public override void ContinuePrompt() {
 		if (promptIndex < stringPrompts.Length - 1) {
 			promptIndex++;
 			WaitOnFade (true);
 		} else {
 			PromptController.textPrompted (this, null);
 		}
-	}
+	}*/
 
 	IEnumerator WaitOnFade(bool overridePrompt) {
 		// If fading out, opaque to cover screen. Transperant otherwise
@@ -37,7 +38,9 @@ public class SceneLoadPrompt : ChainPrompt
 			camFader.color = new Color (oldColor.r, oldColor.g, oldColor.b, newAlpha);
 			yield return new WaitForSeconds (Time.fixedDeltaTime);
 		}
-		SendPromptEvent (overridePrompt);
+		GameObject.Find("Control").GetComponent<SceneController>().LoadSceneAlone (sceneName);
+		//SendPromptEvent (overridePrompt);
+
 	}
 }
 

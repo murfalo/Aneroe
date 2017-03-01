@@ -5,6 +5,10 @@ using UnityEngine;
 public static class PromptStrings {
 
 	public static Dictionary<string, string> prompts = new Dictionary<string, string> () {
+		// For prologue
+		{ "almostThere", "It can't be much farther." },
+		{ "curseTheDisease", "Curse this poison. If only I had a little more time." },
+		// For opening scene 2_20
 		{ "introWasd", "Press W, A, S, and D to move." },
         { "introMouse", "Press Left Click to use an item and Right Click for secondary use." },
 		{ "introSword", "You have a sword equpied. Using the sword attacks and the secondary use is Block."},

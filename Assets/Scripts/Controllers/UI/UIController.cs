@@ -23,8 +23,11 @@ public class UIController : BaseController
     public static GameObject Crafting;
 
 	/// <summary>A pitch black image covering screen that acts as a camera fader</summary>
-	[HideInInspector]
 	public static Image CamFader;
+
+	public static Text TimelineInfoAge;
+	public static Text TimelineInfoTimer;
+	float oldTime = 0;
 
     /// <summary>Item currently selected by the player.</summary>
     public static GameObject Selected;
@@ -48,7 +51,8 @@ public class UIController : BaseController
     public void Update()
     {
         if (Selected)
-            Selected.transform.position = Input.mousePosition;
+			Selected.transform.position = Input.mousePosition;
+		UpdateTimelineTimer ();
     }
 
     /// <summary>Selects an item from or drops an item into a UI slot on left click.</summary>
@@ -126,6 +130,16 @@ public class UIController : BaseController
             _healthText = ((PlayerSwitchEventArgs) (object) eventArgs).newPlayer.stats.GetStat("health").ToString();
     }
 
+	private void OnTimelineInfoChanged(object source, EventArgs eventArgs)
+	{
+		string playerName = PlayerController.activeCharacter.name.ToLower ();
+		if (playerName.Contains ("past")) {
+			TimelineInfoAge.text = "past";
+		} else if (playerName.Contains ("present")) {
+			TimelineInfoAge.text = "present";
+		}
+	}
+
     /// <summary>Load in UI game objects.</summary>
     public override void InternalSetup()
     {
@@ -149,18 +163,28 @@ public class UIController : BaseController
 				case "CamFader":
 					CamFader = t.GetComponent<Image> ();
 					break;
+				case "TimelineInfo":
+					for (int j = 0; j < t.childCount; j++) {
+						if (t.GetChild (j).name.Equals ("Age"))
+							TimelineInfoAge = t.GetChild (j).GetComponent<Text> ();
+						else if (t.GetChild (j).name.Equals ("Time"))
+							TimelineInfoTimer = t.GetChild (j).GetComponent<Text> ();
+					}
+					break;
             }
         }
 		Tooltip = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tooltip"));
         Tooltip.transform.SetParent(UI.transform, false);
         Tooltip.SetActive(false);
+
     }
 
     public override void ExternalSetup()
     {
         InputController.iEvent.inputed += ReceiveInput;
         PlayerController.PlayerHealthChanged += OnHealthChanged;
-        SceneController.timeSwapped += OnHealthChanged;
+		SceneController.timeSwapped += OnHealthChanged;
+		SceneController.timeSwapped += OnTimelineInfoChanged;
     }
 
     public override void RemoveEventListeners()
@@ -168,6 +192,7 @@ public class UIController : BaseController
         InputController.iEvent.inputed -= ReceiveInput;
         PlayerController.PlayerHealthChanged -= OnHealthChanged;
 		SceneController.timeSwapped -= OnHealthChanged;
+		SceneController.timeSwapped -= OnTimelineInfoChanged;
     }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
@@ -207,4 +232,21 @@ public class UIController : BaseController
         GameObject.Find("Control").GetComponent<CraftingController>().DropItems();
         _activeMenu = _activeMenu != null ? null : Inventory;
     }
+
+	public static void ToggleLoadingScreen(bool active) 
+	{
+		Color oldC = CamFader.color;
+		CamFader.color = new Color (oldC.r, oldC.g, oldC.b, active ? 1 : 0);
+	}
+
+	void UpdateTimelineTimer() {
+		if (oldTime + 1 < Time.time) {
+			string time = TimelineInfoTimer.text;
+			int val = Int32.Parse(time.Substring (time.Length - 1, 1));
+			val = (val + 1) % 10;
+			TimelineInfoTimer.text = time.Substring (0, time.Length - 1) + val.ToString();
+			oldTime = Time.time;
+		}
+	}
+
 }

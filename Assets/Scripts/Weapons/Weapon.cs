@@ -104,6 +104,8 @@ public class Weapon : Item {
 	public override void PickupItem (Entity e)
 	{
 		base.PickupItem (e);
+		SetWeaponDir(e.GetDirection ());
+		sRend.enabled = false;
 		anim.SetBool ("inInv", true);
 	}
 

@@ -7,6 +7,8 @@ public class CutscenePrompt : TextPrompt
 	public Vector3[] cameraPosition;
 	public float[] zoomFactors;
 
+	public ChainPrompt nextPrompt;
+
 	public override void BeginPrompt() {
 		if (promptIndex != -1)
 			return;
@@ -19,7 +21,10 @@ public class CutscenePrompt : TextPrompt
 			promptIndex++;
 			WaitForCameraPan (true);
 		} else {
-			PromptController.textPrompted (this, null);
+			if (nextPrompt != null)
+				nextPrompt.BeginPrompt ();
+			else
+				PromptController.textPrompted (this, null);
 		}
 	}
 

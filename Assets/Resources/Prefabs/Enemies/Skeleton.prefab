@@ -258,10 +258,8 @@ MonoBehaviour:
   enemyState: 0
   itemDropNames:
   - Bone
-  - StoneFlask
   itemDropWeights:
-  - 0.75
-  - 0.25
+  - 1
 --- !u!212 &212599299291008686
 SpriteRenderer:
   m_ObjectHideFlags: 1

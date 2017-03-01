@@ -206,11 +206,9 @@ MonoBehaviour:
   defense: 1
   enemyState: 0
   itemDropNames:
-  - StoneFlask
   - IceBerry
   itemDropWeights:
-  - 0.25
-  - 0.75
+  - 1
 --- !u!114 &114081025655185696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseState: 2
+  maxDelay: 0.5
 --- !u!114 &114467631624859568
 MonoBehaviour:
   m_ObjectHideFlags: 1

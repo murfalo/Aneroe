@@ -52,6 +52,7 @@ public class SceneController : BaseController
         {
             if (!SceneManager.GetActiveScene().name.Equals(startScene))
             {
+				UIController.ToggleLoadingScreen (true);
                 SceneManager.LoadScene(startScene, LoadSceneMode.Additive);
                 SceneManager.sceneLoaded += LoadedScene;
             }
@@ -61,6 +62,7 @@ public class SceneController : BaseController
 	public void addScene(string newScene) {
 		if (!SceneManager.GetActiveScene ().name.Equals (newScene)) {
 			oldScene = SceneManager.GetActiveScene ();
+			UIController.ToggleLoadingScreen (true);
 			SceneManager.LoadSceneAsync (newScene, LoadSceneMode.Additive);
 		}
 	}
@@ -109,16 +111,38 @@ public class SceneController : BaseController
 			mergedNewScene (this, new SceneSwitchEventArgs(rootOfNewScene.name, loadControl));
 		// Whether this is the first scene loading or not, deactivate loading of controllers from now on
 		loadControl = false;
+		StartCoroutine(WaitUntilNextFrame());
     }
+
+	IEnumerator WaitUntilNextFrame()
+	{
+		yield return new WaitForSeconds (5*Time.fixedDeltaTime);
+		UIController.ToggleLoadingScreen (false);
+	}
 
     public void ReloadBaseScene()
     {
 		foreach (BaseController obj in gameObject.GetComponents<BaseController>()) {
 			obj.RemoveEventListeners();
 		}
-        SceneManager.sceneLoaded -= LoadedScene;
+		SceneManager.sceneLoaded -= LoadedScene;
+		UIController.ToggleLoadingScreen (true);
         SceneManager.LoadScene("BaseScene", LoadSceneMode.Single);
     }
+
+	public void LoadSceneAlone(string sceneName)
+	{
+		// Destroy old scene objects
+		GameObject[] objs = SceneManager.GetActiveScene().GetRootGameObjects();
+		for (int i = 0; i < objs.Length; i++) {
+			GameObject obj = objs [i];
+			if (obj.name.Contains ("Scene")) {
+				Destroy (obj);
+			}
+		}
+
+		addScene (sceneName);
+	}
 
 	public void ChangeActiveCharacter(PlayerEntity oldP, PlayerEntity newP)
 	{

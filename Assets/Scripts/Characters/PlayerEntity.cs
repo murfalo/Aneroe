@@ -300,6 +300,9 @@ public class PlayerEntity : Entity
 		if (i.GetEntity () == null) {
 			i.PickupItem (this);
 			inv.AddItem (i);
+			// Make sure if the item is picked up into active item slot, it is equipped
+			if (activeItem)
+				activeItem.EquipItem (true);
 			if (itemInteracted != null)
 				itemInteracted (this, new ItemInteractEventArgs (i, inv, true));
 		}
