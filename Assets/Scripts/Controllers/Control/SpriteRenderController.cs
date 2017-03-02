@@ -26,6 +26,8 @@ public class SpriteRenderController : BaseController
 		while (overlapping.Count() > 1) {
 			SRendObject obj = overlapping.Dequeue ();
 			SRendObject next = overlapping.Peek ();
+			if (obj.rend == null || next.rend == null)
+				continue;
 			//print (obj.rend.gameObject + "  " + obj.rend.sortingOrder + "  " + next.rend.gameObject + "  " + next.rend.sortingOrder);
 			if (obj.rend.sortingOrder <= next.rend.sortingOrder) {
 				next.rend.sortingOrder = obj.rend.sortingOrder - 1 + offset;

@@ -25,7 +25,7 @@ public static class PromptStrings {
 		{ "introBuryItem", "Bury the flask for your future self." },
 		{ "introPickupItem","Swap to the present timeline to retrieve the item."},
         { "introItemPickup", "Perhaps there is valuable information contained within the scroll..." },
-		{ "introReset","If you eveer get stuck, press the escape button to reset to the last checkpoint."},
+		{ "introReset","If you ever get stuck, press the escape button to reset to the last checkpoint."},
 		{ "crossWater", "There looks to be some valuables across the water. I wonder if there's a way to cross..."},
 	};
 }

@@ -31,7 +31,6 @@ public class Item : MonoBehaviour {
 	}
 
 	public virtual void PickupItem(Entity e) {
-		print ("Picked up");
 		owner = e;
 		transform.parent = e.transform;
 		transform.localPosition = new Vector3 (0, 0, 0);
