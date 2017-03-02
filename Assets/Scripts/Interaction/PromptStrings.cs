@@ -11,7 +11,7 @@ public static class PromptStrings {
 		// For opening scene 2_20
 		{ "introWasd", "Press W, A, S, and D to move." },
         { "introMouse", "Press Left Click to use an item and Right Click for secondary use." },
-		{ "introSword", "You have a sword equpied. Using the sword attacks and the secondary use is Block."},
+		{ "introSword", "You have a sword equiped. The primary use of the sword attacks and the secondary use is Block."},
         { "introRunCrawl", "Hold Left Shift to sprint and Ctrl to sneak."},
         { "introInventoryUsage", "Press E to open the inventory."},
         { "introInventoryControls", "Mouse over an item to learn more information about it.  Press Left Click to pick up an item and Left Click once more to drop it."},
@@ -23,6 +23,9 @@ public static class PromptStrings {
         { "introSaplings", "Fragile young saplings obstruct the path." },
 		{ "introItemMounds", "Patches of dirt are safe places to bury items. Use an item on the dirt to bury it."},
 		{ "introBuryItem", "Bury the flask for your future self." },
+		{ "introPickupItem","Swap to the present timeline to retrieve the item."},
         { "introItemPickup", "Perhaps there is valuable information contained within the scroll..." },
+		{ "introReset","If you eveer get stuck, press the escape button to reset to the last checkpoint."},
+		{ "crossWater", "There looks to be some valuables across the water. I wonder if there's a way to cross..."},
 	};
 }

@@ -136,6 +136,7 @@ public class UIController : BaseController
 		if (playerName.Contains ("past")) {
 			TimelineInfoAge.text = "past";
 		} else if (playerName.Contains ("present")) {
+			print (TimelineInfoAge);
 			TimelineInfoAge.text = "present";
 		}
 	}
@@ -165,7 +166,7 @@ public class UIController : BaseController
 					break;
 				case "TimelineInfo":
 					for (int j = 0; j < t.childCount; j++) {
-						if (t.GetChild (j).name.Equals ("Age"))
+						if (t.GetChild (j).name.Equals ("Timeline")) 
 							TimelineInfoAge = t.GetChild (j).GetComponent<Text> ();
 						else if (t.GetChild (j).name.Equals ("Time"))
 							TimelineInfoTimer = t.GetChild (j).GetComponent<Text> ();
