@@ -238,6 +238,7 @@ public class UIController : BaseController
 	{
 		Color oldC = CamFader.color;
 		CamFader.color = new Color (oldC.r, oldC.g, oldC.b, active ? 1 : 0);
+		CamFader.gameObject.SetActive (active);
 	}
 
 	void UpdateTimelineTimer() {
