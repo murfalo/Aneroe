@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 public class TileInteractive : Tile
 {
 	public Sprite fullTileSprite, brokenTileSprite;
 	SpriteRenderer sRend;
 	Collider2D coll;
+	bool broken;
 	public bool isPast;
 	public string[] usableItemPrefabNames;
 
@@ -25,6 +27,7 @@ public class TileInteractive : Tile
 		usableItemTypes = new System.Type[0];
 		sRend = GetComponent<SpriteRenderer> ();
 		coll = GetComponent<Collider2D> ();
+		broken = false;
 	}
 	
 	// Update is called once per frame
@@ -36,6 +39,7 @@ public class TileInteractive : Tile
 	{
 		newItem = null;
 		sRend.sprite = brokenTileSprite;
+		broken = true;
 		coll.enabled = false;
 		SendDisableTileEvent ();
 		if (otherTile && isPast)
@@ -46,9 +50,22 @@ public class TileInteractive : Tile
     {
         newItem = typeof(Weapon) == item.GetType() ? item : null;
         if (isPast) return;
-        coll.enabled = false;
+		coll.enabled = false;
+		broken = true;
         sRend.sprite = brokenTileSprite;
     }
 
+	public override Hashtable Save() {
+		Hashtable tsd = new Hashtable (); 
+		tsd.Add ("broken", broken);
+		tsd.Add ("col_enabled", coll.enabled);
+		return tsd;
+	}
+
+	public override void Load(Hashtable tsd) {
+		broken = (bool)tsd ["broken"];
+		coll.enabled = (bool)tsd ["col_enabled"];
+		sRend.sprite = broken ? brokenTileSprite : fullTileSprite;
+	}
 }
 

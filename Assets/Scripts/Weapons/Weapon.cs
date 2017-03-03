@@ -194,7 +194,8 @@ public class Weapon : Item {
 	{
 		Hashtable wsd = base.Save();
 		// Save statInfo now
-		wsd.Add("statLevels", stats.GetStats());
+		if (stats != default(StatInfo))
+			wsd.Add("statLevels", stats.GetStats());
 		return wsd;
 	}
 
@@ -202,6 +203,7 @@ public class Weapon : Item {
 	{
 		Setup ();
 		base.Load (wsd);
-		stats = new StatInfo((Dictionary<string, float>)wsd["statLevels"]);
+		if (wsd.ContainsKey("statLevels"))
+			stats = new StatInfo((Dictionary<string, float>)wsd["statLevels"]);
 	}
 }

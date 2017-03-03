@@ -40,13 +40,6 @@ public class UIController : BaseController
 
     private GameObject _activeMenu;
 
-    /// <summary>The text representing the player's health.</summary>
-    private string _healthText
-    {
-        get { return PlayerStatus.transform.GetChild(1).GetComponent<Text>().text; }
-        set { PlayerStatus.transform.GetChild(1).GetComponent<Text>().text = value; }
-    }
-
     /// <summary>Causes the selected item to follow the mouse cursor.</summary>
     public void Update()
     {
@@ -124,10 +117,15 @@ public class UIController : BaseController
 
     private void OnHealthChanged<T>(object source, T eventArgs)
     {
-        if (typeof(T) == typeof(PlayerHealthChangedEventArgs))
-            _healthText = ((PlayerHealthChangedEventArgs) (object) eventArgs).NewHealth.ToString();
+		int healthAmount = 0;
+		if (typeof(T) == typeof(PlayerHealthChangedEventArgs))
+			healthAmount = (int)((PlayerHealthChangedEventArgs)(object)eventArgs).NewHealth;
         else if (typeof(T) == typeof(PlayerSwitchEventArgs))
-            _healthText = ((PlayerSwitchEventArgs) (object) eventArgs).newPlayer.stats.GetStat("health").ToString();
+			healthAmount = (int)((PlayerSwitchEventArgs) (object) eventArgs).newPlayer.stats.GetStat("health");
+
+		for (int i = 0; i < PlayerStatus.transform.childCount; i++) {
+			PlayerStatus.transform.GetChild (i).gameObject.SetActive (i < healthAmount);
+		}
     }
 
 	private void OnTimelineInfoChanged(object source, EventArgs eventArgs)

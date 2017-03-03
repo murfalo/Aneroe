@@ -8,7 +8,6 @@ public class TerrainController : MonoBehaviour {
 	Transform sceneHolder;
 
 	public void Awake() {
-		sceneHolder = gameObject.transform.root;
 		GameController.fileLoaded += Load;
 		GameController.fileSaving += Save;
 	}
@@ -19,6 +18,7 @@ public class TerrainController : MonoBehaviour {
 	}
 
 	public void Save(object sender, EventArgs e) {
+		sceneHolder = transform.root;
 		Hashtable tiles = new Hashtable ();
 		Tile[] tileComponents = sceneHolder.GetComponentsInChildren<Tile> ();
 		for (int i = 0; i < tileComponents.Length; i++) {
@@ -30,6 +30,7 @@ public class TerrainController : MonoBehaviour {
 	}
 
 	public void Load(object sender, SceneSwitchEventArgs e) {
+		sceneHolder = transform.root;
 		Hashtable tiles;
 		GameController.GetSaveValue (sceneHolder.name + "Terrain", out tiles);
 		if (tiles == null)
