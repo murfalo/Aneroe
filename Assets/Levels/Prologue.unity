@@ -2037,9 +2037,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objName:
   - ApothFuture
+  objGroup:
+  - Character
   objStartPos:
   - {x: 3.5, y: 5.5, z: 0}
-  prefabLoadName: []
 --- !u!4 &1576789612
 Transform:
   m_ObjectHideFlags: 0

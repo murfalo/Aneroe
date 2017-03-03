@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class TerrainController : BaseController {
+public class TerrainController : MonoBehaviour {
 
 	Transform sceneHolder;
 
 	public void Awake() {
 		sceneHolder = gameObject.transform.root;
-		SaveController.fileLoaded += Load;
-		SaveController.fileSaving += Save;
+		GameController.fileLoaded += Load;
+		GameController.fileSaving += Save;
 	}
 
 	public void OnDestroy() {
-		SaveController.fileLoaded -= Load;
-		SaveController.fileSaving -= Save;
+		GameController.fileLoaded -= Load;
+		GameController.fileSaving -= Save;
 	}
 
 	public void Save(object sender, EventArgs e) {
@@ -26,12 +26,12 @@ public class TerrainController : BaseController {
 			Hashtable tsd = t.Save ();
 			tiles.Add (t.name + t.transform.parent.name, tsd);
 		}
-		SaveController.SetValue (sceneHolder.name + "Terrain", tiles);
+		GameController.SetSaveValue (sceneHolder.name + "Terrain", tiles);
 	}
 
 	public void Load(object sender, SceneSwitchEventArgs e) {
 		Hashtable tiles;
-		SaveController.GetValue (sceneHolder.name + "Terrain", out tiles);
+		GameController.GetSaveValue (sceneHolder.name + "Terrain", out tiles);
 		if (tiles == null)
 			return;
 		Tile[] tileComponents = sceneHolder.GetComponentsInChildren<Tile> ();

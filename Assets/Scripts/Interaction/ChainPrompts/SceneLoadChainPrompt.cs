@@ -38,7 +38,7 @@ public class SceneLoadChainPrompt : ChainPrompt
 			camFader.color = new Color (oldColor.r, oldColor.g, oldColor.b, newAlpha);
 			yield return new WaitForSeconds (Time.fixedDeltaTime);
 		}
-		GameObject.Find("Control").GetComponent<SceneController>().LoadSceneAlone (sceneName);
+		SceneController.LoadSceneAlone (sceneName);
 		//SendPromptEvent (overridePrompt);
 
 	}

@@ -177,6 +177,8 @@ public class UIController : BaseController
         Tooltip.transform.SetParent(UI.transform, false);
         Tooltip.SetActive(false);
 
+		// Disable in-game UI at start of game
+		UI.SetActive (false);
     }
 
     public override void ExternalSetup()
@@ -185,6 +187,7 @@ public class UIController : BaseController
         PlayerController.PlayerHealthChanged += OnHealthChanged;
 		SceneController.timeSwapped += OnHealthChanged;
 		SceneController.timeSwapped += OnTimelineInfoChanged;
+		SceneController.mergedNewScene += ToggleEntireUI;
     }
 
     public override void RemoveEventListeners()
@@ -193,6 +196,7 @@ public class UIController : BaseController
         PlayerController.PlayerHealthChanged -= OnHealthChanged;
 		SceneController.timeSwapped -= OnHealthChanged;
 		SceneController.timeSwapped -= OnTimelineInfoChanged;
+		SceneController.mergedNewScene -= ToggleEntireUI;
     }
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
@@ -250,4 +254,7 @@ public class UIController : BaseController
 		}
 	}
 
+	public void ToggleEntireUI(object sender, SceneSwitchEventArgs e) {
+		UI.SetActive (true);
+	}
 }

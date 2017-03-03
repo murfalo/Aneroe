@@ -9,14 +9,14 @@ using UnityEngine;
 
 public class PlayerController : EntityController
 {
-    public List<GameObject> characterPrefabs;
-    public static PlayerEntity activeCharacter;
+	public static PlayerEntity activeCharacter;
+	List<GameObject> characterPrefabs;
 
     private PlayerEntity[] characters;
-	private Vector3[] questLinePositions;
 
 	// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
-	private Vector3 pastToPresent;
+	// private Vector3[] questLinePositions;
+	// private Vector3 pastToPresent;
 
     private int characterIndex;
     private string[] directions;
@@ -30,40 +30,28 @@ public class PlayerController : EntityController
             {"die", RestartGame},
             {"health", OnHealthChanged}
         };
-        var obj = new GameObject();
-        obj.name = "PlayerHolder";
-        characters = new PlayerEntity[characterPrefabs.Count];
-		//questLinePositions = new Vector3[characterPrefabs.Count];
-		for (var i = 0; i < characterPrefabs.Count; i++)
-        {
-			characters[i] = Instantiate(characterPrefabs[i], new Vector3(-9999,-9999,0), Quaternion.identity, obj.transform).GetComponent<PlayerEntity>();
-            characters[i].Setup();
-			//questLinePositions [i] = characters [i].transform.position;
-        }
-        characterIndex = 0;
-		activeCharacter = characters[0];
 		directions = new string[4] {"up", "right", "down", "left"};
 
 		// Necessary instantiation
-		pastToPresent = characters [1].transform.position - characters [0].transform.position;
+		// pastToPresent = characters [1].transform.position - characters [0].transform.position;
     }
 
     public override void ExternalSetup()
     {
-		SceneController.mergedNewScene += UpdateRelativePositions;
+		//SceneController.mergedNewScene += UpdateRelativePositions;
         InputController.iEvent.inputed += ReceiveInput;
-        SaveController.fileLoaded += Load;
-        SaveController.fileSaving += Save;
+		GameController.fileLoaded += Load;
+		GameController.fileSaving += Save;
         // Subscribe to the inventory controller events to handle UI events appropriately.
         InventoryController.ItemMoved += OnItemMoved;
     }
 
     public override void RemoveEventListeners()
 	{
-		SceneController.mergedNewScene -= UpdateRelativePositions;
+		//SceneController.mergedNewScene -= UpdateRelativePositions;
         InputController.iEvent.inputed -= ReceiveInput;
-        SaveController.fileLoaded -= Load;
-        SaveController.fileSaving -= Save;
+		GameController.fileLoaded -= Load;
+		GameController.fileSaving -= Save;
 		InventoryController.ItemMoved -= OnItemMoved;
     }
 
@@ -137,7 +125,8 @@ public class PlayerController : EntityController
 		activeCharacter = characters[characterIndex];
 
 		// Check if the player is aligning the new active character to old active character
-		if (e.WasPressed("") && (e.WasPressed ("realign") || e.IsHeld ("realign"))) {
+		/*
+		if ((e.WasPressed ("realign") || e.IsHeld ("realign"))) {
 			// Pick correct position conversion
 			Vector3 nextPos = pastToPresent + oldC.transform.position;
 			if (oldC.name.ToLower ().Contains ("present"))
@@ -149,14 +138,17 @@ public class PlayerController : EntityController
 		} else {
 			// If the player can transport to their original quest line position
 
-			//if (!activeCharacter.WouldCollideAt (questLinePositions [characterIndex]))
-			//	activeCharacter.transform.position = questLinePositions [characterIndex];
+			if (!activeCharacter.WouldCollideAt (questLinePositions [characterIndex]))
+				activeCharacter.transform.position = questLinePositions [characterIndex];
 		}
+		*/
+
 		// Save the old character's position as their new quest line position
 		//questLinePositions [oldIndex] = oldC.transform.position;
-		GameObject.Find("Control").GetComponent<SceneController>().ChangeActiveCharacter(oldC, activeCharacter);
+		SceneController.ChangeActiveCharacter(oldC, activeCharacter);
 	}
 
+	/* UNUSED FOR NOW, BUT DO NOT DELETE.
 	void UpdateRelativePositions(object sender, SceneSwitchEventArgs e) {
 		// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
 		Transform spaceConversionObj = GameObject.Find ("PastPresentDistance").transform;
@@ -166,6 +158,7 @@ public class PlayerController : EntityController
 		else
 			pastToPresent = -spaceConversionObj.GetChild (1).position + child1.position;
 	}
+	*/
 
     /// <summary>Event handler for the itemMoved event provided by ItemController.</summary>
     /// <param name="source">Originator of itemMoved event.</param>
@@ -196,13 +189,15 @@ public class PlayerController : EntityController
     public void Save(object sender, EventArgs e)
     {
         for (var i = 0; i < characters.Length; i++)
-			SaveController.SetValue(SaveKeys.players[i], characters[i].Save());
+			GameController.SetSaveValue(SaveKeys.players[i], characters[i].Save());
     }
 
     public void Load(object sender, SceneSwitchEventArgs e)
-    {
-		if (e.loadFirstTime) {
-			LoadFromSceneDefaults ();
+	{
+		if (e.loadStandaloneScene) {
+			InitializePlayers ();
+		}
+		if (e.newPlaythrough) {
 			for (int i = 0; i < characters.Length; i++) {
 				characters [i].LoadFirstTime ();
 			}
@@ -211,23 +206,39 @@ public class PlayerController : EntityController
         for (int i = 0; i < characters.Length; i++)
         {
 			Hashtable esd;
-            SaveController.GetValue(SaveKeys.players[i], out esd);
+			GameController.GetSaveValue(SaveKeys.players[i], out esd);
 			if (esd == default(Hashtable))
-				return;
-			else if (e.loadControl) {
-				// If we're booting up the game, loading controllers involves loading the player
-        		characters[i].Load(esd);
-				//questLinePositions [i] = characters [i].transform.position;
-			}
+				continue;
+			//else if (e.loadControl) { // If we're booting up the game, loading controllers involves loading the player
+    		characters[i].Load(esd);
+			//}
         }
     }
 
-	void LoadFromSceneDefaults () {
-		SceneLoadDefaults loadDefaults = GameObject.Find ("LocalControl").GetComponent<SceneLoadDefaults> ();
-		for (int i = 0; i < characterPrefabs.Count; i++) {
-			int defaultPosInd = Array.IndexOf (loadDefaults.objName, characterPrefabs [i].name);
-			characters [i].transform.position = loadDefaults.objStartPos [defaultPosInd];
-			//questLinePositions [i] = characters [i].transform.position;
+	void InitializePlayers() {
+		var obj = new GameObject();
+		obj.name = "PlayerHolder";
+
+		// Load player prefabs from scene defaults
+		int numCharacters = 0;
+		characterPrefabs = new List<GameObject> ();
+		List<Vector3> startPositions = new List<Vector3>();
+		for (int i = 0; i < SceneLoadDefaults.currentObjGroup.Length; i++) {
+			if (SceneLoadDefaults.currentObjGroup [i].Equals ("Character")) {
+				characterPrefabs.Add (Resources.Load<GameObject> ("Prefabs/Player/" + SceneLoadDefaults.currentObjName [i]));
+				startPositions.Add (SceneLoadDefaults.currentObjStartPos [i]);
+				numCharacters++;
+			}
 		}
+
+		characters = new PlayerEntity[characterPrefabs.Count];
+		for (var i = 0; i < characterPrefabs.Count; i++)
+		{
+			characters[i] = Instantiate(characterPrefabs[i], startPositions[0], Quaternion.identity, obj.transform).GetComponent<PlayerEntity>();
+			characters[i].Setup();
+			startPositions.RemoveAt (0);
+		}
+		characterIndex = 0;
+		activeCharacter = characters[0];
 	}
 }

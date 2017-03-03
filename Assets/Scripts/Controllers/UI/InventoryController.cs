@@ -42,26 +42,19 @@ public class InventoryController : BaseController
         InputController.iEvent.inputed += ReceiveInput;
         SceneController.timeSwapped += RefreshInventory;
         SceneController.timeSwapped += RebindListener;
-        SaveController.playerLoaded += RefreshInventory;
+        GameController.playerLoaded += RefreshInventory;
         UIController.ItemSelected += SelectItem;
         UIController.ItemSelected += MoveItem;
 
         _slots = new List<GameObject>();
-        //GameObject itemHolder = GameObject.Find ("Items");
-        for (var i = 0; i < PlayerController.activeCharacter.inv.maxItems; i++)
-        {
-            var newSlot = Instantiate(UISlot);
-            newSlot.name = "Slot." + i;
-            newSlot.transform.SetParent(UIController.Inventory.transform.GetChild(((i / ItemsPerRow) == 0) ? 0 : 1).transform, false);
-            _slots.Add(newSlot);
-        }
+
     }
 
     public override void RemoveEventListeners()
     {
         SceneController.timeSwapped -= RefreshInventory;
         SceneController.timeSwapped -= RebindListener;
-        SaveController.playerLoaded -= RefreshInventory;
+		GameController.playerLoaded -= RefreshInventory;
         UIController.ItemSelected -= SelectItem;
         UIController.ItemSelected -= MoveItem;
     }
@@ -123,9 +116,22 @@ public class InventoryController : BaseController
     /// <summary>Refreshes the inventory using the active player's inventory data.</summary>
     private void RefreshInventory<T>(object source, T eventArgs)
     {
-        //if (!typeof(T).IsAssignableFrom(typeof(EventArgs)))
-        //    return;
+		// Reinitialize slots if necessary
+		if (_slots.Count < PlayerController.activeCharacter.inv.maxItems) {
+			for (var i = _slots.Count; i < PlayerController.activeCharacter.inv.maxItems; i++) {
+				var newSlot = Instantiate (UISlot);
+				newSlot.name = "Slot." + i;
+				newSlot.transform.SetParent (UIController.Inventory.transform.GetChild (((i / ItemsPerRow) == 0) ? 0 : 1).transform, false);
+				_slots.Add (newSlot);
+			}
+		} else if (_slots.Count > PlayerController.activeCharacter.inv.maxItems) {
+			int maxCount = PlayerController.activeCharacter.inv.maxItems;
+			for (var i = maxCount; i < _slots.Count; i++) {
+				_slots.RemoveAt (maxCount);
+			}
+		}
 
+		// Load from active character inventory
         var activeInv = PlayerController.activeCharacter.inv;
         var numSlots = activeInv.maxItems;
         selectedOverlay.transform.position = _slots[PlayerController.activeCharacter.inv.itemSlotEquipped].transform.position;

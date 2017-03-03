@@ -7,68 +7,27 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SceneController : BaseController
 {
-    public string debugStartScene;
-
 	public static event EventHandler<PlayerSwitchEventArgs> timeSwapped;
 	public static event EventHandler<SceneSwitchEventArgs> mergedNewScene;
 
-    Scene oldScene;
-	bool loadControl;
+    static Scene oldScene;
+	// If true, all controllers load from file. Otherwise, only select ones do
+	static bool loadStandaloneScene;
 
-    void Awake()
+    public override void InternalSetup()
     {
-		oldScene = SceneManager.GetActiveScene();
 		SceneManager.sceneLoaded += LoadedScene;
+
+		// Activate controller load from file as this is the first time loading them
+		loadStandaloneScene = true;
     }
 
-	void OnDestroy()
+	public override void RemoveEventListeners()
 	{
 		SceneManager.sceneLoaded -= LoadedScene;
 	}
 
-    void Start()
-	{
-		// Initialize controllers
-		foreach (BaseController obj in gameObject.GetComponents<BaseController>())
-		{
-			obj.InternalSetup();
-		}
-		foreach (BaseController obj in gameObject.GetComponents<BaseController>())
-		{
-			obj.ExternalSetup();
-		}
-		// Activate controller load from file as this is the first time loading them
-		loadControl = true;
-
-		SaveController.playerLoaded += RemoveTempGameObjects;
-
-		// Activate initial time swap for start of game
-		if (timeSwapped != null)
-			timeSwapped(this, new PlayerSwitchEventArgs(null,PlayerController.activeCharacter));
-
-		// If applicable, load debug scene
-		if (debugStartScene != "") {
-			UIController.ToggleLoadingScreen (true);
-			SceneManager.LoadScene (debugStartScene, LoadSceneMode.Additive);
-		} else if (SceneManager.GetSceneByName(GameController.sceneToLoad).IsValid()) {
-			UIController.ToggleLoadingScreen (true);
-			SceneManager.LoadScene(GameController.sceneToLoad, LoadSceneMode.Additive);
-		}
-
-        /*
-        if (cutToStartScene)
-        {
-            if (!SceneManager.GetActiveScene().name.Equals(startScene))
-            {
-				UIController.ToggleLoadingScreen (true);
-                SceneManager.LoadScene(startScene, LoadSceneMode.Additive);
-                SceneManager.sceneLoaded += LoadedScene;
-            }
-        }
-        */
-    }
-
-	public void addScene(string newScene) {
+	public static void AddScene(string newScene) {
 		if (!SceneManager.GetActiveScene ().name.Equals (newScene)) {
 			oldScene = SceneManager.GetActiveScene ();
 			UIController.ToggleLoadingScreen (true);
@@ -76,7 +35,7 @@ public class SceneController : BaseController
 		}
 	}
 
-	public void removeScene(string newScene) {
+	public static void RemoveScene(string newScene) {
 		Debug.Log (newScene);
 		print (SceneManager.GetSceneByName (newScene).buildIndex);
 		if (SceneManager.GetSceneByName (newScene).buildIndex != -1) {
@@ -114,15 +73,15 @@ public class SceneController : BaseController
         oldScene = newScene;
 
 		if (mergedNewScene != null)
-			mergedNewScene (this, new SceneSwitchEventArgs(rootOfNewScene.name, loadControl));
-		// Whether this is the first scene loading or not, deactivate loading of controllers from now on
-		loadControl = false;
+			mergedNewScene (this, new SceneSwitchEventArgs(rootOfNewScene.name, loadStandaloneScene));
+		// No more scenes being merged can be standalone, so
+		loadStandaloneScene = false;
 		StartCoroutine(WaitUntilNextFrame());
     }
 
 	IEnumerator WaitUntilNextFrame()
 	{
-		yield return new WaitForSeconds (5*Time.fixedDeltaTime);
+		yield return new WaitForSeconds (Time.fixedDeltaTime);
 		UIController.ToggleLoadingScreen (false);
 	}
 
@@ -136,7 +95,7 @@ public class SceneController : BaseController
         SceneManager.LoadScene("BaseScene", LoadSceneMode.Single);
     }
 
-	public void LoadSceneAlone(string sceneName)
+	public static void LoadSceneAlone(string sceneName)
 	{
 		// Destroy old scene objects
 		GameObject[] objs = SceneManager.GetActiveScene().GetRootGameObjects();
@@ -147,22 +106,27 @@ public class SceneController : BaseController
 			}
 		}
 
-		addScene (sceneName);
+		RemoveTempGameObjects ();
+		loadStandaloneScene = true;
+	
+		// Load scene
+		SceneController.AddScene (sceneName);
 	}
 
-	public void ChangeActiveCharacter(PlayerEntity oldP, PlayerEntity newP)
+	public static void ChangeActiveCharacter(PlayerEntity oldP, PlayerEntity newP)
 	{
 		// Add scene loading functionality here
 		//Scene newScene = default(Scene);
 
         if (timeSwapped != null)
-			timeSwapped(this, new PlayerSwitchEventArgs(oldP, newP));
+			timeSwapped(null, new PlayerSwitchEventArgs(oldP, newP));
     }
 
-	public void RemoveTempGameObjects(object sender, EventArgs e) {
+	static void RemoveTempGameObjects() {
 		Destroy (GameObject.Find ("Items"));
 		GameObject newHolder = new GameObject ();
 		newHolder.name = "Items";
+		Destroy (GameObject.Find ("PlayerHolder"));
 	}
 }
 
@@ -182,12 +146,12 @@ public class SceneSwitchEventArgs : EventArgs {
 	// Scene name being loaded (used to locate root gameobject for that scene)
 	public string newSceneName;
 	// Whether controllers need to be loaded in (true if booting up game, false if loading additive scene)
-	public bool loadControl;
+	public bool loadStandaloneScene;
 
-	public bool loadFirstTime;
+	public bool newPlaythrough;
 
-	public SceneSwitchEventArgs(string sceneName, bool loadC) {
+	public SceneSwitchEventArgs(string sceneName, bool loadS) {
 		newSceneName = sceneName;
-		loadControl = loadC;
+		loadStandaloneScene = loadS;
 	}
 }
