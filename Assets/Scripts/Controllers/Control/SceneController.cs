@@ -2,19 +2,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class SceneController : BaseController
 {
-
-	// Add event information to saving/loading:
-	// Scene name being loaded
-	// Whether this is loading/reloading controllers
-	//  GameObjects can check if they are loading themselves by comparing root's name to scene name
-	// Scene name being saved (and unloaded)
-	// Whether this is saving everything
-
-    public bool cutToStartScene;
-    public string startScene;
+    public string debugStartScene;
 
 	public static event EventHandler<PlayerSwitchEventArgs> timeSwapped;
 	public static event EventHandler<SceneSwitchEventArgs> mergedNewScene;
@@ -24,8 +17,14 @@ public class SceneController : BaseController
 
     void Awake()
     {
-        oldScene = SceneManager.GetActiveScene();
+		oldScene = SceneManager.GetActiveScene();
+		SceneManager.sceneLoaded += LoadedScene;
     }
+
+	void OnDestroy()
+	{
+		SceneManager.sceneLoaded -= LoadedScene;
+	}
 
     void Start()
 	{
@@ -46,8 +45,17 @@ public class SceneController : BaseController
 		// Activate initial time swap for start of game
 		if (timeSwapped != null)
 			timeSwapped(this, new PlayerSwitchEventArgs(null,PlayerController.activeCharacter));
-		
-		// Load correct scene
+
+		// If applicable, load debug scene
+		if (debugStartScene != "") {
+			UIController.ToggleLoadingScreen (true);
+			SceneManager.LoadScene (debugStartScene, LoadSceneMode.Additive);
+		} else if (SceneManager.GetSceneByName(GameController.sceneToLoad).IsValid()) {
+			UIController.ToggleLoadingScreen (true);
+			SceneManager.LoadScene(GameController.sceneToLoad, LoadSceneMode.Additive);
+		}
+
+        /*
         if (cutToStartScene)
         {
             if (!SceneManager.GetActiveScene().name.Equals(startScene))
@@ -57,6 +65,7 @@ public class SceneController : BaseController
                 SceneManager.sceneLoaded += LoadedScene;
             }
         }
+        */
     }
 
 	public void addScene(string newScene) {
@@ -77,11 +86,8 @@ public class SceneController : BaseController
 
     public void LoadedScene(Scene newScene, LoadSceneMode sceneMode)
     {
-        //oldScene = SceneManager.GetActiveScene ();
-        //Scene newScene = SceneManager.GetSceneByName (newSceneName);
-        //print ("Old scene: " + oldScene.name);
-        //print ("New scene: " + newScene.name);
-        StartCoroutine(WaitToMergeScenes(oldScene, newScene));
+		if (oldScene.IsValid() && !oldScene.name.Equals(newScene.name))
+        	StartCoroutine(WaitToMergeScenes(oldScene, newScene));
     }
 
     IEnumerator WaitToMergeScenes(Scene oldScene, Scene newScene)

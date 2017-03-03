@@ -113,5 +113,8 @@ public class SaveController : BaseController
         FileStream sf = File.Create(Application.persistentDataPath + saveLocation);
         bf.Serialize(sf, saveData);
         sf.Close();
+
+		// Bump up save request to game controller
+		GameController.Save();
     }
 }
