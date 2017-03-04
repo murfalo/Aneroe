@@ -40,6 +40,8 @@ public class GameController : BaseController
 
 	void Awake()
 	{
+		startMenuHolder.SetActive (true);
+
 		// Initialize controllers (including this one)
 		foreach (BaseController obj in gameObject.GetComponents<BaseController>())
 		{

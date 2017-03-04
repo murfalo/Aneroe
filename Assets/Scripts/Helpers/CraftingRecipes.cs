@@ -9,6 +9,7 @@ public static class CraftingRecipes {
     public static Dictionary<string[], string> recipes = new Dictionary<string[], string>(new RecipeEqualityComparer())
     {
         {new[] {"Bone", "IceBerry", "StoneFlask"}, "IcePotion"},
+		{new[] {"FirePotion","",""}, "FireElement"}
     };
 
     public static GameObject CraftItem(string item1, string item2, string item3)
@@ -19,6 +20,12 @@ public static class CraftingRecipes {
         newItem.GetComponent<Item>().Setup();
         return newItem;
     }
+
+	public static bool CanCraft(string item1, string item2, string item3) 
+	{
+		var key = new[] {item1, item2, item3};
+		return recipes.ContainsKey (key);
+	}
 }
 
 public class RecipeEqualityComparer : IEqualityComparer<string[]>
