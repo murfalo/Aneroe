@@ -70,8 +70,8 @@ MonoBehaviour:
   prefabName: PlantScroll
   smallItem: 0
   count: 0
-  Name: Plant Recipe
-  Description: '- 2 Bones \n- 1 Blood Vial'
+  Name: Rainbow Leaf Recipe
+  Description: '- 1 Red Leaf \n- 1 Yellow Leaf \n- 1 Green Leaf'
 --- !u!212 &212545702072278130
 SpriteRenderer:
   m_ObjectHideFlags: 1

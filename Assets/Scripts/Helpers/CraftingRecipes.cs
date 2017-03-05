@@ -11,7 +11,11 @@ public static class CraftingRecipes {
         {new[] {"Bone", "IceBerry", "StoneFlask"}, "IcePotion"},
 		{new[] {"FirePotion","",""}, "FireElement"},
 		{new[] {"Bone","Bone","BloodVial"}, "RefinedBloodVial"},
-		{new[] {"IceBerry","FirePotion","StoneFlask"}, "WaterVial"}
+		{new[] {"IceBerry","FirePotion","StoneFlask"}, "WaterPotion"},
+		{new[] {"RedLeaf","GreenLeaf","YellowLeaf"}, "RainbowLeaf"},
+		{new[] {"YellowLeaf","LifePotion","YellowLeaf"}, "LifeLeaf"},
+		{new[] {"RainbowLeaf","RainbowLeaf","LifeLeaf"}, "LifeEssence"},
+		{new[] {"RefinedBloodVial","WaterPotion","LifeEssence"}, "EndVile"}
     };
 
     public static GameObject CraftItem(string item1, string item2, string item3)

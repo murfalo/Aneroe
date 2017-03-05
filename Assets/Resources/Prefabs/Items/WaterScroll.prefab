@@ -71,7 +71,7 @@ MonoBehaviour:
   smallItem: 0
   count: 0
   Name: Water Recipe
-  Description: '- 2 Bones \n- 1 Blood Vial'
+  Description: '- 1 Ice Berry\n- 1 Fire Potion\n-1 Potion Flask'
 --- !u!212 &212545702072278130
 SpriteRenderer:
   m_ObjectHideFlags: 1
