@@ -14,7 +14,7 @@ public class InteractivePlant : Tile
 
 	public override bool CanUseItem(Item item) {
 		// If you're not wielding something, interaction is always allowed
-		if (typeof(Weapon) == item.GetType ()) {
+		if (item != null && typeof(Weapon) == item.GetType ()) {
 			Item i;
 			this.UseItem (item,out i);
 		}
