@@ -20,7 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4701736409560246}
   - component: {fileID: 212678747503326828}
-  m_Layer: 0
+  - component: {fileID: 114821537719272260}
+  - component: {fileID: 61424630972466070}
+  m_Layer: 14
   m_Name: PastPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +42,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61424630972466070
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784457535995578}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+--- !u!114 &114821537719272260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784457535995578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4ac8973e3b54d20869d131d7d31bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherTile: {fileID: 0}
+  primaryTile: 1
+  interactState: 0
+  fullTileSprite: {fileID: 21300000, guid: 176c60e6d6dea3f49a9a88b6372a6ef7, type: 3}
+  brokenTileSprite: {fileID: 0}
+  usableItemPrefabNames: []
+  drop: {fileID: 0}
 --- !u!212 &212678747503326828
 SpriteRenderer:
   m_ObjectHideFlags: 1
