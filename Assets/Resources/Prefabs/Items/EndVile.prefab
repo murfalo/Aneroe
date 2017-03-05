@@ -70,7 +70,7 @@ MonoBehaviour:
   prefabName: EndVile
   smallItem: 0
   count: 0
-  Name: Potion of Cure Disease
+  Name: Cure Disease
   Description: Drink this potion to cure all diseases past, present, and future.
 --- !u!212 &212948608480487868
 SpriteRenderer:

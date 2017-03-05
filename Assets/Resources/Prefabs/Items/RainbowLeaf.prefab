@@ -67,10 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9ec2de4db210e4e80fe8bf689b0b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: YellowLeaf
+  prefabName: RainbowLeaf
   smallItem: 0
   count: 0
-  Name: Red Leaf
+  Name: Rainbow Leaf
   Description: A powerful combination of three types of leaves.
 --- !u!212 &212716040145913446
 SpriteRenderer:

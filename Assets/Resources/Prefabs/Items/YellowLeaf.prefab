@@ -70,7 +70,7 @@ MonoBehaviour:
   prefabName: YellowLeaf
   smallItem: 0
   count: 0
-  Name: Red Leaf
+  Name: Yellow Leaf
   Description: A leaf from a nearby bush.
 --- !u!212 &212716040145913446
 SpriteRenderer:
