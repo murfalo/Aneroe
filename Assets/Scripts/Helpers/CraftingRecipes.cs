@@ -9,7 +9,8 @@ public static class CraftingRecipes {
     public static Dictionary<string[], string> recipes = new Dictionary<string[], string>(new RecipeEqualityComparer())
     {
         {new[] {"Bone", "IceBerry", "StoneFlask"}, "IcePotion"},
-		{new[] {"FirePotion","",""}, "FireElement"}
+		{new[] {"FirePotion","",""}, "FireElement"},
+		{new[] {"Bone","Bone","BloodVial"}, "RefinedBloodVial"}
     };
 
     public static GameObject CraftItem(string item1, string item2, string item3)
