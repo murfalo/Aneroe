@@ -233,6 +233,7 @@ public class UIController : BaseController
         DropItem(Selected);
         GameObject.Find("Control").GetComponent<CraftingController>().DropItems();
         _activeMenu = _activeMenu != null ? null : Inventory;
+        InventorySlot.DisableTooltip();
     }
 
 	public static void ToggleLoadingScreen(bool active) 

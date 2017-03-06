@@ -51,7 +51,6 @@ public class TileInteractive : Tile
         newItem = typeof(Weapon) == item.GetType() ? item : null;
         if (isPast) return;
 		coll.enabled = false;
-        Debug.Log(coll);
 		broken = true;
         sRend.sprite = brokenTileSprite;
     }
@@ -62,9 +61,7 @@ public class TileInteractive : Tile
 	}
 
 	public override void Load(Hashtable tsd) {
-        Debug.Log(name + ' ' + coll.enabled);
         broken = (bool)tsd ["broken"];
-        Debug.Log(coll);
 		coll.enabled = (bool)tsd ["col_enabled"];
 		sRend.sprite = broken ? brokenTileSprite : fullTileSprite;
 	}

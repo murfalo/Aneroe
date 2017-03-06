@@ -7,7 +7,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Image _itemImage;
     private Item _item;
 
-    private bool _tooltipEnabled;
+    private static bool _tooltipEnabled;
 
     private static string TooltipName
     {
@@ -36,7 +36,6 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void ToggleTooltip()
     {
-        _tooltipEnabled = !UIController.Tooltip.activeSelf;
         UIController.Tooltip.SetActive(_tooltipEnabled);
         if (!_tooltipEnabled) return;
         TooltipName = _item.Name;
@@ -67,11 +66,19 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        _tooltipEnabled = true;
         ToggleTooltip();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        _tooltipEnabled = false;
         ToggleTooltip();
+    }
+
+    public static void DisableTooltip()
+    {
+        _tooltipEnabled = false;
+        UIController.Tooltip.SetActive(false);
     }
 }
