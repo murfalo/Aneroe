@@ -127,6 +127,11 @@ public class GameController : BaseController
 		SceneController.LoadSceneAlone (sceneName);
 	}
 
+	public static void SetCurrentSceneInSave(string name)
+	{
+		globalSaveData[currentPlaythroughName + SCENE_KEY] = name;
+	}
+
 	// Called by objects in game to save global save data
 	public static void SetGlobalValue<T>(string key, T value)
 	{

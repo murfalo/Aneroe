@@ -283,6 +283,17 @@ public class Entity : MonoBehaviour
 		}
 	}
 
+    public bool Heal(float amount)
+    {
+        float currentHealth = stats.GetStat("health");
+        if (currentHealth < MAX_HEALTH) {
+            stats.SetStat("health", Mathf.Min(MAX_HEALTH, currentHealth + amount));
+            controller.RespondToEntityAction(this, "health");
+            return true;
+        }
+        return false;
+    }
+
     // Damages character, returns true if character is at 0 health
     public void Damage(float amount, int dirFrom, float stunTime, float stunVel)
     {

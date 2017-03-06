@@ -185,7 +185,9 @@ public class PlayerEntity : Entity
 				newState = interactable.GetInteractState ();
 				interactTile = interactable;
 			}
-		}
+		} else if (activeItem.Use()) {
+            HandleItemRemove(activeItem);
+        }
 	    if (newState != default(CharacterState) && !queuedStateActions.ContainsByCompare(defaultActions[(int) newState]))
 	        queuedStateActions.Enqueue(new CharacterStateAction(newState));
 	}

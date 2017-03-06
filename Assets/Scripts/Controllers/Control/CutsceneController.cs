@@ -91,6 +91,7 @@ public class CutsceneController : BaseController
 		InputController.mode = InputInfo.InputMode.Loading;
 		actProgress [actIndex] = ActProgress.Finished;
 		SceneController.LoadSceneAlone (args[1]);
+		GameController.SetCurrentSceneInSave(args[1]);
 	}
 
 	public static void BeginCutscene(string name) {

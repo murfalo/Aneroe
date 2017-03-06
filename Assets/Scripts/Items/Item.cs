@@ -30,6 +30,10 @@ public class Item : MonoBehaviour {
 		pickupCollider = GetComponent<Collider2D> ();
 	}
 
+	public virtual bool Use() {
+		return false;
+	}
+
 	public virtual void PickupItem(Entity e) {
 		owner = e;
 		transform.parent = e.transform;

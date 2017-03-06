@@ -36,6 +36,13 @@ public class InventoryController : BaseController
     /// <summary>Parent index of the previously selected item.</summary>
     private int _oldParentIndex;
 
+    // Total hack, fix later!
+    void Update()
+    {
+        if (PlayerController.activeCharacter != null)
+            selectedOverlay.transform.position = _slots[PlayerController.activeCharacter.inv.itemSlotEquipped].transform.position;
+    }
+
     /// <summary>Initializes the inventory to the size of the currently active character.</summary>
     public override void ExternalSetup()
     {
@@ -134,14 +141,14 @@ public class InventoryController : BaseController
 		// Load from active character inventory
         var activeInv = PlayerController.activeCharacter.inv;
         var numSlots = activeInv.maxItems;
-        selectedOverlay.transform.position = _slots[PlayerController.activeCharacter.inv.itemSlotEquipped].transform.position;
+        Debug.Log(_slots[PlayerController.activeCharacter.inv.itemSlotEquipped].name);
 
         for (var i = 0; i < numSlots; i++)
         {
 			var item = activeInv.GetItem(i);
             var oldSlot = _slots[i].GetComponentInChildren<InventorySlot>();
             if (oldSlot != null)
-                Destroy(oldSlot.gameObject);
+                DestroyImmediate(oldSlot.gameObject);
             if (item == null)
                 continue;
             var invSlot = Instantiate(InvSlot);
