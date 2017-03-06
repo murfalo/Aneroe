@@ -53,9 +53,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -10}
   serializedVersion: 2
-  m_Size: {x: 2.2, y: 2.2}
+  m_Size: {x: 2.2, y: 1.5}
 --- !u!114 &114725173035837450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,6 +67,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b8952de39ae48e58d6ec2c32adcdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherTile: {fileID: 0}
+  primaryTile: 1
+  interactState: 0
+  fullTileSprite: {fileID: 0}
+  brokenTileSprite: {fileID: 0}
+  isPast: 0
+  usableItemPrefabNames: []
 --- !u!212 &212645069754405996
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -69,6 +69,11 @@ public class Entity : MonoBehaviour
         Left
     }
 
+    void Update()
+    {
+        SceneController.SetSortingOrder(sRend);
+    }
+
     public virtual void Setup()
     {
         anim = GetComponent<Animator>();

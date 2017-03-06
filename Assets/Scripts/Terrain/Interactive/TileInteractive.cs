@@ -32,7 +32,7 @@ public class TileInteractive : Tile
 	
 	// Update is called once per frame
 	void Update ()
-	{
+    {
 	}
 
 	public override void UseItem (Item item, out Item newItem)
@@ -51,19 +51,20 @@ public class TileInteractive : Tile
         newItem = typeof(Weapon) == item.GetType() ? item : null;
         if (isPast) return;
 		coll.enabled = false;
+        Debug.Log(coll);
 		broken = true;
         sRend.sprite = brokenTileSprite;
     }
 
 	public override Hashtable Save() {
-		Hashtable tsd = new Hashtable (); 
-		tsd.Add ("broken", broken);
-		tsd.Add ("col_enabled", coll.enabled);
-		return tsd;
+	    var tsd = new Hashtable {{"broken", broken}, {"col_enabled", coll.enabled}};
+	    return tsd;
 	}
 
 	public override void Load(Hashtable tsd) {
-		broken = (bool)tsd ["broken"];
+        Debug.Log(name + ' ' + coll.enabled);
+        broken = (bool)tsd ["broken"];
+        Debug.Log(coll);
 		coll.enabled = (bool)tsd ["col_enabled"];
 		sRend.sprite = broken ? brokenTileSprite : fullTileSprite;
 	}
