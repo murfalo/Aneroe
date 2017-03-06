@@ -49,6 +49,11 @@ public class SceneController : BaseController
         	StartCoroutine(WaitToMergeScenes(oldScene, newScene));
     }
 
+	public static void SetSortingOrder(SpriteRenderer sRend)
+	{
+		sRend.sortingOrder = -(int)(sRend.transform.position.y * 100f);
+	}
+
     IEnumerator WaitToMergeScenes(Scene oldScene, Scene newScene)
     {
         while (!SceneManager.GetActiveScene().Equals(newScene))
@@ -59,14 +64,26 @@ public class SceneController : BaseController
 
 		GameObject rootOfNewScene = new GameObject();
 		rootOfNewScene.name = newScene.name + "Scene";
-		foreach (GameObject rootObject in newScene.GetRootGameObjects()) {
-			if (rootObject.name.Equals ("Temp")) {
-				// To make sure the rootObject doesn't interfere before it is destroyed
-				rootObject.SetActive (false);
-				// Destroy it with fire
-				Destroy (rootObject);
-			} else {
-				rootObject.transform.SetParent (rootOfNewScene.transform);
+		foreach (GameObject root in newScene.GetRootGameObjects()) {
+			switch (root.name)
+			{
+				case "Temp":
+				{
+					// To make sure the rootObject doesn't interfere before it is destroyed
+					root.SetActive (false);
+					// Destroy it with fire
+					Destroy (root);
+					break;
+				}
+				case "Past":
+				case "Present":
+					root.transform.SetParent(rootOfNewScene.transform);
+					foreach (var go in root.GetComponentsInChildren<SpriteRenderer>())
+					{
+						SetSortingOrder(go);
+					}
+					break;
+				default: root.transform.SetParent(rootOfNewScene.transform); break;
 			}
 		}
         SceneManager.MergeScenes(oldScene, newScene);

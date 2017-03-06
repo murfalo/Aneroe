@@ -40,6 +40,11 @@ public class Entity : MonoBehaviour
         Interacting
     }
 
+    void Update()
+    {
+        SceneController.SetSortingOrder(sRend);
+    }
+
 	// Internal properties
     protected float ATTACK_SPEED_FACTOR = .5f;
     protected float BLOCK_SPEED_FACTOR = 0f;

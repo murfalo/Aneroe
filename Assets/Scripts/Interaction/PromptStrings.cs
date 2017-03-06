@@ -20,12 +20,14 @@ public static class PromptStrings {
         { "introPromptSkip", "To skip past this dialogue or any other, press Enter."},
         { "introSwap", "Aged oaks block the way. Press Space to swap timelines!"},
         { "introPast", "Sunlight illuminates a vivid display of springtime to eyes unclouded by age." },
+		{ "introPast2", "You have traveled back in time many years. As you can see, the world is similar, but several specific things have changed over the years."},
         { "introSaplings", "Fragile young saplings obstruct the path." },
 		{ "introItemMounds", "Patches of dirt are safe places to bury items. Use an item on the dirt to bury it."},
 		{ "introBuryItem", "Bury the flask for your future self." },
 		{ "introPickupItem","Swap to the present timeline to retrieve the item."},
-        { "introItemPickup", "Perhaps there is valuable information contained within the scroll..." },
+        { "introScroll", "Perhaps there is valuable information contained within the scroll..." },
 		{ "introReset","If you ever get stuck, press the escape button to reset to the last checkpoint."},
 		{ "crossWater", "There looks to be some valuables across the water. I wonder if there's a way to cross..."},
+		{ "introItemPickup", "Left Click when on top of a buried item to pick it up."},
 	};
 }

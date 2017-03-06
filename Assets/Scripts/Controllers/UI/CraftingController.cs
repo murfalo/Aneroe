@@ -4,8 +4,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UIEvents;
 
-public class CraftingController : MonoBehaviour {
+public class CraftingController : BaseController {
 
     /// <summary>Accessors for items in the crafting input bar.</summary>
     private GameObject[] _inputItems
@@ -20,8 +21,7 @@ public class CraftingController : MonoBehaviour {
             return inputItems;
         }
     }
-
-
+		
     /// <summary> Setter for the crafting output slot.</summary>
     private GameObject _outputItem
     {
@@ -39,6 +39,16 @@ public class CraftingController : MonoBehaviour {
         }
     }
 
+	private GameObject _craftButton;
+
+	public override void InternalSetup() {
+		_craftButton = UIController.Crafting.transform.GetChild(1).GetChild(0).gameObject;
+	}
+
+	void Update() {
+		CheckIfCraftable ();
+	}
+
     /// <summary>Drops all items in crafting slots.</summary>
     public void DropItems()
     {
@@ -50,18 +60,36 @@ public class CraftingController : MonoBehaviour {
     /// <summary>Crafts a single item using the input items and places it in the output slot.</summary>
     public void CraftItem()
     {
-        if (_inputItems.Any(item => item == null) || _outputItem != null) return;
-        var newItem = CraftingRecipes.CraftItem(GetItemName(_inputItems[0]), GetItemName(_inputItems[1]), GetItemName(_inputItems[2]));
+        //if (_inputItems.Any(item => item == null) || _outputItem != null) return;
+		if (_outputItem != null) return;
+		var newItem = CraftingRecipes.CraftItem(GetItemName(_inputItems[0]), GetItemName(_inputItems[1]), GetItemName(_inputItems[2]));
         if (newItem == null) return;
-        for (var i = 1; i < _inputItems.Length; i++)
-            Destroy(_inputItems[i]);
-        _inputItems[0].GetComponent<InventorySlot>().SetUnsetItem(newItem.GetComponent<Item>());
-        _outputItem = _inputItems[0];
+
+		bool reuse = true;
+		for (var i = 0; i < _inputItems.Length; i++) {
+			if (!reuse)
+				Destroy (_inputItems [i]);
+			else if (_inputItems[i] != null) {
+				_inputItems [i].GetComponent<InventorySlot> ().SetUnsetItem (newItem.GetComponent<Item> ());
+				_outputItem = _inputItems [i];
+				reuse = false;
+			}
+		}
     }
 
     private string GetItemName(GameObject inputItem)
     {
+		if (inputItem == null)
+			return "";
         var itemComponent = inputItem.GetComponent<InventorySlot>();
         return (itemComponent != null) ? itemComponent.GetItem().prefabName : null;
     }
+
+	public void CheckIfCraftable() {
+		if (CraftingRecipes.CanCraft (GetItemName (_inputItems [0]), GetItemName (_inputItems [1]), GetItemName (_inputItems [2]))) {
+			_craftButton.GetComponent<Image> ().CrossFadeAlpha (1, 0, true);
+		} else {
+			_craftButton.GetComponent<Image> ().CrossFadeAlpha (.25f, 0, true);
+		}
+	}
 }
