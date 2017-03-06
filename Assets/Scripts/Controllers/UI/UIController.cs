@@ -10,6 +10,16 @@ public class UIController : BaseController
     /// <summary>The game object representing the user interface.</summary>
     [SerializeField] private GameObject UI;
 
+	/// <summary>Prefab for an inventory slot.</summary>
+	[SerializeField] private GameObject UISlot;
+
+	/// <summary>Prefab for an inventory item slot.</summary>
+	[SerializeField] private GameObject InvSlot;
+
+	// To allow access to other controllers
+	public static GameObject UISlotPrefab;
+	public static GameObject InvSlotPrefab;
+
     /// <summary>Tooltip object for displaying item names and descriptions.</summary>
     public static GameObject Tooltip;
 
@@ -171,6 +181,9 @@ public class UIController : BaseController
 					break;
             }
         }
+		UISlotPrefab = UISlot;
+		InvSlotPrefab = InvSlot;
+
 		Tooltip = Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tooltip"));
         Tooltip.transform.SetParent(UI.transform, false);
         Tooltip.SetActive(false);

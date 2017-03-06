@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SaveData;
 using UIEvents;
 using UnityEngine;
+using Timelines;
 
 public class PlayerEntity : Entity
 {
@@ -16,6 +17,9 @@ public class PlayerEntity : Entity
 
     public event EventHandler<ItemInteractEventArgs> itemInteracted;
 
+	public TimelinePeriod defaultPeriod;
+
+	[HideInInspector]
     public Inventory inv;
 	private Tile interactTile;
 
@@ -48,15 +52,14 @@ public class PlayerEntity : Entity
     {
         base.Setup();
 
+		currentPeriod = defaultPeriod;
+
         queuedStateActions = new PriorityQueue<CharacterStateAction>();
         defaultActions = new CharacterStateAction[Enum.GetNames(typeof(CharacterState)).Length];
         for (var i = 0; i < defaultActions.Length; i++)
             defaultActions[i] = new CharacterStateAction((CharacterState) i);
         var col = GetComponent<BoxCollider2D>();
-        //interactLayerMask = LayerMask.GetMask("InteractiveBlock", "Interactive Pass", "Item");
-        //interactRadius = .5f * ((col.size.x + col.size.y) / 2);
 
-		// REPLACE WITH CODE THAT CALCULATES FROM EITHER PLAYER OR ACTIVE HITBOX ON ITEM
         interactOffsets = new Vector2[4]
         {
             2*new Vector2(0, 1.25f * (.5f * col.size.y)),

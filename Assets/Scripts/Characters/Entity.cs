@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Timelines;
 
 [Serializable]
 public class Entity : MonoBehaviour
@@ -12,6 +13,9 @@ public class Entity : MonoBehaviour
     protected SpriteRenderer sRend;
 	private Color oldRendColor;
     protected Collider2D wallBox;
+
+	// Timeline info
+	protected TimelinePeriod currentPeriod;
 
     // Combat stats
     public StatInfo stats;

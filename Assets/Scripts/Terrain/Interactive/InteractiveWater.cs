@@ -1,7 +1,7 @@
 ﻿public class InteractiveWater : TileInteractive {
 
-	new void Start () {
-		base.Start();
+	new void Awake() {
+		base.Awake();
 		usableItemPrefabNames = new[] {"IcePotion"};
 	}
 }

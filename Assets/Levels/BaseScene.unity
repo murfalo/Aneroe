@@ -4488,6 +4488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 277161341}
+  UISlot: {fileID: 1914368732279666, guid: 6a1eb5f3c878149b2aa231a501cdb22b, type: 2}
+  InvSlot: {fileID: 1151138698362450, guid: 6db058cd62e55684da3bbfb09d11d82f, type: 2}
 --- !u!114 &1603288674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4538,9 +4540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9338fabb4f7ed4f1894437d499368c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UISlot: {fileID: 1914368732279666, guid: 6a1eb5f3c878149b2aa231a501cdb22b, type: 2}
-  InvSlot: {fileID: 1151138698362450, guid: 6db058cd62e55684da3bbfb09d11d82f, type: 2}
-  Item: {fileID: 1430202473246470, guid: afbe9dd10e1124b2a8999b790ed3daaf, type: 2}
   selectedOverlay: {fileID: 1861262369}
 --- !u!114 &1603288678
 MonoBehaviour:

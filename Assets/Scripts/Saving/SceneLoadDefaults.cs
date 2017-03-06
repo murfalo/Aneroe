@@ -21,4 +21,3 @@ public class SceneLoadDefaults : MonoBehaviour
 		currentObjStartPos = objStartPos;
 	}
 }
-

@@ -1,7 +1,7 @@
 ﻿public class InteractiveTree : TileInteractive {
 
-	new void Start () {
-		base.Start();
+	new void Awake () {
+		base.Awake();
 		if (isPast) usableItemTypes = new[] {typeof(Weapon)};
 	}
 }

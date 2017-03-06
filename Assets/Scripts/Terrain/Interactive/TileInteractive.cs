@@ -5,9 +5,9 @@ using System.Collections;
 public class TileInteractive : Tile
 {
 	public Sprite fullTileSprite, brokenTileSprite;
-	SpriteRenderer sRend;
-	Collider2D coll;
-	bool broken;
+	protected SpriteRenderer sRend;
+	protected Collider2D coll;
+	protected bool broken;
 	public bool isPast;
 	public string[] usableItemPrefabNames;
 
@@ -21,7 +21,7 @@ public class TileInteractive : Tile
 	}
 
 	// Use this for initialization
-	public void Start ()
+	public virtual void Awake ()
 	{
 		usableItemPrefabNames = new string[0];
 		usableItemTypes = new System.Type[0];
