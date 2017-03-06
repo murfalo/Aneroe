@@ -199,23 +199,22 @@ public class UIController : BaseController
 
     public void ReceiveInput(object source, InputEventArgs eventArgs)
     {
-        if (eventArgs.WasPressed("inventory"))
-        {
-            if (_activeMenu == null || _activeMenu == Inventory)
-                ToggleInventory();
-        }
-        else if (eventArgs.WasPressed("mainmenu"))
-        {
-            // If possible, deactivate other menu instead of activate main menu
-            if (_activeMenu != null && _activeMenu != MainMenu)
-                ToggleInventory();
-            else
-                MainMenu.SetActive(!MainMenu.activeSelf);
-            // Update active menu
-            _activeMenu = MainMenu.activeSelf ? MainMenu : null;
-        }
+		if (InputController.mode <= InputInfo.InputMode.UI) {
+			if (eventArgs.WasPressed ("inventory")) {
+				if (_activeMenu == null || _activeMenu == Inventory)
+					ToggleInventory ();
+			} else if (eventArgs.WasPressed ("mainmenu")) {
+				// If possible, deactivate other menu instead of activate main menu
+				if (_activeMenu != null && _activeMenu != MainMenu)
+					ToggleInventory ();
+				else
+					MainMenu.SetActive (!MainMenu.activeSelf);
+				// Update active menu
+				_activeMenu = MainMenu.activeSelf ? MainMenu : null;
+			}
 
-        InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;
+			InputController.mode = _activeMenu ? InputInfo.InputMode.UI : InputInfo.InputMode.Free;
+		}
     }
 
     private void ToggleInventory()

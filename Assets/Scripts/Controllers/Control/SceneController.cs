@@ -133,7 +133,8 @@ public class SceneController : BaseController
     private static void RemoveTempGameObjects()
     {
         Destroy(GameObject.Find("Items"));
-        var newHolder = new GameObject {name = "Items"};
+        //var newHolder = 
+		new GameObject {name = "Items"};
         Destroy(GameObject.Find("PlayerHolder"));
     }
 }

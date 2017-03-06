@@ -155,10 +155,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224896632}
-  - component: {fileID: 224896633}
   - component: {fileID: 224896634}
+  - component: {fileID: 224896633}
   m_Layer: 0
-  m_Name: ItEndsPrompt
+  m_Name: ItEndsCutscene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,12 +170,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 224896631}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 5.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1515792061}
-  m_Father: {fileID: 1026395764}
+  m_Children: []
+  m_Father: {fileID: 1052446286}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &224896633
@@ -189,17 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130000a4371706d4db3e6a6612919633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagePaths:
-  - 
-  - 
-  stringKeys:
-  - almostThere
-  - curseTheDisease
-  overridePromptDuration: -1
-  noTimer: 0
-  cameraPosition: []
-  zoomFactors: []
-  nextPrompt: {fileID: 0}
+  cutsceneName: prologue
 --- !u!61 &224896634
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -616,7 +605,7 @@ Transform:
   - {fileID: 740260636}
   - {fileID: 1669527014}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &717565185
 Prefab:
@@ -1107,8 +1096,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 224896632}
+  m_Children: []
   m_Father: {fileID: 643276904}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1164,6 +1152,35 @@ Transform:
   m_PrefabParentObject: {fileID: 4796593181658012, guid: 31f69ab4901cba34788102684ef3ad6f,
     type: 2}
   m_PrefabInternal: {fileID: 1030427680}
+--- !u!1 &1052446285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1052446286}
+  m_Layer: 0
+  m_Name: Cutscenes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1052446286
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052446285}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.5, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224896632}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1150048087
 Prefab:
   m_ObjectHideFlags: 0
@@ -1791,7 +1808,7 @@ Transform:
   - {fileID: 1808550541}
   - {fileID: 1282089587}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1447390212
 Prefab:
@@ -1849,53 +1866,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4796593181658012, guid: 31f69ab4901cba34788102684ef3ad6f,
     type: 2}
   m_PrefabInternal: {fileID: 1447390212}
---- !u!1 &1515792060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1515792061}
-  - component: {fileID: 1515792062}
-  m_Layer: 0
-  m_Name: SceneLoad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1515792061
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1515792060}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 224896632}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1515792062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1515792060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d3d5d8f36c72f41be876b27ba954f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imagePaths: []
-  stringKeys: []
-  overridePromptDuration: -1
-  noTimer: 0
-  fadeDuration: 1
-  fadeOut: 1
-  sceneName: OpeningScene2_20
 --- !u!1001 &1552287052
 Prefab:
   m_ObjectHideFlags: 0

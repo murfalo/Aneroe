@@ -13,8 +13,6 @@ namespace AneroeInputs {
 		public static InputInfo.InputMode mode;
 		public static InputEventWrapper iEvent;
 
-		public static bool inputingAllowed;
-
 		public Dictionary<string, string> inputPairings = new Dictionary<string, string>() {
 			{"w","up"},
 			{"a","left"},
@@ -39,7 +37,7 @@ namespace AneroeInputs {
 		    for (var i = 1; i <= InventoryController.ItemsPerRow; i++)
 		        inputPairings.Add(i.ToString(), "equip");
 			iEvent = new InputEventWrapper ();
-			inputingAllowed = false;
+			mode = InputInfo.InputMode.Loading;
 			SceneController.mergedNewScene += ActivateInputs;
 		}
 
@@ -48,7 +46,7 @@ namespace AneroeInputs {
 		}
 
 		void Update () {
-			if (!inputingAllowed)
+			if (mode == InputInfo.InputMode.Loading)
 				return;
 			var e = new InputEventArgs ();
 			foreach (var pair in inputPairings)
@@ -72,7 +70,7 @@ namespace AneroeInputs {
 		}
 
 		void ActivateInputs(object sender, EventArgs e) {
-			inputingAllowed = true;
+			mode = InputInfo.InputMode.Free;
 		}
 	}
 
@@ -147,7 +145,8 @@ namespace AneroeInputs {
 			Free,
 			UI,
 			Paused,
-			Cutscene
+			Cutscene,
+			Loading
 		}
 		// Don't hate me
 		// To be used so player can switch inputs during a game

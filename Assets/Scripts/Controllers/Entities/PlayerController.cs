@@ -63,59 +63,50 @@ public class PlayerController : EntityController
 
     public void ReceiveInput(object sender, InputEventArgs e)
     {
-        if (InputController.mode != InputInfo.InputMode.Free)
-            return;
-		
-		// Hotkey functionality
-		if (e.WasPressed("equip")) {
-			var newEquipped = e.GetTrigger("equip");
-			if (newEquipped != "") {
-				activeCharacter.TryItemEquip (int.Parse (newEquipped) - 1);
+		if (InputController.mode == InputInfo.InputMode.Free) {
+			// Hotkey functionality
+			if (e.WasPressed ("equip")) {
+				var newEquipped = e.GetTrigger ("equip");
+				if (newEquipped != "") {
+					activeCharacter.TryItemEquip (int.Parse (newEquipped) - 1);
+				}
+			}
+
+			// Inputs prioritized as such (by order of check):
+			// Attacking, Walking, Switching character
+			activeCharacter.Quicken (e.IsHeld ("quicken"));
+			activeCharacter.Slowen (e.IsHeld ("slowen"));
+
+			// See if a direction was input and log it
+			var dirChosen = false;
+			var dirActive = new bool[4];
+			var dirTapped = new bool[4];
+			for (var i = 0; i < directions.Length; i++) {
+				dirTapped [i] = e.WasPressed (directions [i]);
+				dirActive [i] = dirTapped [i] || e.IsHeld (directions [i]);
+				dirChosen = dirChosen || dirActive [i] || dirTapped [i];
+			}
+			activeCharacter.SetDirections (dirActive, dirTapped);
+
+			if (e.WasPressed ("attack")) {
+				activeCharacter.TryInteracting ();
+			} 
+			if (e.IsHeld ("attack")) {
+				activeCharacter.TryAttacking ();
+			} else if (e.IsHeld ("defend")) {
+				activeCharacter.TryBlocking ();
+			}
+			// Most likely going to filter out a seperate interact button altogether
+	        /*else if (e.WasPressed("interact"))
+	        {
+	            activeCharacter.TryInteracting();
+	        }*/
+	        else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
+				SwitchActiveCharacters (e);
+			} else if (dirChosen) {
+				activeCharacter.TryWalk ();
 			}
 		}
-
-        // Inputs prioritized as such (by order of check):
-        // Attacking, Walking, Switching character
-        activeCharacter.Quicken(e.IsHeld("quicken"));
-        activeCharacter.Slowen(e.IsHeld("slowen"));
-
-        // See if a direction was input and log it
-        var dirChosen = false;
-        var dirActive = new bool[4];
-        var dirTapped = new bool[4];
-        for (var i = 0; i < directions.Length; i++)
-        {
-            dirTapped[i] = e.WasPressed(directions[i]);
-            dirActive[i] = dirTapped[i] || e.IsHeld(directions[i]);
-            dirChosen = dirChosen || dirActive[i] || dirTapped[i];
-        }
-        activeCharacter.SetDirections(dirActive, dirTapped);
-
-		if (e.WasPressed ("attack")) 
-		{
-			activeCharacter.TryInteracting ();
-		} 
-		if (e.IsHeld("attack"))
-        {
-            activeCharacter.TryAttacking();
-        }
-        else if (e.IsHeld("defend"))
-        {
-            activeCharacter.TryBlocking();
-        }
-		// Most likely going to filter out a seperate interact button altogether
-        /*else if (e.WasPressed("interact"))
-        {
-            activeCharacter.TryInteracting();
-        }*/
-        else if (e.WasPressed("switch character") && activeCharacter.CanSwitchFrom())
-        {
-			SwitchActiveCharacters (e);
-        }
-        else if (dirChosen)
-        {
-            activeCharacter.TryWalk();
-        }
     }
 
 	void SwitchActiveCharacters(InputEventArgs e) {

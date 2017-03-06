@@ -9,13 +9,22 @@ public class PromptController : BaseController
 {
 	public static EventHandler<TextPromptEventArgs> textPrompted;
 
-	public float promptDuration = 3;
+	public static EventHandler<TextPromptEventArgs> cutsceneTextPrompted;
+	//public static EventHandler<TextPromptPromptedEventArgs> textPromptPrompted;
 
+	// Internal mechanics
+	public float promptDuration = 3;
+	float promptTimer;
+
+	// For standard prompts
 	public static TextPrompt activePrompt;
 	public List<KeyValuePair<TextPrompt,TextPromptEventArgs>> queuedPrompts;
 	public static InputEventArgs lastInputs;
-	float promptTimer;
 
+	// For cutscene prompts
+	public static TextPromptEventArgs cutscenePromptInfo;
+
+	// Prompt UI
 	[SerializeField] private GameObject promptBox;
 	[SerializeField] private Text promptBoxText;
 	[SerializeField] private Image promptBoxImage;
@@ -28,12 +37,14 @@ public class PromptController : BaseController
 	{
 		InputController.iEvent.inputed += ReceiveInput;
 		textPrompted += UpdatePrompt;
+		cutsceneTextPrompted += UpdateCutscenePrompt;
 	}
 
 	public override void RemoveEventListeners()
 	{
 		InputController.iEvent.inputed -= ReceiveInput;
 		textPrompted -= UpdatePrompt;
+		cutsceneTextPrompted -= UpdateCutscenePrompt;
 	}
 
 	public void Update() {
@@ -49,8 +60,23 @@ public class PromptController : BaseController
 
 	void ReceiveInput(object sender, InputEventArgs e) {
 		lastInputs = e;
-		if (activePrompt != null && e.WasPressed ("return")) {
-			activePrompt.ContinuePrompt ();
+		if (e.WasPressed ("return")) {
+			if (cutscenePromptInfo != null) {
+				CutsceneController.EndTextPrompt ();
+			} else if (activePrompt != null) {
+				activePrompt.ContinuePrompt ();
+			}
+		}
+	}
+
+	void UpdateCutscenePrompt(object sender, TextPromptEventArgs textE) {
+		cutscenePromptInfo = textE;
+		if (textE != null) {
+			promptBoxText.text = textE.text;
+			promptBoxImage.sprite = textE.image;
+			promptBox.SetActive (true);
+		} else {
+			promptBox.SetActive (false);
 		}
 	}
 
@@ -84,8 +110,26 @@ public class PromptController : BaseController
 
 }
 
-public class TextPromptEventArgs : InputEventArgs {
+public class TextPromptEventArgs : EventArgs {
 	public Sprite image;
 	public string text;
 	public float overrideDuration;
+
+	public TextPromptEventArgs()
+	{
+		image = null;
+		text = null;
+		overrideDuration = -1;
+	}
+
+	public TextPromptEventArgs(Sprite s, string t, float oD)
+	{
+		image = s;
+		text = t;
+		overrideDuration = oD;
+	}
+}
+
+public class TextPromptPromptedEventArgs : EventArgs {
+	public string promptName;
 }

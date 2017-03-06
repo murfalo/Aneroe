@@ -4445,6 +4445,7 @@ GameObject:
   - component: {fileID: 1603288673}
   - component: {fileID: 1603288674}
   - component: {fileID: 1603288680}
+  - component: {fileID: 1603288675}
   m_Layer: 0
   m_Name: Control
   m_TagString: Untagged
@@ -4502,6 +4503,17 @@ MonoBehaviour:
   promptBox: {fileID: 1674411947}
   promptBoxText: {fileID: 2028147232}
   promptBoxImage: {fileID: 1349749396}
+--- !u!114 &1603288675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1603288670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99478940fa012794690c76861ada8b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1603288676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4584,7 +4596,7 @@ MonoBehaviour:
   saves:
   - {fileID: 1005506719}
   - {fileID: 1817239984}
-  startScene: OpeningScene2_20
+  startScene: Prologue
   debugStartScene: 
 --- !u!4 &1603288683
 Transform:

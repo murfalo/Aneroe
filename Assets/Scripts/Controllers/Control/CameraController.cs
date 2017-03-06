@@ -10,12 +10,14 @@ public class CameraController : BaseController {
 	// For cutscene camera movement
 	public float camSpeed = 4f;
 
+	static bool cutSceneMovement;
 	static Vector3 targetPos;
 	static Vector3 vecToTargetPos;
 	static GameObject cam;
 
 	public override void InternalSetup() {
 		cam = GameObject.Find ("Main Camera");
+		cutSceneMovement = false;
 	}
 
 	public override void ExternalSetup() {
@@ -27,12 +29,12 @@ public class CameraController : BaseController {
 	}
 
 	void Update() {
-		if (InputController.mode != InputInfo.InputMode.Cutscene) {
-			if (target != null)
-				cam.transform.position = target.transform.position + new Vector3(0,0,-10);
-		} else {
+		if (cutSceneMovement) {
 			if (targetPos != default(Vector3))
 				MoveTowards (targetPos);
+		} else {
+			if (target != null)
+				cam.transform.position = target.transform.position + new Vector3(0,0,-10);
 		}
 	}
 
@@ -42,7 +44,12 @@ public class CameraController : BaseController {
 
 	public static void SetTargetPos(Vector3 pos) {
 		targetPos = pos;
-		vecToTargetPos = (pos - cam.transform.position).normalized;
+		if (pos == null)
+			cutSceneMovement = false;
+		else {
+			cutSceneMovement = true;
+			vecToTargetPos = (pos - cam.transform.position).normalized;
+		}
 	}
 
 	void MoveTowards(Vector3 pos) {
