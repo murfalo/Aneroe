@@ -54,7 +54,7 @@ public class CutsceneController : BaseController
 
 	static void PromptText(string[] args) {
 		actProgress [actIndex] = ActProgress.Started;
-		PromptController.cutsceneTextPrompted (null, new TextPromptEventArgs(null,args [1],-1));
+		PromptController.cutsceneTextPrompted (null, new TextPromptEventArgs(null,args [1],-1,"Self"));
 	}
 
 	public static void EndTextPrompt() {

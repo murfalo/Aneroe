@@ -28,6 +28,7 @@ public class PromptController : BaseController
 	[SerializeField] private GameObject promptBox;
 	[SerializeField] private Text promptBoxText;
 	[SerializeField] private Image promptBoxImage;
+	[SerializeField] private Text promptBoxNameText;
 
 	public override void InternalSetup() {
 		queuedPrompts = new List<KeyValuePair<TextPrompt,TextPromptEventArgs>> ();
@@ -73,6 +74,7 @@ public class PromptController : BaseController
 		cutscenePromptInfo = textE;
 		if (textE != null) {
 			promptBoxText.text = textE.text;
+			promptBoxNameText.text = textE.textSpeaker;
 			promptBoxImage.sprite = textE.image;
 			promptBox.SetActive (true);
 		} else {
@@ -88,6 +90,7 @@ public class PromptController : BaseController
 					promptTimer = promptDuration - textE.overrideDuration;
 				}
 				promptBoxText.text = textE.text;
+				promptBoxNameText.text = textE.textSpeaker;
 				promptBoxImage.sprite = textE.image;
 				promptBox.SetActive (true);
 			} else {
@@ -114,19 +117,22 @@ public class TextPromptEventArgs : EventArgs {
 	public Sprite image;
 	public string text;
 	public float overrideDuration;
+	public string textSpeaker;
 
 	public TextPromptEventArgs()
 	{
 		image = null;
 		text = null;
 		overrideDuration = -1;
+		textSpeaker = "???";
 	}
 
-	public TextPromptEventArgs(Sprite s, string t, float oD)
+	public TextPromptEventArgs(Sprite s, string t, float oD, string owner)
 	{
 		image = s;
 		text = t;
 		overrideDuration = oD;
+		textSpeaker = owner;
 	}
 }
 

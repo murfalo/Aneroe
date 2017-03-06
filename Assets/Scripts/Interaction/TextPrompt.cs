@@ -58,6 +58,7 @@ public class TextPrompt : MonoBehaviour {
 		textE.text = stringPrompts [promptIndex];
 		textE.image = images [promptIndex];
 		textE.overrideDuration = overridePromptDuration;
+		textE.textSpeaker = "???";
 		PromptController.textPrompted (this, textE);
 	}
 

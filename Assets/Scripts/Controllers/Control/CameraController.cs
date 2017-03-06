@@ -44,7 +44,7 @@ public class CameraController : BaseController {
 
 	public static void SetTargetPos(Vector3 pos) {
 		targetPos = pos;
-		if (pos == null)
+		if (pos == default(Vector3))
 			cutSceneMovement = false;
 		else {
 			cutSceneMovement = true;
