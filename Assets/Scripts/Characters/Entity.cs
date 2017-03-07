@@ -303,7 +303,7 @@ public class Entity : MonoBehaviour
         {
             Kill();
         }
-        else
+		else if (anim.GetInteger("state") != (int) CharacterState.Immobile)
         {
             anim.SetInteger("state", (int) CharacterState.Immobile);
             stunTimer = stunTime;

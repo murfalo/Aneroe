@@ -12,13 +12,13 @@ public class PlayerController : EntityController
 	public static PlayerEntity activeCharacter;
 	List<GameObject> characterPrefabs;
 
-    private PlayerEntity[] characters;
+    private static PlayerEntity[] characters;
 
 	// Extremely hacky (ONCE SCENES ARE ALIGNED, THIS WON'T BE NECESSARY)
 	// private Vector3[] questLinePositions;
 	// private Vector3 pastToPresent;
 
-    private int characterIndex;
+    private static int characterIndex;
     private string[] directions;
 
     public static event EventHandler<PlayerHealthChangedEventArgs> PlayerHealthChanged;
@@ -102,14 +102,14 @@ public class PlayerController : EntityController
 	            activeCharacter.TryInteracting();
 	        }*/
 	        else if (e.WasPressed ("switch character") && activeCharacter.CanSwitchFrom ()) {
-				SwitchActiveCharacters (e);
+				SwitchActiveCharacters ();
 			} else if (dirChosen) {
 				activeCharacter.TryWalk ();
 			}
 		}
     }
 
-	void SwitchActiveCharacters(InputEventArgs e) {
+	public static void SwitchActiveCharacters() {
 		var oldC = activeCharacter;
 		//int oldIndex = characterIndex;
 		characterIndex = (characterIndex + 1) % characters.Length;

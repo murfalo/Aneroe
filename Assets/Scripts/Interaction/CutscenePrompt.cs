@@ -18,7 +18,8 @@ public class CutscenePrompt : MonoBehaviour
 
 	protected virtual void OnTriggerEnter2D(Collider2D other) {
 		if (other.GetComponent<Entity> () == PlayerController.activeCharacter) {
-			CutsceneController.BeginCutscene (cutsceneName);
+			GetComponent<Collider2D> ().enabled = false;
+			CutsceneController.BeginCutscene (gameObject, cutsceneName);
 		}
 	}
 }

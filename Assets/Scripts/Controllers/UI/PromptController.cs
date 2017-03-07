@@ -56,6 +56,10 @@ public class PromptController : BaseController
 			} else {
 				activePrompt.CheckToContinue ();
 			}
+		} else if (InputController.mode == InputInfo.InputMode.Free && queuedPrompts.Count > 0) {
+			KeyValuePair<TextPrompt,TextPromptEventArgs> pair = queuedPrompts [0];
+			queuedPrompts.RemoveAt (0);
+			UpdatePrompt (pair.Key, pair.Value);
 		}
 	}
 
@@ -84,7 +88,7 @@ public class PromptController : BaseController
 
 	void UpdatePrompt(object sender, TextPromptEventArgs textE) {
 		if (textE != null) {
-			if (activePrompt == null) {
+			if (activePrompt == null && InputController.mode == InputInfo.InputMode.Free) {
 				activePrompt = (TextPrompt)sender;
 				if (textE.overrideDuration != -1) {
 					promptTimer = promptDuration - textE.overrideDuration;
@@ -99,11 +103,6 @@ public class PromptController : BaseController
 		} else {
 			activePrompt = null;
 			promptBox.SetActive (false);
-			if (queuedPrompts.Count > 0) {
-				KeyValuePair<TextPrompt,TextPromptEventArgs> pair = queuedPrompts [0];
-				queuedPrompts.RemoveAt (0);
-				UpdatePrompt (pair.Key, pair.Value);
-			}
 		}
 	}
 

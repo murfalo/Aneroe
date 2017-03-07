@@ -299,7 +299,7 @@ public class PlayerEntity : Entity
 	}
 
 	void HandleItemPickup(Item i) {
-		if (i.GetEntity () == null) {
+		if (i.GetEntity () == null && !inv.IsFull()) {
 			i.PickupItem (this);
 			inv.AddItem (i);
 			// Make sure if the item is picked up into active item slot, it is equipped
