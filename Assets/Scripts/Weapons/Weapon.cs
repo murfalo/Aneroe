@@ -39,6 +39,13 @@ public class Weapon : Item {
 		}
 	}
 
+	public void LateUpdate()
+	{
+		// Make owner call this after it sorts its own layer instead of using lateupdate
+		if (owner != null)
+			LayerSprite (anim.GetInteger ("dir"));
+	}
+
 	public void StartAttack(int dir) {
 		anim.SetBool ("attack", true);
 		// SIMILAR ISSUE WITH PLAYER ENTITY ANIMATIONS. NEED TO COMPARE LOCAL STATE TO CURRENT STATE OF ANIM
@@ -55,7 +62,6 @@ public class Weapon : Item {
 
 	public void SetWeaponDir(int dir) {
 		anim.SetInteger ("dir", dir);
-		LayerSprite (dir);
 	}
 
 	// Layer the sprite renderer so that the weapon is either in front the user or behind the user
@@ -130,6 +136,9 @@ public class Weapon : Item {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
+		// If weapon isn't being used by an entity, it shouldn't do anything
+		if (owner == null)
+			return;
 
 		// If interactive tile
 		if (((1 << other.gameObject.layer) & LayerMask.GetMask (new string[] { "InteractiveBlock", "InteractivePass" })) > 0) {

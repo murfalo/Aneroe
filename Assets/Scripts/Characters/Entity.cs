@@ -69,7 +69,7 @@ public class Entity : MonoBehaviour
         Left
     }
 
-    void Update()
+    public virtual void Update()
     {
         SceneController.SetSortingOrder(sRend);
     }

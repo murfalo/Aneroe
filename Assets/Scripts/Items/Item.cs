@@ -6,7 +6,7 @@ using System;
 public class Item : MonoBehaviour {
 
 	// Components
-	protected SpriteRenderer sRend;
+	public SpriteRenderer sRend;
 	protected Collider2D pickupCollider;
 
 	public string prefabName;

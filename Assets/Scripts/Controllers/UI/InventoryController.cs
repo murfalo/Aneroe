@@ -141,7 +141,6 @@ public class InventoryController : BaseController
 		// Load from active character inventory
         var activeInv = PlayerController.activeCharacter.inv;
         var numSlots = activeInv.maxItems;
-        Debug.Log(_slots[PlayerController.activeCharacter.inv.itemSlotEquipped].name);
 
         for (var i = 0; i < numSlots; i++)
         {
