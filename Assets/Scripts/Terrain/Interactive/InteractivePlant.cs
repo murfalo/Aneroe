@@ -2,67 +2,66 @@
 using System.Linq;
 using System.Collections;
 
-public class InteractivePlant : Tile
+public class InteractivePlant : TileInteractive
 {
+	const string GROWTH_ITEM = "WaterPotion";
+	// In addition to default full tile sprite
+	public Sprite budTileSprite;
 
-	public Sprite fullTileSprite, brokenTileSprite;
-	SpriteRenderer sRend;
-	bool broken;
-	Collider2D coll;
-	public string[] usableItemPrefabNames;
-	public GameObject drop;
+	public GameObject[] drops;
+	Vector3 dropBounds;
+	public bool stillGrowing;
 
-	public override bool CanUseItem(Item item) {
-		// If you're not wielding something, interaction is always allowed
-		if (item != null && typeof(Weapon) == item.GetType ()) {
-			Item i;
-			this.UseItem (item,out i);
-		}
-		return false;
-	}
+	new void Start () {
+		base.Start();
+		usableItemTypes = new[] {typeof(Weapon)};
+		usableItemPrefabNames = new[] { GROWTH_ITEM };
 
-	// Use this for initialization
-	public void Start ()
-	{
-		usableItemPrefabNames = new string[0];
-		usableItemTypes = new System.Type[0];
-		sRend = GetComponent<SpriteRenderer> ();
-		coll = GetComponent<Collider2D> ();
-		broken = false;
-	}
-
-	// Update is called once per frame
-	void Update ()
-	{
+		dropBounds = coll.bounds.extents;
 	}
 
 	public override void UseItem (Item item, out Item newItem)
 	{
-		newItem = null;
-		if (typeof(Weapon) != item.GetType ()) {
-			return;
+		newItem = item;
+		if (item.prefabName.Equals (GROWTH_ITEM)) {
+			if (stillGrowing) {
+				newItem = null;
+				stillGrowing = false;
+			}
+		} else if (!stillGrowing) {
+			broken = true;
+			coll.enabled = false;
+			foreach (GameObject drop in drops) {
+				GameObject dropItem = (GameObject)Instantiate (drop);
+				Item i = dropItem.GetComponent<Item> ();
+				i.Setup ();
+				i.DropItem (transform.position + new Vector3(Random.Range(-dropBounds.x, dropBounds.x),Random.Range(-dropBounds.y, dropBounds.y),0));
+			}
 		}
-
-		sRend.enabled = false;
-		broken = true;
-		coll.enabled = false;
-		GameObject dropItem = (GameObject)Instantiate (drop);
-		Item i = dropItem.GetComponent<Item> ();
-		i.Setup();
-		i.DropItem(transform.position);
+		UpdateSprite ();
 	}
 
 	public override Hashtable Save() {
-		Hashtable tsd = new Hashtable (); 
-		tsd.Add ("broken", broken);
-		tsd.Add ("col_enabled", coll.enabled);
+		Hashtable tsd = base.Save(); 
+		tsd.Add ("growing", stillGrowing);
 		return tsd;
 	}
 
 	public override void Load(Hashtable tsd) {
-		broken = (bool)tsd ["broken"];
-		coll.enabled = (bool)tsd ["col_enabled"];
-		sRend.enabled = broken ? false : true;
+		base.Load (tsd);
+		stillGrowing = (bool)tsd ["growing"];
+		UpdateSprite ();
+
+	}
+
+	void UpdateSprite() {
+		if (broken)
+			sRend.sprite = brokenTileSprite;
+		else if (stillGrowing) {
+			sRend.sprite = budTileSprite;
+		} else {
+			sRend.sprite = fullTileSprite;
+		}
 	}
 }
 

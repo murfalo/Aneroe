@@ -8,14 +8,21 @@ public static class CraftingRecipes {
 
     public static Dictionary<string[], string> recipes = new Dictionary<string[], string>(new RecipeEqualityComparer())
     {
-        {new[] {"Bone", "IceBerry", "StoneFlask"}, "IcePotion"},
+		// Introduction
+        {new[] {"Bone", "Botany/IceBerry", "StoneFlask"}, "IcePotion"},
+
+		// Test run
 		{new[] {"FirePotion","",""}, "FireElement"},
 		{new[] {"Bone","Bone","BloodVial"}, "RefinedBloodVial"},
-		{new[] {"IceBerry","FirePotion","StoneFlask"}, "WaterPotion"},
-		{new[] {"RedLeaf","GreenLeaf","YellowLeaf"}, "RainbowLeaf"},
-		{new[] {"YellowLeaf","LifePotion","YellowLeaf"}, "LifeLeaf"},
-		{new[] {"RainbowLeaf","RainbowLeaf","LifeLeaf"}, "LifeEssence"},
-		{new[] {"RefinedBloodVial","WaterPotion","LifeEssence"}, "EndVile"}
+		{new[] {"Botany/IceBerry","FirePotion","StoneFlask"}, "WaterPotion"},
+		{new[] {"Botany/RedLeaf","Botany/GreenLeaf","Botany/YellowLeaf"}, "RainbowLeaf"},
+		{new[] {"Botany/YellowLeaf","LifePotion","Botany/YellowLeaf"}, "LifeLeaf"},
+		{new[] {"BotanyRainbowLeaf","Botany/RainbowLeaf","Botany/LifeLeaf"}, "LifeEssence"},
+		{new[] {"RefinedBloodVial","WaterPotion","LifeEssence"}, "EndVile"},
+
+		// Botany recipes
+		{new[] {"Botany/RedBud","Botany/PurpleBud",""}, "Botany/BlueBud"},
+		{new[] {"Botany/BlueBud","Botany/RedBud","Botany/GreenBud"}, "Botany/BlackBud"},
     };
 
     public static GameObject CraftItem(string item1, string item2, string item3)

@@ -155,7 +155,8 @@ public class PlayerEntity : Entity
 		if (newItem == null && activeItem != null) {
 			// If item was used up, get rid of it in inventory
 			HandleItemRemove(activeItem);
-		} else if (newItem != activeItem && newItem != null) {
+		} else if (newItem != null && newItem != activeItem) {
+			HandleItemRemove (activeItem);
 			HandleItemPickup (newItem);
 		}
 	}

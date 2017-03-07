@@ -150,8 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45eb85b845f53f4798d95af6f16b0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItemPrefabNames:
-  - Dagger
+  defaultItemPrefabNames: []
   MAX_HEALTH: 10
   speed: 0.5
   attack: 3

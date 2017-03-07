@@ -5,11 +5,11 @@ using System.Collections;
 public class TileInteractive : Tile
 {
 	public Sprite fullTileSprite, brokenTileSprite;
-	SpriteRenderer sRend;
-	Collider2D coll;
-	bool broken;
+	protected string[] usableItemPrefabNames;
+	protected SpriteRenderer sRend;
+	protected Collider2D coll;
+	protected bool broken;
 	public bool isPast;
-	public string[] usableItemPrefabNames;
 
 	public override bool CanUseItem(Item item) {
 		// If you're not wielding something, interaction is always allowed

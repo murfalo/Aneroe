@@ -38,6 +38,7 @@ public class CameraController : BaseController {
 
 	void SetTarget(object sender, PlayerSwitchEventArgs e) {
 		target = PlayerController.activeCharacter;
+		cam.transform.position = target.transform.position + new Vector3(0,0,-10);
 	}
 
 	public static void SetTargetPos(Vector3 pos) {
