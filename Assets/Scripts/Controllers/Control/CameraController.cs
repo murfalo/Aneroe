@@ -6,6 +6,7 @@ public class CameraController : BaseController {
 
 	// For non-cutscene entity trailing
 	Entity target;
+	public static GameObject sceneTarget;
 
 	// For cutscene camera movement
 	public float camSpeed = 4f;
@@ -28,8 +29,11 @@ public class CameraController : BaseController {
 
 	void Update() {
 		if (InputController.mode == InputInfo.InputMode.Cutscene) {
+			// Requested position takes precedence over assigned target object
 			if (targetPos != default(Vector3))
 				MoveTowards (targetPos);
+			else if (sceneTarget != null)
+				cam.transform.position = sceneTarget.transform.position + new Vector3(0,0,-10);
 		} else {
 			if (target != null)
 				cam.transform.position = target.transform.position + new Vector3(0,0,-10);

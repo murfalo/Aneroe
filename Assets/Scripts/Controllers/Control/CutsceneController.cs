@@ -33,6 +33,7 @@ public class CutsceneController : BaseController
 		{"loadScene",LoadScene},
 		{"timeSwap",TimeSwap},
 		{"camTo",MoveCamera},
+		{"trackEntity",TrackEntity},
 	};
 
 	public override void InternalSetup () {
@@ -170,6 +171,11 @@ public class CutsceneController : BaseController
 			yield return new WaitForSeconds (Time.deltaTime);
 		}
 		actProgress [actIndex] = ActProgress.Finished;
+	}
+
+	static void TrackEntity(string[] args) {
+		actProgress [actIndex] = ActProgress.Finished;
+		CameraController.sceneTarget = bool.Parse(args[1]) ? PlayerController.activeCharacter.gameObject : null;
 	}
 
 	public static void BeginCutscene(GameObject obj, string name) {

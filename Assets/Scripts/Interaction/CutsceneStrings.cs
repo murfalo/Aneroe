@@ -49,6 +49,7 @@ namespace Cutscenes
 					new [] {"wait",".1"},
 					new [] {"turn","3"},
 					new [] {"text","This is after the failed expedition."},
+					new [] {"trackEntity", "true"},
 					new [] {"takeSteps","2","1"},
 					new [] {"text","I only gained access to these two timeframes, but it'll have to do."},
 				}

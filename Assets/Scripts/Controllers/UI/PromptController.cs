@@ -77,6 +77,8 @@ public class PromptController : BaseController
 	void UpdateCutscenePrompt(object sender, TextPromptEventArgs textE) {
 		cutscenePromptInfo = textE;
 		if (textE != null) {
+			// Get rid of possible text prompt currently being tracked
+			activePrompt = null;
 			promptBoxText.text = textE.text;
 			promptBoxNameText.text = textE.textSpeaker;
 			promptBoxImage.sprite = textE.image;
