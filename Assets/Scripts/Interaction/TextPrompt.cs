@@ -52,13 +52,13 @@ public class TextPrompt : MonoBehaviour {
 	public virtual void CheckToContinue() {}
 
 	public void SendPromptEvent(bool overrideEvent) {
-		if (overrideEvent)
-			PromptController.activePrompt = null;
+		//	PromptController.activePrompt = null;
 		TextPromptEventArgs textE = new TextPromptEventArgs ();
 		textE.text = stringPrompts [promptIndex];
 		textE.image = images [promptIndex];
 		textE.overrideDuration = overridePromptDuration;
 		textE.textSpeaker = "???";
+		textE.chainPrompt = overrideEvent;
 		PromptController.textPrompted (this, textE);
 	}
 

@@ -61,4 +61,9 @@ public class CameraController : BaseController {
 	public static bool CameraAtTarget() {
 		return targetPos == default(Vector3);
 	}
+
+	public static void FinishScene() {
+		targetPos = default(Vector3);
+		sceneTarget = null;
+	}
 }

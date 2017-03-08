@@ -63,6 +63,7 @@ public class CutsceneController : BaseController
 					if (InputController.mode <= InputInfo.InputMode.Cutscene)
 						InputController.mode = InputInfo.InputMode.Free;
 					cutscene.Finish ();
+					CameraController.FinishScene ();
 					return;
 				}
 			}

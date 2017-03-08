@@ -18,7 +18,7 @@ public class PromptController : BaseController
 
 	// For standard prompts
 	public static TextPrompt activePrompt;
-	public List<KeyValuePair<TextPrompt,TextPromptEventArgs>> queuedPrompts;
+	//public List<KeyValuePair<TextPrompt,TextPromptEventArgs>> queuedPrompts;
 	public static InputEventArgs lastInputs;
 
 	// For cutscene prompts
@@ -31,7 +31,7 @@ public class PromptController : BaseController
 	[SerializeField] private Text promptBoxNameText;
 
 	public override void InternalSetup() {
-		queuedPrompts = new List<KeyValuePair<TextPrompt,TextPromptEventArgs>> ();
+		//queuedPrompts = new List<KeyValuePair<TextPrompt,TextPromptEventArgs>> ();
 	}
 
 	public override void ExternalSetup()
@@ -60,11 +60,11 @@ public class PromptController : BaseController
 			} else {
 				activePrompt.CheckToContinue ();
 			}
-		} else if (InputController.mode == InputInfo.InputMode.Free && queuedPrompts.Count > 0) {
+		} /*else if (InputController.mode == InputInfo.InputMode.Free && queuedPrompts.Count > 0) {
 			KeyValuePair<TextPrompt,TextPromptEventArgs> pair = queuedPrompts [0];
 			queuedPrompts.RemoveAt (0);
 			UpdatePrompt (pair.Key, pair.Value);
-		}
+		}*/
 	}
 
 	void ReceiveInput(object sender, InputEventArgs e) {
@@ -94,7 +94,7 @@ public class PromptController : BaseController
 
 	void UpdatePrompt(object sender, TextPromptEventArgs textE) {
 		if (textE != null) {
-			if (activePrompt == null && InputController.mode == InputInfo.InputMode.Free) {
+			if ((activePrompt == null || textE.chainPrompt) && InputController.mode == InputInfo.InputMode.Free) {
 				activePrompt = (TextPrompt)sender;
 				if (textE.overrideDuration != -1) {
 					promptTimer = promptDuration - textE.overrideDuration;
@@ -104,7 +104,7 @@ public class PromptController : BaseController
 				promptBoxImage.sprite = textE.image;
 				promptBox.SetActive (true);
 			} else {
-				queuedPrompts.Add (new KeyValuePair<TextPrompt, TextPromptEventArgs>((TextPrompt)sender,textE));
+				//queuedPrompts.Add (new KeyValuePair<TextPrompt, TextPromptEventArgs>((TextPrompt)sender,textE));
 			}
 		} else {
 			activePrompt = null;
@@ -143,6 +143,7 @@ public class PromptController : BaseController
 }
 
 public class TextPromptEventArgs : EventArgs {
+	public bool chainPrompt;
 	public Sprite image;
 	public string text;
 	public float overrideDuration;
