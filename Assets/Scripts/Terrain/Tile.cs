@@ -5,6 +5,8 @@ using TerrainEvents;
 
 public class Tile : MonoBehaviour {
 
+	public string prefabName;
+
 	public Tile otherTile;
 
 	[HideInInspector]
@@ -25,8 +27,9 @@ public class Tile : MonoBehaviour {
 
 	// Use item on tile
 	// Returns false if the item still belongs to the entity
-	public virtual void UseItem(Item itemUsed, out Item newItem) {
+	public virtual bool UseItem(Item itemUsed, out Item newItem) {
 		newItem = null;
+		return true;
 	}
 
     public virtual void IndirectUseItem(Item item, out Item newItem)

@@ -9,12 +9,12 @@ public static class CraftingRecipes {
     public static Dictionary<string[], string> recipes = new Dictionary<string[], string>(new RecipeEqualityComparer())
     {
 		// Introduction
-        {new[] {"Bone", "Botany/IceBerry", "StoneFlask"}, "IcePotion"},
+        {new[] {"Bone", "Botany/IceBerry", "PotionFlask"}, "IcePotion"},
 
 		// Test run
 		{new[] {"FirePotion","",""}, "FireElement"},
 		{new[] {"Bone","Bone","BloodVial"}, "RefinedBloodVial"},
-		{new[] {"Botany/IceBerry","FirePotion","StoneFlask"}, "WaterPotion"},
+		{new[] {"Botany/IceBerry","FirePotion","PotionFlask"}, "WaterPotion"},
 		{new[] {"Botany/RedLeaf","Botany/GreenLeaf","Botany/YellowLeaf"}, "RainbowLeaf"},
 		{new[] {"Botany/YellowLeaf","LifePotion","Botany/YellowLeaf"}, "LifeLeaf"},
 		{new[] {"BotanyRainbowLeaf","Botany/RainbowLeaf","Botany/LifeLeaf"}, "LifeEssence"},
@@ -23,6 +23,8 @@ public static class CraftingRecipes {
 		// Botany recipes
 		{new[] {"Botany/RedBud","Botany/PurpleBud",""}, "Botany/BlueBud"},
 		{new[] {"Botany/BlueBud","Botany/RedBud","Botany/GreenBud"}, "Botany/BlackBud"},
+		{new[] {"Botany/BlackBud","RefinedBloodVial",""}, "EndVile"},
+
     };
 
     public static GameObject CraftItem(string item1, string item2, string item3)

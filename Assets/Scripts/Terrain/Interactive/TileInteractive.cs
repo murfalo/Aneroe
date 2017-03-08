@@ -35,7 +35,7 @@ public class TileInteractive : Tile
     {
 	}
 
-	public override void UseItem (Item item, out Item newItem)
+	public override bool UseItem (Item item, out Item newItem)
 	{
 		newItem = null;
 		sRend.sprite = brokenTileSprite;
@@ -44,6 +44,7 @@ public class TileInteractive : Tile
 		SendDisableTileEvent ();
 		if (otherTile && isPast)
             otherTile.IndirectUseItem(item, out newItem);
+		return true;
 	}
 
     public override void IndirectUseItem(Item item, out Item newItem)
@@ -56,7 +57,7 @@ public class TileInteractive : Tile
     }
 
 	public override Hashtable Save() {
-	    var tsd = new Hashtable {{"broken", broken}, {"col_enabled", coll.enabled}};
+		var tsd = new Hashtable {{"broken", broken}, {"col_enabled", coll.enabled}, {"prefabName", prefabName}};
 	    return tsd;
 	}
 

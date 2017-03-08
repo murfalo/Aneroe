@@ -151,12 +151,12 @@ public class PlayerEntity : Entity
 		if (tile != null)
 			interactTile = tile;
 		Item newItem;
-		interactTile.UseItem (activeItem, out newItem);
+		bool keepOldItem = interactTile.UseItem (activeItem, out newItem);
 		if (newItem == null && activeItem != null) {
 			// If item was used up, get rid of it in inventory
 			HandleItemRemove(activeItem);
 		} else if (newItem != null && newItem != activeItem) {
-			if (activeItem != null)
+			if (activeItem != null && !keepOldItem)
 				HandleItemRemove (activeItem);
 			HandleItemPickup (newItem);
 		}

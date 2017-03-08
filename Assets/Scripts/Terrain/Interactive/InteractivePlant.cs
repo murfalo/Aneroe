@@ -4,13 +4,19 @@ using System.Collections;
 
 public class InteractivePlant : TileInteractive
 {
+	public enum GrowthStates {
+		Planted,
+		Growing,
+		FullyGrown
+	};
+
 	const string GROWTH_ITEM = "WaterPotion";
 	// In addition to default full tile sprite
-	public Sprite budTileSprite;
+	public Sprite budTileSprite, growingTileSprite;
 
 	public GameObject[] drops;
 	Vector3 dropBounds;
-	public bool stillGrowing;
+	GrowthStates growthState;
 
 	new void Start () {
 		base.Start();
@@ -18,17 +24,29 @@ public class InteractivePlant : TileInteractive
 		usableItemPrefabNames = new[] { GROWTH_ITEM };
 
 		dropBounds = coll.bounds.extents;
+		if (sRend.sprite.Equals (budTileSprite)) {
+			growthState = GrowthStates.Planted;
+		} else if (sRend.sprite.Equals (growingTileSprite)) {
+			growthState = GrowthStates.Growing;
+		} else {
+			growthState = GrowthStates.FullyGrown;
+		}
 	}
 
-	public override void UseItem (Item item, out Item newItem)
+	public void Plant() {
+		growthState = GrowthStates.Planted;
+		UpdateSprite ();
+	}
+
+	public override bool UseItem (Item item, out Item newItem)
 	{
 		newItem = item;
 		if (item.prefabName.Equals (GROWTH_ITEM)) {
-			if (stillGrowing) {
+			if (growthState == GrowthStates.Growing) {
 				newItem = null;
-				stillGrowing = false;
+				growthState = GrowthStates.FullyGrown;
 			}
-		} else if (!stillGrowing) {
+		} else if (growthState == GrowthStates.FullyGrown) {
 			broken = true;
 			coll.enabled = false;
 			foreach (GameObject drop in drops) {
@@ -39,28 +57,37 @@ public class InteractivePlant : TileInteractive
 			}
 		}
 		UpdateSprite ();
+		return true;
 	}
 
 	public override Hashtable Save() {
 		Hashtable tsd = base.Save(); 
-		tsd.Add ("growing", stillGrowing);
+		tsd ["growing"] = growthState;
 		return tsd;
 	}
 
 	public override void Load(Hashtable tsd) {
 		base.Load (tsd);
-		stillGrowing = (bool)tsd ["growing"];
+		growthState = (GrowthStates)tsd ["growing"];
 		UpdateSprite ();
 
 	}
 
 	void UpdateSprite() {
-		if (broken)
+		if (broken) {
 			sRend.sprite = brokenTileSprite;
-		else if (stillGrowing) {
+			return;
+		}
+		switch (growthState) {
+		case GrowthStates.Planted: 
 			sRend.sprite = budTileSprite;
-		} else {
+			break;
+		case GrowthStates.Growing:
+			sRend.sprite = growingTileSprite;
+			break;
+		case GrowthStates.FullyGrown:
 			sRend.sprite = fullTileSprite;
+			break;
 		}
 	}
 }

@@ -67,10 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9ec2de4db210e4e80fe8bf689b0b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sRend: {fileID: 0}
   prefabName: RefinedBloodVial
   smallItem: 0
   count: 0
-  Name: Refined Blood Vial
+  Name: Refined Blood Potion
   Description: The Blood of 1000 Truths
 --- !u!212 &212841166349683742
 SpriteRenderer:

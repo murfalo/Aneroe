@@ -161,7 +161,7 @@ MonoBehaviour:
   defense: 1
   enemyState: 0
   itemDropNames:
-  - FirePotion
+  - PotionFlask
   itemDropWeights:
   - 1
 --- !u!114 &114130972918652096

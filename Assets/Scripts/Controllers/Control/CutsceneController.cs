@@ -34,6 +34,7 @@ public class CutsceneController : BaseController
 		{"timeSwap",TimeSwap},
 		{"camTo",MoveCamera},
 		{"trackEntity",TrackEntity},
+		{"pauseTime",PauseTime},
 	};
 
 	public override void InternalSetup () {
@@ -188,6 +189,11 @@ public class CutsceneController : BaseController
 	static void TrackEntity(string[] args) {
 		actProgress [actIndex] = ActProgress.Finished;
 		CameraController.sceneTarget = bool.Parse(args[1]) ? PlayerController.activeCharacter.gameObject : null;
+	}
+
+	static void PauseTime(string[] args) {
+		actProgress [actIndex] = ActProgress.Finished;
+		AIController.PauseAllEnemies (bool.Parse (args [1]));
 	}
 
 	public static void BeginCutscene(CutscenePrompt cScene, string name) {

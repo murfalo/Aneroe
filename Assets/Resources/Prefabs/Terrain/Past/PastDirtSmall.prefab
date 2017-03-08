@@ -72,7 +72,7 @@ MonoBehaviour:
   interactState: 0
   isPast: 1
   emptyTileSprite: {fileID: 21300000, guid: 9ee39059da228074389065e4f64c2256, type: 3}
-  fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
+  fullTileSprite: {fileID: 21300000, guid: e3899119051cdb543ba5062038b0e190, type: 3}
 --- !u!212 &212408727721244620
 SpriteRenderer:
   m_ObjectHideFlags: 1

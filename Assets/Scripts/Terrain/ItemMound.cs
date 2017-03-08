@@ -47,7 +47,7 @@ public class ItemMound : Tile {
 	}
 
 	// Bury item in mound
-	public override void UseItem(Item item, out Item unburiedItem) {
+	public override bool UseItem(Item item, out Item unburiedItem) {
 		ItemMound otherMound = (ItemMound)otherTile;
 		// passed item can be buried
 		if (buriedItem == null && item != null && CanBuryItem(item)) 
@@ -85,6 +85,7 @@ public class ItemMound : Tile {
 		} else {
 			unburiedItem = item;
 		}
+		return true;
 	}
 
 	// Other tile calls this to affect it with item buried in other tile

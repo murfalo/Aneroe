@@ -71,8 +71,8 @@ MonoBehaviour:
   primaryTile: 1
   interactState: 0
   isPast: 0
-  emptyTileSprite: {fileID: 21300000, guid: 9ee39059da228074389065e4f64c2256, type: 3}
-  fullTileSprite: {fileID: 21300000, guid: 1ce60668b78abf04e9ea8246e1a02d63, type: 3}
+  emptyTileSprite: {fileID: 21300000, guid: 725aab2dc29f50e41888ad81d0767914, type: 3}
+  fullTileSprite: {fileID: 21300000, guid: b849314d260c63740b94d494cfdbb204, type: 3}
 --- !u!212 &212880585723036712
 SpriteRenderer:
   m_ObjectHideFlags: 1

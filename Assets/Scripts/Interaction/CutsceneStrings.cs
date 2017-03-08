@@ -39,7 +39,7 @@ namespace Cutscenes
 					new [] {"turn","3"},
 					new [] {"text","I'm alive!? This can't be."},
 					new [] {"text","And I'm in the past. I even have my dagger!"},
-					new [] {"text","I don't feel fully integrated into this timeframe though"},
+					new [] {"text","I don't feel fully integrated into this timeframe though."},
 					new [] {"wait",".5"},
 					new [] {"timeSwap"},
 					new [] {"wait",".5"},
@@ -66,6 +66,33 @@ namespace Cutscenes
 				new List<string[]> {
 					new [] {"camTo","marker1"},
 					new [] {"text","Wouldn't it be lovely if one could freeze that water and pass over it?","???"},
+				}
+			},
+			{"budsSpotted",
+				new List<string[]> {
+					new [] {"pauseTime","true"},
+					new [] {"camTo","marker1"},
+					new [] {"text","The buds from those plants could be useful in making herbs. That and a little RGB."},
+					new [] {"trackEntity","true"},
+					new [] {"pauseTime","false"},
+				}
+			},
+			{"deadSkeleton",
+				new List<string[]> {
+					new [] {"pauseTime", "true"},
+					new [] {"camTo","marker1"},
+					new [] {"text","What happened here? It looks like the bones were broken recently."},
+					new [] {"text","Oh, they aren't broken. They're being consumed by whatever residue is on them. Cool"},
+					new [] {"pauseTime", "false"},
+				}
+			},
+			{"unbeatable",
+				new List<string[]> {
+					new [] {"pauseTime", "true"},
+					new [] {"text","There has to be a way to harm it..."},
+					new [] {"text","..."},
+					new [] {"text","The residue on the dead one! That must do something."},
+					new [] {"pauseTime", "false"},
 				}
 			},
 		};

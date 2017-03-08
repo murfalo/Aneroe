@@ -72,6 +72,10 @@ public class AIController : BaseController {
 		spawners.Remove (spawner);
 	}
 
+	public static void PauseAllEnemies(bool pause) {
+		GameObject.Find ("Control").GetComponent<AIController> ().PauseEnemies (null, new PlayerSwitchEventArgs (null, pause ? null : PlayerController.activeCharacter));
+	}
+
 	public void PauseEnemies(object sender, PlayerSwitchEventArgs e) {
 		foreach (SpawnerController spawner in spawners) {
 			spawner.HandleSpawnerActivity (e);
