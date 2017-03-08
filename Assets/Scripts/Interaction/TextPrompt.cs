@@ -67,4 +67,16 @@ public class TextPrompt : MonoBehaviour {
 			BeginPrompt ();
 		}
 	}
+
+	public Hashtable Save()
+	{
+		return new Hashtable () {
+			{ "promptIndex",promptIndex },
+		};
+	}
+
+	public void Load(Hashtable info)
+	{
+		promptIndex = (int)info ["promptIndex"];
+	}
 }

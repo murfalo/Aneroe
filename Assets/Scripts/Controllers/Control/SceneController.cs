@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ public class SceneController : BaseController
     private static bool loadStandaloneScene;
 
     public override void InternalSetup()
-    {
+	{
         SceneManager.sceneLoaded += LoadedScene;
 
         // Activate controller load from file as this is the first time loading them
@@ -28,8 +29,8 @@ public class SceneController : BaseController
     public static void AddScene(string newScene)
     {
         if (!SceneManager.GetActiveScene().name.Equals(newScene))
-        {
-            oldScene = SceneManager.GetActiveScene();
+		{
+			oldScene = SceneManager.GetActiveScene();
             UIController.ToggleLoadingScreen(true);
             SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
         }
@@ -74,8 +75,7 @@ public class SceneController : BaseController
                     SetSortingOrder(sr);
             root.transform.SetParent(rootOfNewScene.transform);
         }
-        SceneManager.MergeScenes(oldScene, newScene);
-        oldScene = newScene;
+		SceneManager.MergeScenes(oldScene, newScene);
 
         if (mergedNewScene != null)
             mergedNewScene(this, new SceneSwitchEventArgs(rootOfNewScene.name, loadStandaloneScene));
@@ -121,6 +121,15 @@ public class SceneController : BaseController
         AddScene(sceneName);
     }
 
+	public static List<GameObject> RetrieveSceneRootObjs() {
+		List<GameObject> sceneRoots = new List<GameObject>();
+		foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects ()) {
+			if (obj.name.Contains ("Scene"))
+				sceneRoots.Add (obj);
+		}
+		return sceneRoots;
+	}
+
     public static void ChangeActiveCharacter(PlayerEntity oldP, PlayerEntity newP)
     {
         // Add scene loading functionality here
@@ -137,6 +146,7 @@ public class SceneController : BaseController
 		new GameObject {name = "Items"};
         Destroy(GameObject.Find("PlayerHolder"));
     }
+
 }
 
 public class PlayerSwitchEventArgs : EventArgs

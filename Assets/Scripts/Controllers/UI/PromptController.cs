@@ -39,6 +39,8 @@ public class PromptController : BaseController
 		InputController.iEvent.inputed += ReceiveInput;
 		textPrompted += UpdatePrompt;
 		cutsceneTextPrompted += UpdateCutscenePrompt;
+		GameController.fileLoaded += Load;
+		GameController.fileSaving += Save;
 	}
 
 	public override void RemoveEventListeners()
@@ -46,6 +48,8 @@ public class PromptController : BaseController
 		InputController.iEvent.inputed -= ReceiveInput;
 		textPrompted -= UpdatePrompt;
 		cutsceneTextPrompted -= UpdateCutscenePrompt;
+		GameController.fileLoaded -= Load;
+		GameController.fileSaving -= Save;
 	}
 
 	public void Update() {
@@ -112,6 +116,30 @@ public class PromptController : BaseController
 		textPrompted (textP, textE);
 	}
 
+	public void Save(object sender, EventArgs e)
+	{		
+		foreach (GameObject obj in SceneController.RetrieveSceneRootObjs()) {
+			Hashtable promptInfo = new Hashtable();
+			foreach (TextPrompt tP in obj.GetComponentsInChildren<TextPrompt>()) {
+				promptInfo.Add (tP.name, tP.Save ());
+			}
+			GameController.SetSaveValue ("PromptInfo_" + obj.name, promptInfo);
+		}
+	}
+
+	public void Load(object sender, SceneSwitchEventArgs e)
+	{		
+		foreach (GameObject obj in SceneController.RetrieveSceneRootObjs()) {
+			Hashtable promptInfo;
+			GameController.GetSaveValue ("PromptInfo_" + obj.name, out promptInfo);
+			if (promptInfo == null)
+				continue;
+			foreach (TextPrompt tP in obj.GetComponentsInChildren<TextPrompt>()) {
+				if (promptInfo.ContainsKey(tP.name))
+					tP.Load((Hashtable)promptInfo [tP.name]); 
+			}
+		}
+	}
 }
 
 public class TextPromptEventArgs : EventArgs {

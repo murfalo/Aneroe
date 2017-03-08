@@ -10,7 +10,7 @@ public class CutsceneController : BaseController
 {
 	// Can only call coroutines from a monobehaviour inherited object, hence the instance reference
 	public static CutsceneController instance;
-	static GameObject cutsceneObj;
+	static CutscenePrompt cutscene;
 
 	public static List<string[]> currentSceneActs;
 	static int actIndex;
@@ -42,6 +42,17 @@ public class CutsceneController : BaseController
 		actIndex = int.MaxValue;
 	}
 
+	public override void ExternalSetup () {
+		GameController.fileLoaded += Load;
+		GameController.fileSaving += Save;
+	}
+
+	public override void RemoveEventListeners()
+	{
+		GameController.fileLoaded -= Load;
+		GameController.fileSaving -= Save;
+	}
+
 	void Update() {
 		if (actIndex < currentSceneActs.Count) {
 			if (actProgress [actIndex] == ActProgress.Finished) {
@@ -50,6 +61,7 @@ public class CutsceneController : BaseController
 					actIndex = int.MaxValue;
 					if (InputController.mode <= InputInfo.InputMode.Cutscene)
 						InputController.mode = InputInfo.InputMode.Free;
+					cutscene.Finish ();
 					return;
 				}
 			}
@@ -156,8 +168,8 @@ public class CutsceneController : BaseController
 
 	static void MoveCamera(string[] args) {
 		actProgress [actIndex] = ActProgress.Started;
-		for (int i = 0; i < cutsceneObj.transform.childCount; i++) {
-			Transform child = cutsceneObj.transform.GetChild (i);
+		for (int i = 0; i < cutscene.transform.childCount; i++) {
+			Transform child = cutscene.transform.GetChild (i);
 			if (child.name.Equals (args [1])) {
 				instance.StartCoroutine (WaitForCameraPan (child.transform.position));
 				return;
@@ -178,8 +190,8 @@ public class CutsceneController : BaseController
 		CameraController.sceneTarget = bool.Parse(args[1]) ? PlayerController.activeCharacter.gameObject : null;
 	}
 
-	public static void BeginCutscene(GameObject obj, string name) {
-		cutsceneObj = obj;
+	public static void BeginCutscene(CutscenePrompt cScene, string name) {
+		cutscene = cScene;
 		instance.StartCoroutine (WaitToActivateCutscene (name));
 	}
 
@@ -195,5 +207,29 @@ public class CutsceneController : BaseController
 		}
 		actIndex = 0;
 	}
-}
 
+	public void Save(object sender, EventArgs e)
+	{
+		foreach (GameObject obj in SceneController.RetrieveSceneRootObjs()) {
+			Hashtable cutsceneInfo = new Hashtable();
+			foreach (CutscenePrompt cP in obj.GetComponentsInChildren<CutscenePrompt>()) {
+				cutsceneInfo.Add (cP.name, cP.Save ());
+			}
+			GameController.SetSaveValue ("CutsceneInfo_" + obj.name, cutsceneInfo);
+		}
+	}
+
+	public void Load(object sender, SceneSwitchEventArgs e)
+	{		
+		foreach (GameObject obj in SceneController.RetrieveSceneRootObjs()) {
+			Hashtable cutsceneInfo;
+			GameController.GetSaveValue ("CutsceneInfo_" + obj.name, out cutsceneInfo);
+			if (cutsceneInfo == null)
+				continue;
+			foreach (CutscenePrompt cP in obj.GetComponentsInChildren<CutscenePrompt>()) {
+				if (cutsceneInfo.ContainsKey(cP.name))
+					cP.Load((Hashtable)cutsceneInfo [cP.name]); 
+			}
+		}
+	}
+}
