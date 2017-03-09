@@ -195,8 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultItemPrefabNames:
   - BoneDagger
-  MAX_HEALTH: 30
-  speed: 2.2
+  MAX_HEALTH: 50
+  speed: 2.6
   attack: 1
   defense: 1
   enemyState: 0
