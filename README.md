@@ -1,9 +1,12 @@
 # Aneroe
 
-## Description
+## Screenshots
+
 Future                     | Past
 :-------------------------:|:-------------------------:
 ![](https://github.com/Murfalo/Aneroe/blob/master/Screenshots/Future.png?raw=true)  |  ![](https://github.com/Murfalo/Aneroe/blob/master/Screenshots/Past.png?raw=true)
+
+## Description
 
 Imagine you are about to die, and your life flashes by in an instant. Feel that intensely painful realization that things could have gone better had you acted differently. Aneroe is about an apothecary who finds himself in this situation. On his deathbed, he searches for an antidote to cure his terminal illness. In a last-ditch effort to find the cure, something goes awry and he gains the ability to control his body at two different points of time in the past.
 
