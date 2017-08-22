@@ -17,4 +17,4 @@ The world has changed a great deal between the two past timelines.  The apotheca
 
 ## How to Play
 
-Launch Assets/Levels/BaseScene.unity and press play! The tutorial will walk you through the controls of the game.
+Navigate to the [Releases page](https://github.com/Murfalo/Aneroe/releases), download the game for your platform, and press play! The tutorial will walk you through the controls of the game.
